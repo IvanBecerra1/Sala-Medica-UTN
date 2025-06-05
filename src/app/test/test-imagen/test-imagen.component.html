@@ -1,0 +1,7 @@
+<input type="file" (change)="onArchivoSeleccionado($event)" />
+<button (click)="subir()">Subir Imagen</button>
+
+<div *ngIf="urlDescarga">
+  <p>Imagen subida:</p>
+  <img [src]="urlDescarga" alt="Imagen subida" width="200" />
+</div>
