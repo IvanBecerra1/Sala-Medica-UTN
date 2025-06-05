@@ -5,10 +5,11 @@ import { ImagenesService } from '../../../core/services/imagenes.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { MaterialModule } from '../../../material.module';
 import { UsuarioEspecialista } from '../../../core/models/usuarioEspecialista';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-form-registro-especialista',
-  imports: [MaterialModule, ReactiveFormsModule],
+  imports: [MaterialModule, ReactiveFormsModule, NgFor],
   templateUrl: './form-registro-especialista.component.html',
   styleUrl: './form-registro-especialista.component.scss'
 })

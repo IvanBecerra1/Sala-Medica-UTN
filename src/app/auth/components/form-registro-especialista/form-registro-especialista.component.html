@@ -33,6 +33,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Especialidades</mat-label>
+      
       <mat-select formControlName="especialidadesSeleccionadas" multiple>
         <mat-option *ngFor="let e of especialidadesDisponibles" [value]="e">{{ e }}</mat-option>
       </mat-select>
