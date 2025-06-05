@@ -1,0 +1,14 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.titulo {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

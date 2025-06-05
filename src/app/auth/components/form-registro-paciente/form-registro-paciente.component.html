@@ -1,1 +1,51 @@
-<p>form-registro-paciente works!</p>
+<mat-card>
+  <form [formGroup]="formulario" (ngSubmit)="registrar()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="apellido">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Edad</mat-label>
+      <input matInput type="number" formControlName="edad">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Obra Social</mat-label>
+      <input matInput formControlName="obraSocial">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <div>
+      <label>Imagen 1: </label>
+      <input type="file" (change)="seleccionarImagen1($event)">
+    </div>
+
+    <div>
+      <label>Imagen 2: </label>
+      <input type="file" (change)="seleccionarImagen2($event)">
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="cargando">Registrarse</button>
+  </form>
+</mat-card>

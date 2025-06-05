@@ -1,1 +1,8 @@
-<p>registro works!</p>
+<div class="selector">
+  <button mat-raised-button color="primary" (click)="tipo = 'paciente'">Registrar Paciente</button>
+  <button mat-raised-button color="accent" (click)="tipo = 'especialista'">Registrar Especialista</button>
+</div>
+<div class="formulario">
+  <app-form-registro-paciente *ngIf="tipo === 'paciente'"></app-form-registro-paciente>
+  <app-form-registro-especialista *ngIf="tipo === 'especialista'"></app-form-registro-especialista>
+</div>

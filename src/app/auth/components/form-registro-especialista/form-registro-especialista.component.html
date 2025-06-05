@@ -1,1 +1,56 @@
-<p>form-registro-especialista works!</p>
+<mat-card>
+  <form [formGroup]="formulario" (ngSubmit)="registrar()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="apellido">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Edad</mat-label>
+      <input matInput type="number" formControlName="edad">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Especialidades</mat-label>
+      <mat-select formControlName="especialidadesSeleccionadas" multiple>
+        <mat-option *ngFor="let e of especialidadesDisponibles" [value]="e">{{ e }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="nueva-especialidad">
+      <mat-form-field appearance="fill">
+        <mat-label>Agregar nueva especialidad</mat-label>
+        <input matInput [formControl]="especialidadNueva">
+      </mat-form-field>
+      <button mat-raised-button type="button" (click)="agregarEspecialidadManual()">Agregar</button>
+    </div>
+
+    <div>
+      <label>Imagen de perfil: </label>
+      <input type="file" (change)="seleccionarImagen($event)">
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="cargando">Registrarse</button>
+  </form>
+</mat-card>
