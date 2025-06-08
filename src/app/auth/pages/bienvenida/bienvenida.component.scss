@@ -1,3 +1,8 @@
+.main-container{
+     background-color: #0b1624; // azul oscuro
+  min-height: 100vh;
+  padding-bottom: 2rem;
+}
 .banner {
   background-image: url('../../../../assets/imagenes/bienvenida.jpg');
   background-size: cover;
@@ -7,7 +12,6 @@
   align-items: center;
   justify-content: center;
   position: relative;
-
   .info-cards {
     display: flex;
     gap: 1rem;

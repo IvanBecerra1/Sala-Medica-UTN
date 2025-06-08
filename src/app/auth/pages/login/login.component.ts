@@ -65,7 +65,8 @@ export class LoginComponent {
   loginRapido(tipo: any) {
     const credenciales: Record<any, { email: string; password: string }> = {
       paciente: { email: 'becerraivan79@gmail.com', password: '1234567890' },
-      especialista: { email: 'codescripter01@gmail.com', password: '123456' }
+      especialista: { email: 'codescripter01@gmail.com', password: '123456' },
+      admin: { email: 'pediyvasa@gmail.com', password: '1234567890' }
     };
 
     const datos = credenciales[tipo];

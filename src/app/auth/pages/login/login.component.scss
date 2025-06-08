@@ -1,0 +1,36 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.15); /* fondo translúcido */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  color: white;
+}
+
+.login-icono {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  width: 60px;
+  height: 60px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.botones-rapidos {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
