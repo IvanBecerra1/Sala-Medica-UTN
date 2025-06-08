@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Auth, createUserWithEmailAndPassword, sendEmailVerification } from '@angular/fire/auth';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
-import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 import { MaterialModule } from '../../../material.module';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { ImagenesService } from '../../../core/services/imagenes.service';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
+import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-form-registro-paciente',
-  imports: [MaterialModule, ReactiveFormsModule],
+  imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf ],
   templateUrl: './form-registro-paciente.component.html',
   styleUrl: './form-registro-paciente.component.scss'
 })
@@ -75,15 +74,20 @@ formulario: FormGroup;
         imagen1Url,
         imagen2Url
       };
+
       await this.usuarioService.guardarUsuario(uid, datosPaciente);
 
-      alert('Registro exitoso. Verificá tu correo antes de iniciar sesión.');
-      this.formulario.reset();
+      // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
+      setTimeout(() => {
+        alert('Registro exitoso. Verificá tu correo antes de iniciar sesión.');
+        this.formulario.reset();
+        this.cargando = false;
+      }, 3000);
+
     } catch (error: any) {
       console.error(error);
       alert('Error al registrar: ' + error.message);
-    } finally {
-      this.cargando = false;
+      this.cargando = false; // Mantené esto aquí para que el spinner se detenga si hay error
     }
   }
 }

@@ -1,4 +1,6 @@
 <mat-card>
+  <app-spinner *ngIf="cargando" class="overlay-spinner"></app-spinner>
+
   <form [formGroup]="formulario" (ngSubmit)="registrar()">
 
     <mat-form-field appearance="fill">

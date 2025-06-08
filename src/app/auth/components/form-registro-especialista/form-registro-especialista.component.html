@@ -1,57 +1,75 @@
-<mat-card>
-  <form [formGroup]="formulario" (ngSubmit)="registrar()">
 
-    <mat-form-field appearance="fill">
-      <mat-label>Nombre</mat-label>
-      <input matInput formControlName="nombre">
-    </mat-form-field>
+<mat-card class="registro-card mat-elevation-z8">
+  <app-spinner *ngIf="cargando" class="overlay-spinner"></app-spinner>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Apellido</mat-label>
-      <input matInput formControlName="apellido">
-    </mat-form-field>
+  <h2 class="titulo-registro">Registro de Usuario</h2>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Edad</mat-label>
-      <input matInput type="number" formControlName="edad">
-    </mat-form-field>
+  <form [formGroup]="formulario" (ngSubmit)="registrar()" class="formulario-registro">
 
-    <mat-form-field appearance="fill">
-      <mat-label>DNI</mat-label>
-      <input matInput formControlName="dni">
-    </mat-form-field>
+    <div class="campos-doble">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido">
+        <mat-icon matSuffix>person_outline</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="campos-doble">
+      <mat-form-field appearance="outline">
+        <mat-label>Edad</mat-label>
+        <input matInput type="number" formControlName="edad">
+        <mat-icon matSuffix>calendar_today</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>DNI</mat-label>
+        <input matInput formControlName="dni">
+        <mat-icon matSuffix>badge</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="campo-full">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email">
+      <input matInput type="email" formControlName="email">
+      <mat-icon matSuffix>email</mat-icon>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline" class="campo-full">
       <mat-label>Contraseña</mat-label>
       <input matInput type="password" formControlName="password">
+      <mat-icon matSuffix>lock</mat-icon>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline" class="campo-full">
       <mat-label>Especialidades</mat-label>
-      
       <mat-select formControlName="especialidadesSeleccionadas" multiple>
         <mat-option *ngFor="let e of especialidadesDisponibles" [value]="e">{{ e }}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <div class="nueva-especialidad">
-      <mat-form-field appearance="fill">
-        <mat-label>Agregar nueva especialidad</mat-label>
+      <mat-form-field appearance="outline" class="campo-full">
+        <mat-label>Nueva especialidad</mat-label>
         <input matInput [formControl]="especialidadNueva">
       </mat-form-field>
-      <button mat-raised-button type="button" (click)="agregarEspecialidadManual()">Agregar</button>
+      <button mat-mini-fab color="accent" type="button" (click)="agregarEspecialidadManual()">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
 
-    <div>
-      <label>Imagen de perfil: </label>
+    <div class="campo-full input-imagen">
+      <label><strong>Imagen de perfil:</strong></label>
       <input type="file" (change)="seleccionarImagen($event)">
     </div>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="cargando">Registrarse</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="cargando">
+      Registrarse
+    </button>
   </form>
 </mat-card>

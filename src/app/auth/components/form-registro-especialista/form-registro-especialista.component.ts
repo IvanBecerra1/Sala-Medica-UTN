@@ -5,11 +5,11 @@ import { ImagenesService } from '../../../core/services/imagenes.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { MaterialModule } from '../../../material.module';
 import { UsuarioEspecialista } from '../../../core/models/usuarioEspecialista';
-import { NgFor } from '@angular/common';
-
+import { NgFor, NgIf } from '@angular/common';
+import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
 @Component({
   selector: 'app-form-registro-especialista',
-  imports: [MaterialModule, ReactiveFormsModule, NgFor],
+  imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent, NgIf],
   templateUrl: './form-registro-especialista.component.html',
   styleUrl: './form-registro-especialista.component.scss'
 })
@@ -21,10 +21,8 @@ formulario: FormGroup;
   especialidadNueva = new FormControl('');
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private imagenesService: ImagenesService,
-    private usuarioService: UsuarioService
+    private fb: FormBuilder, private usuarioService : UsuarioService, 
+    private authService : AuthService, private imagenesService : ImagenesService
   ) {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
@@ -60,6 +58,7 @@ formulario: FormGroup;
     }
 
     this.cargando = true;
+    console.log(this.cargando);
     const { email, password, nombre, apellido, edad, dni, especialidadesSeleccionadas } = this.formulario.value;
 
     try {
@@ -81,15 +80,18 @@ formulario: FormGroup;
         especialidades: especialidadesSeleccionadas,
         imagenUrl
       };
-
       await this.usuarioService.guardarUsuario(uid, datos);
-      alert('Registro exitoso. Verificá tu correo y espera aprobación.');
-      this.formulario.reset();
+
+       // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
+      setTimeout(() => {
+        alert('Registro exitoso. Verificá tu correo y espera aprobación.');
+        this.formulario.reset();
+        this.cargando = false;
+      }, 3000);
+    
     } catch (err: any) {
       console.error(err);
       alert('Error al registrar: ' + err.message);
-    } finally {
-      this.cargando = false;
     }
   }
 }
