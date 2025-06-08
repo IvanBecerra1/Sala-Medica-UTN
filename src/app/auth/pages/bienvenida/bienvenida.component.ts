@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { MaterialModule } from '../../../material.module';
 
 @Component({
   selector: 'app-bienvenida',
-  imports: [],
+  imports: [MaterialModule],
   templateUrl: './bienvenida.component.html',
   styleUrl: './bienvenida.component.scss'
 })
