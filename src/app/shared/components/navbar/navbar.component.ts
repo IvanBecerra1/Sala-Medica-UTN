@@ -1,13 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../material.module';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { UsuarioService } from '../../../core/services/usuario.service';
+import { NgIf } from '@angular/common';
+import { collection } from '@angular/fire/firestore';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MaterialModule, RouterModule],
+  imports: [MaterialModule, RouterModule, NgIf],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  usuario: any = { rol: 'no-registrado' };
+  constructor (private auth : AuthService,
+     private router : Router){
 
+  }
+  async ngOnInit() {
+    this.auth.usuario$.subscribe((usuario) => {
+      if (usuario) {
+        this.usuario = usuario;
+      } else {
+        this.usuario = { rol: 'no-registrado' };
+      }
+    });
+  }
+  async cerrarSesion() {
+    await this.auth.cerrarSesion();
+    this.router.navigateByUrl("auth/bienvenida");
+  }
 }

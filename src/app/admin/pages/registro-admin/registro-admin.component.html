@@ -1,0 +1,12 @@
+<h1>REGISTRO DE USUARIOS</h1>
+
+<div class="selector">
+  <button mat-raised-button color="primary" (click)="tipo = 'paciente'">Registrar Paciente</button>
+  <button mat-raised-button color="accent" (click)="tipo = 'especialista'">Registrar Especialista</button>
+  <button mat-raised-button color="accent" (click)="tipo = 'admin'">Registrar Administrador</button>
+</div>
+<div class="formulario">
+  <app-form-registro-paciente *ngIf="tipo === 'paciente'"></app-form-registro-paciente>
+  <app-form-registro-especialista *ngIf="tipo === 'especialista'"></app-form-registro-especialista>
+  <app-form-registro-admin *ngIf="tipo === 'admin'"></app-form-registro-admin>
+</div>

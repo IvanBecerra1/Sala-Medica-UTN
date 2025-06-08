@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { TablaUsuariosComponent } from "../../components/tabla-usuarios/tabla-usuarios.component";
 
 @Component({
   selector: 'app-usuarios',
-  imports: [],
+  imports: [TablaUsuariosComponent],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
 })

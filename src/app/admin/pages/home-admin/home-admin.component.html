@@ -1,0 +1,11 @@
+<p>GESTION DE ADMINITRADOR</p>
+
+<div class="selector">
+ <button mat-raised-button color="primary" (click)="tipo = 'aceptar-rechazar'">Aceptar o Rechazar Especialistas</button>
+ <button mat-raised-button color="accent" (click)="tipo = 'registrar-usuarios'">Registrar usuarios</button>
+</div>
+
+<div class="formulario">
+    <app-registro-admin *ngIf="tipo === 'registrar-usuarios'" ></app-registro-admin>
+    <app-usuarios *ngIf="tipo === 'aceptar-rechazar'" ></app-usuarios>
+</div>

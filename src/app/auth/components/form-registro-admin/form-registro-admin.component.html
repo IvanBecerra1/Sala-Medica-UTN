@@ -2,7 +2,7 @@
 <mat-card class="registro-card mat-elevation-z8">
   <app-spinner *ngIf="cargando" class="overlay-spinner"></app-spinner>
 
-  <h2 class="titulo-registro">Registro de Especialista</h2>
+  <h2 class="titulo-registro">Registro de Admin</h2>
 
   <form [formGroup]="formulario" (ngSubmit)="registrar()" class="formulario-registro">
 
@@ -45,23 +45,6 @@
       <input matInput type="password" formControlName="password">
       <mat-icon matSuffix>lock</mat-icon>
     </mat-form-field>
-
-    <mat-form-field appearance="outline" class="campo-full">
-      <mat-label>Especialidades</mat-label>
-      <mat-select formControlName="especialidadesSeleccionadas" multiple>
-        <mat-option *ngFor="let e of especialidadesDisponibles" [value]="e">{{ e }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <div class="nueva-especialidad">
-      <mat-form-field appearance="outline" class="campo-full">
-        <mat-label>Nueva especialidad</mat-label>
-        <input matInput [formControl]="especialidadNueva">
-      </mat-form-field>
-      <button mat-mini-fab color="accent" type="button" (click)="agregarEspecialidadManual()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
 
     <div class="campo-full input-imagen">
       <label><strong>Imagen de perfil:</strong></label>

@@ -6,8 +6,5 @@ export interface Usuario {
   dni: number;
   mail: string;
   rol: 'paciente' | 'especialista' | 'admin';
-  aprobado?: boolean;
-  obraSocial?: string;
-  especialidad?: string[];
   imagen: string[];
 }

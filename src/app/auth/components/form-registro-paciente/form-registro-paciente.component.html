@@ -1,6 +1,7 @@
 <mat-card>
   <app-spinner *ngIf="cargando" class="overlay-spinner"></app-spinner>
 
+  <H2>Registro de Paciente</H2>
   <form [formGroup]="formulario" (ngSubmit)="registrar()">
 
     <mat-form-field appearance="fill">

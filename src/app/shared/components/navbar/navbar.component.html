@@ -2,7 +2,20 @@
   <span class="titulo">Clínica Online</span>
 
   <span class="spacer"></span>
+  
+  <div *ngIf="usuario.rol !== 'no-registrado'">
+    <a mat-button routerLink="/auth/bienvenida">Inicio</a>
+    <a mat-button routerLink="/perfil">Mi perfil</a>
 
-  <a mat-button routerLink="/auth/login">Iniciar Sesión</a>
-  <a mat-button routerLink="/auth/registro">Registrarse</a>
+    <a mat-button (click)="cerrarSesion()">Cerrar sesión</a>
+
+    <div *ngIf="usuario.rol === 'admin'">
+      <a mat-button routerLink="/admin">Panel Admin</a>
+    </div>
+  </div>
+  
+  <div *ngIf="usuario.rol === 'no-registrado'">
+    <a mat-button routerLink="/auth/login">Iniciar Sesión</a>
+    <a mat-button routerLink="/auth/registro">Registrarse</a>
+  </div>
 </mat-toolbar>
