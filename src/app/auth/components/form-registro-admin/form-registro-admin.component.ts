@@ -14,7 +14,7 @@ import { UsuarioAdmin } from '../../../core/models/usuarioAdmin';
   styleUrl: './form-registro-admin.component.scss'
 })
 export class FormRegistroAdminComponent {
-
+  paso: number = 1;
   formulario: FormGroup;
   imagen!: File;
   cargando = false;
@@ -44,18 +44,18 @@ export class FormRegistroAdminComponent {
 
     this.cargando = true;
     console.log(this.cargando);
-    const { email, password, nombre, apellido, edad, dni, especialidadesSeleccionadas } = this.formulario.value;
+    const { email, password, nombre, apellido, edad, dni } = this.formulario.value;
 
     try {
-      const user = await this.authService.registrarUsuario(email, password);
-      await this.authService.enviarVerificacionEmail(user);
-      const uid = user.uid;
+      //const user = await this.authService.registrarUsuario(email, password);
+      //await this.authService.enviarVerificacionEmail(user);
+      const uid = email;
 
       const imagenUrl = await this.imagenesService.subirImagen(`usuarios/${uid}_especialista.jpg`, this.imagen);
 
-      const datos : UsuarioAdmin = {
-        uid,
+      const datos : any = {
         nombre,
+        password,
         apellido,
         edad,
         dni,
@@ -63,8 +63,10 @@ export class FormRegistroAdminComponent {
         rol: 'admin',
         imagenUrl
       };
-      await this.usuarioService.guardarUsuario(uid, datos);
 
+  //    await this.usuarioService.guardarUsuario(uid, datos);
+    //  await this.authService.cerrarSesion();
+      this.authService.registrarAdminDesdeBackend(datos);
        // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
       setTimeout(() => {
         alert('Registro exitoso. Se envio correo de verificacion.');

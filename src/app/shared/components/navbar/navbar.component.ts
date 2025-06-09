@@ -29,7 +29,9 @@ export class NavbarComponent implements OnInit {
     });
   }
   async cerrarSesion() {
+
     await this.auth.cerrarSesion();
+    this.auth.limpiar();
     this.router.navigateByUrl("auth/bienvenida");
   }
 }

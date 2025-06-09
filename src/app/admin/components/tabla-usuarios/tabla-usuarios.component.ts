@@ -16,11 +16,13 @@ import { CommonModule } from '@angular/common';
 export class TablaUsuariosComponent {
   usuarios: any[] = [];
   roles: string[] = ['paciente', 'especialista'];
-  rolSeleccionado: string = 'paciente';
+  rolSeleccionado: string = 'especialista';
 
   columnas: string[] = ['foto', 'nombre', 'dni', 'edad', 'email', 'rol', 'estado', 'acciones'];
   
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService) {
+    this.listar();
+  }
   
   async listar() {
     this.usuarios = await this.usuarioService.listarUsuariosPorRol(this.rolSeleccionado);

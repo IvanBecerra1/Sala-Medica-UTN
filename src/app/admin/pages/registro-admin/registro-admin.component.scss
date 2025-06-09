@@ -1,0 +1,56 @@
+.titulo-registro {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.selector {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.boton-selector {
+  width: 220px;
+  height: 220px;
+  border: none;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.boton-selector:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.boton-selector.paciente {
+  background-image: url('../../../../assets/usuarios/paciente.jpeg');
+}
+
+.boton-selector.especialista {
+  background-image: url('../../../../assets/usuarios/especialista.jpeg');
+}
+.boton-selector.admin {
+  background-image: url('../../../../assets/usuarios/admin.jpeg');
+}
+
+.texto-superpuesto {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 5px rgba(0,0,0,0.7);
+  pointer-events: none;
+}

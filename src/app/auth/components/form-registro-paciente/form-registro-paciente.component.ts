@@ -6,6 +6,7 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 import { ImagenesService } from '../../../core/services/imagenes.service';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { NgIf } from '@angular/common';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-form-registro-paciente',
   imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf ],
@@ -17,12 +18,13 @@ formulario: FormGroup;
   imagen1!: File;
   imagen2!: File;
   cargando = false;
-
+  paso = 1;
   constructor(
     private fb: FormBuilder,
     private authService : AuthService,
     private usuarioService : UsuarioService,
-    private imagenesService : ImagenesService
+    private imagenesService : ImagenesService,
+    private dialogRef: MatDialogRef<FormRegistroPacienteComponent>
   ) {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
@@ -49,39 +51,54 @@ formulario: FormGroup;
     }
 
     this.cargando = true;
+    this.dialogRef.disableClose = true;
     const { email, password } = this.formulario.value;
 
     try {
-      const user = await this.authService.registrarUsuario(email, password);
-      await this.authService.enviarVerificacionEmail(user);
+      //const user = await this.authService.registrarUsuario(email, password);
+      //await this.authService.enviarVerificacionEmail(user);
+      
 
-      const uid = user.uid;
+     /* const sesionAnte = this.authService.obtener();
+      if (sesionAnte){
+        await this.authService.iniciarSesion(sesionAnte.email, sesionAnte.password);
+        console.log("INICIANDO SESION NUEVAMENTE");
+        console.log(sesionAnte);
+      }*/
+     // await  this.authService.cerrarSesion();
+
+      //const { nombre, apellido, edad, dni, obraSocial } = this.formulario.value;
+      const { email, password, nombre, apellido, edad, dni, obraSocial } = this.formulario.value;
+      const uid = email;
 
       const imagen1Url = await this.imagenesService.subirImagen(`salaMedica/${uid}_img1.jpg`, this.imagen1);
       const imagen2Url = await this.imagenesService.subirImagen(`salaMedica/${uid}_img2.jpg`, this.imagen2);
 
-      const { nombre, apellido, edad, dni, obraSocial } = this.formulario.value;
-
-      const datosPaciente = {
-        uid,
+      const datos = {
+        email,
+        password,
         nombre,
         apellido,
         edad,
         dni,
         obraSocial,
-        email,
-        rol: 'paciente',
+        rol: 'paciente', // o el que corresponda
         imagen1Url,
         imagen2Url
       };
 
-      await this.usuarioService.guardarUsuario(uid, datosPaciente);
 
+     // await this.usuarioService.guardarUsuario(uid, datosPaciente);
+      const jsonRecepcion = await this.authService.registrarUsuarioDesdeBackend(datos);
+      console.log(jsonRecepcion);
+      
       // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
       setTimeout(() => {
         alert('Registro exitoso. Verificá tu correo antes de iniciar sesión.');
         this.formulario.reset();
         this.cargando = false;
+        this.dialogRef.disableClose = false;
+        this.dialogRef.close();
       }, 3000);
 
     } catch (error: any) {

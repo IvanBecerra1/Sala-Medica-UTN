@@ -1,34 +1,42 @@
 .registro-card {
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 12px;
-  background: #fafafa;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .titulo-registro {
+  font-size: 1.6rem;
   text-align: center;
-  color: #3f51b5;
   margin-bottom: 1rem;
+  color: #333;
 }
 
-.formulario-registro {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+.form-grid-compact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
 }
 
-.campos-doble {
-  display: flex;
-  gap: 1rem;
+mat-form-field {
+  font-size: 0.85rem;
+  margin-bottom: 0;
 }
 
-.campos-doble mat-form-field {
-  flex: 1;
+mat-label {
+  font-size: 0.8rem;
+}
+
+input[matInput] {
+  height: 28px;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.5rem;
 }
 
 .campo-full {
-  width: 100%;
+  grid-column: span 2;
 }
 
 .nueva-especialidad {
@@ -37,9 +45,46 @@
   gap: 0.5rem;
 }
 
-.input-imagen {
-  margin-top: 1rem;
+.flex-1 {
+  flex: 1;
 }
+
+.fila-imagenes {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.campo-imagen {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.icono-imagen {
+  font-size: 20px;
+  color: #2196f3;
+}
+
+.boton-submit {
+  grid-column: span 2;
+  margin-top: 1rem;
+  width: 100%;
+  background-color: #00bcd4;
+  color: white;
+  font-weight: bold;
+  font-size: 0.95rem;
+  padding: 0.6rem 0;
+}
+
+.boton-submit:hover {
+  background-color: #00acc1;
+}
+
 .overlay-spinner {
   position: absolute;
   top: 0;
@@ -52,4 +97,20 @@
   justify-content: center;
   z-index: 999;
   border-radius: 12px;
+}
+.botones-navegacion {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.boton-siguiente {
+  width: 100%;
+  margin-top: 1rem;
+  background-color: #00bcd4;
+  color: white;
+}
+
+.boton-siguiente:hover {
+  background-color: #00acc1;
 }

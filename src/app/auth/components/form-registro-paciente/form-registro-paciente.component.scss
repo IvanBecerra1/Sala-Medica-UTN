@@ -1,3 +1,4 @@
+
 .overlay-spinner {
   position: absolute;
   top: 0;
@@ -10,4 +11,141 @@
   justify-content: center;
   z-index: 999;
   border-radius: 12px;
+}
+.card-registro {
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: auto;
+}
+
+.titulo-form {
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-grid-compact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+mat-form-field {
+  font-size: 0.85rem;
+}
+
+mat-label {
+  font-size: 0.9rem;
+}
+
+input[matInput] {
+  font-size: 0.9rem;
+  padding: 0.4rem;
+}
+
+.campo-full {
+  grid-column: span 2;
+}
+
+.campo-imagen {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.icono-imagen {
+  font-size: 20px;
+  color: #2196f3;
+}
+
+.boton-submit {
+  grid-column: span 2;
+  margin-top: 0.5rem;
+  width: 100%;
+  background-color: #00bcd4;
+  color: white;
+  font-weight: bold;
+  font-size: 0.95rem;
+  padding: 0.6rem 0;
+}
+
+.boton-submit:hover {
+  background-color: #00acc1;
+}
+/* Reduce padding y tamaño de fuente en los campos */
+mat-form-field {
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+mat-form-field .mat-form-field-infix {
+  padding: 0.3rem 0 0.2rem 0; /* reduce la altura del input */
+}
+
+input[matInput] {
+  height: 28px;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.5rem;
+}
+
+mat-label {
+  font-size: 0.8rem;
+}
+
+.card-registro {
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: auto;
+}
+
+.form-grid-compact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.campo-full {
+  grid-column: span 2;
+}
+.botones-navegacion {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.boton-siguiente {
+  width: 100%;
+  margin-top: 1rem;
+  background-color: #00bcd4;
+  color: white;
+}
+
+.boton-siguiente:hover {
+  background-color: #00acc1;
+}
+
+.fila-imagenes {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* ⬅️ aumenta el espacio vertical entre las dos imágenes */
+  margin-bottom: 1rem;
+}
+
+.campo-imagen {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f5f5f5;
+  padding: 0.6rem;
+  border-radius: 8px;
 }

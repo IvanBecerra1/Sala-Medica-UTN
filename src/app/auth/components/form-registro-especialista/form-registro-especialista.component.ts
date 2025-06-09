@@ -7,6 +7,7 @@ import { MaterialModule } from '../../../material.module';
 import { UsuarioEspecialista } from '../../../core/models/usuarioEspecialista';
 import { NgFor, NgIf } from '@angular/common';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-form-registro-especialista',
   imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent, NgIf],
@@ -14,7 +15,8 @@ import { SpinnerComponent } from "../../../shared/components/spinner/spinner.com
   styleUrl: './form-registro-especialista.component.scss'
 })
 export class FormRegistroEspecialistaComponent {
-formulario: FormGroup;
+  paso: number = 1;
+  formulario: FormGroup;
   imagen!: File;
   cargando = false;
   especialidadesDisponibles: string[] = ['Cardiología', 'Pediatría', 'Dermatología'];
@@ -22,7 +24,9 @@ formulario: FormGroup;
 
   constructor(
     private fb: FormBuilder, private usuarioService : UsuarioService, 
-    private authService : AuthService, private imagenesService : ImagenesService
+    private authService : AuthService, 
+    private imagenesService : ImagenesService,
+    private dialogRef: MatDialogRef<FormRegistroEspecialistaComponent>
   ) {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
@@ -58,40 +62,44 @@ formulario: FormGroup;
     }
 
     this.cargando = true;
-    console.log(this.cargando);
+    this.dialogRef.disableClose = true;
+
     const { email, password, nombre, apellido, edad, dni, especialidadesSeleccionadas } = this.formulario.value;
 
     try {
-      const user = await this.authService.registrarUsuario(email, password);
-      await this.authService.enviarVerificacionEmail(user);
-      const uid = user.uid;
+      // 1. Subís la imagen al storage y obtenés la URL
+      const imagenUrl = await this.imagenesService.subirImagen(`usuarios/${email}_especialista.jpg`, this.imagen);
 
-      const imagenUrl = await this.imagenesService.subirImagen(`usuarios/${uid}_especialista.jpg`, this.imagen);
-
-      const datos : UsuarioEspecialista = {
-        uid,
+      // 2. Armás los datos
+      const datos = {
         nombre,
         apellido,
         edad,
         dni,
         email,
+        password,
         rol: 'especialista',
-        aprobado: false,
         especialidades: especialidadesSeleccionadas,
         imagenUrl
       };
-      await this.usuarioService.guardarUsuario(uid, datos);
 
-       // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
+      // 3. Hacés la petición al backend para registrar
+      const respuesta = await this.authService.registrarEspecialistaDesdeBackend(datos);
+      console.log('Registro backend ok:', respuesta);
+
       setTimeout(() => {
         alert('Registro exitoso. Verificá tu correo y espera aprobación.');
         this.formulario.reset();
         this.cargando = false;
-      }, 3000);
-    
-    } catch (err: any) {
-      console.error(err);
-      alert('Error al registrar: ' + err.message);
+        this.dialogRef.disableClose = false;
+        this.dialogRef.close();
+      }, 2000);
+
+    } catch (error: any) {
+      console.error('Error desde el backend:', error);
+      alert('Error al registrar: ' + error.message);
+      this.cargando = false;
+      this.dialogRef.disableClose = false;
     }
   }
 }

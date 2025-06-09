@@ -1,58 +1,67 @@
-
-<mat-card class="registro-card mat-elevation-z8">
+<mat-card class="registro-card">
   <app-spinner *ngIf="cargando" class="overlay-spinner"></app-spinner>
 
-  <h2 class="titulo-registro">Registro de Admin</h2>
+  <h2 class="titulo-registro">Registro de Administrador</h2><br><br>
 
-  <form [formGroup]="formulario" (ngSubmit)="registrar()" class="formulario-registro">
+  <form [formGroup]="formulario" (ngSubmit)="registrar()" class="form-grid-compact">
 
-    <div class="campos-doble">
-      <mat-form-field appearance="outline">
+    <!-- PASO 1 -->
+    <ng-container *ngIf="paso === 1">
+      <mat-form-field appearance="fill" class="campo-full">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="campo-full">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password">
+      </mat-form-field>
+
+      <div class="campo-full fila-imagenes">
+        <div class="campo-imagen">
+          <mat-icon class="icono-imagen">image</mat-icon>
+          <input id="imagen" type="file" (change)="seleccionarImagen($event)">
+        </div>
+      </div>
+
+      <div class="campo-full">
+        <button mat-raised-button color="primary" type="button" (click)="paso = 2" class="boton-siguiente">
+          Siguiente
+        </button>
+      </div>
+    </ng-container>
+
+    <!-- PASO 2 -->
+    <ng-container *ngIf="paso === 2">
+      <mat-form-field appearance="fill">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
-        <mat-icon matSuffix>person</mat-icon>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="fill">
         <mat-label>Apellido</mat-label>
         <input matInput formControlName="apellido">
-        <mat-icon matSuffix>person_outline</mat-icon>
-      </mat-form-field>
-    </div>
-
-    <div class="campos-doble">
-      <mat-form-field appearance="outline">
-        <mat-label>Edad</mat-label>
-        <input matInput type="number" formControlName="edad">
-        <mat-icon matSuffix>calendar_today</mat-icon>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="fill" class="">
         <mat-label>DNI</mat-label>
         <input matInput formControlName="dni">
-        <mat-icon matSuffix>badge</mat-icon>
       </mat-form-field>
-    </div>
 
-    <mat-form-field appearance="outline" class="campo-full">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" formControlName="email">
-      <mat-icon matSuffix>email</mat-icon>
-    </mat-form-field>
+      
+      <mat-form-field appearance="fill">
+        <mat-label>Edad</mat-label>
+        <input matInput type="number" formControlName="edad">
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="campo-full">
-      <mat-label>Contraseña</mat-label>
-      <input matInput type="password" formControlName="password">
-      <mat-icon matSuffix>lock</mat-icon>
-    </mat-form-field>
+      <div class="botones-navegacion campo-full">
+        <button mat-stroked-button type="button" class="boton-siguiente" (click)="paso = 1">Atrás</button>
 
-    <div class="campo-full input-imagen">
-      <label><strong>Imagen de perfil:</strong></label>
-      <input type="file" (change)="seleccionarImagen($event)">
-    </div>
+        <button mat-raised-button color="primary" type="submit" class="boton-siguiente" [disabled]="cargando">
+          Registrarse
+        </button>
+      </div>
+    </ng-container>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="cargando">
-      Registrarse
-    </button>
   </form>
 </mat-card>
