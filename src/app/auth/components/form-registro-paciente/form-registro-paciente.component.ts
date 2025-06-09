@@ -7,6 +7,7 @@ import { ImagenesService } from '../../../core/services/imagenes.service';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { NgIf } from '@angular/common';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ToastService } from '../../../core/services/toast.service';
 @Component({
   selector: 'app-form-registro-paciente',
   imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf ],
@@ -24,13 +25,14 @@ formulario: FormGroup;
     private authService : AuthService,
     private usuarioService : UsuarioService,
     private imagenesService : ImagenesService,
-    private dialogRef: MatDialogRef<FormRegistroPacienteComponent>
+    private dialogRef: MatDialogRef<FormRegistroPacienteComponent>,
+    private toastService: ToastService
   ) {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      edad: ['', [Validators.required, Validators.min(0)]],
-      dni: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      edad: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
+      dni: ['', [Validators.required, Validators.pattern(/^\d{7,8}$/)]],
       obraSocial: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -46,7 +48,7 @@ formulario: FormGroup;
   }
   async registrar() {
     if (this.formulario.invalid || !this.imagen1 || !this.imagen2) {
-      alert('Completa todos los campos y subí ambas imágenes');
+      this.toastService.mostrarMensaje("Completa todos los campos y subí ambas imagenes","success", 5000)
       return;
     }
 
@@ -91,10 +93,10 @@ formulario: FormGroup;
      // await this.usuarioService.guardarUsuario(uid, datosPaciente);
       const jsonRecepcion = await this.authService.registrarUsuarioDesdeBackend(datos);
       console.log(jsonRecepcion);
-      
+
       // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
       setTimeout(() => {
-        alert('Registro exitoso. Verificá tu correo antes de iniciar sesión.');
+        alert('Registro exitoso. Inicia sesion para verificar tu email');
         this.formulario.reset();
         this.cargando = false;
         this.dialogRef.disableClose = false;

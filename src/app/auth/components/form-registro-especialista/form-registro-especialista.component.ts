@@ -31,8 +31,8 @@ export class FormRegistroEspecialistaComponent {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      edad: ['', [Validators.required, Validators.min(0)]],
-      dni: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      edad: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
+      dni: ['', [Validators.required, Validators.pattern(/^\d{7,8}$/)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       especialidadesSeleccionadas: [[], Validators.required]
@@ -88,7 +88,7 @@ export class FormRegistroEspecialistaComponent {
       console.log('Registro backend ok:', respuesta);
 
       setTimeout(() => {
-        alert('Registro exitoso. Verificá tu correo y espera aprobación.');
+        alert('Registro exitoso. Inicia sesion para verificar tu email');
         this.formulario.reset();
         this.cargando = false;
         this.dialogRef.disableClose = false;

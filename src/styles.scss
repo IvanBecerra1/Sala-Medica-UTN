@@ -9,3 +9,23 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* Estilos para toasts personalizados */
+
+.toast-success .mat-snack-bar-container {
+  background-color: #4caf50 !important;
+  color: #fff !important;
+  font-weight: bold;
+}
+
+.toast-error .mat-snack-bar-container {
+  background-color: #f44336 !important;
+  color: #fff !important;
+  font-weight: bold;
+}
+
+.toast-info .mat-snack-bar-container {
+  background-color: #2196f3 !important;
+  color: #fff !important;
+  font-weight: bold;
+}

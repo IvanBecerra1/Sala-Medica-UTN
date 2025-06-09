@@ -23,12 +23,12 @@ export class FormRegistroAdminComponent {
     private authService : AuthService, private imagenesService : ImagenesService
   ) {
     this.formulario = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      edad: ['', [Validators.required, Validators.min(0)]],
-      dni: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      dni: ['', [Validators.required, Validators.pattern(/^\d{7,8}$/)]],
+      edad: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
     });
   }
 
@@ -69,7 +69,7 @@ export class FormRegistroAdminComponent {
       this.authService.registrarAdminDesdeBackend(datos);
        // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
       setTimeout(() => {
-        alert('Registro exitoso. Se envio correo de verificacion.');
+        alert('Registro exitoso. Inicia sesion para verificar tu email');
         this.formulario.reset();
         this.cargando = false;
       }, 3000);
