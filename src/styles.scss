@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
 
 html, body { height: 100%; }
 body {
@@ -13,7 +14,7 @@ body {
 /* Estilos para toasts personalizados */
 
 .toast-success .mat-snack-bar-container {
-  background-color: #4caf50 !important;
+  background-color: yellow !important;
   color: #fff !important;
   font-weight: bold;
 }

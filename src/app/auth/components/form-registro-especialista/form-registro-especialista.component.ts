@@ -8,6 +8,7 @@ import { UsuarioEspecialista } from '../../../core/models/usuarioEspecialista';
 import { NgFor, NgIf } from '@angular/common';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
 import { MatDialogRef } from '@angular/material/dialog';
+import { ToastService } from '../../../core/services/toast.service';
 @Component({
   selector: 'app-form-registro-especialista',
   imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent, NgIf],
@@ -26,7 +27,8 @@ export class FormRegistroEspecialistaComponent {
     private fb: FormBuilder, private usuarioService : UsuarioService, 
     private authService : AuthService, 
     private imagenesService : ImagenesService,
-    private dialogRef: MatDialogRef<FormRegistroEspecialistaComponent>
+    private dialogRef: MatDialogRef<FormRegistroEspecialistaComponent>,
+    private toastService : ToastService
   ) {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
@@ -56,8 +58,8 @@ export class FormRegistroEspecialistaComponent {
   }
 
   async registrar() {
-    if (this.formulario.invalid || !this.imagen) {
-      alert('Completá todos los campos y subí una imagen');
+    if (this.formulario.invalid || !this.imagen) {      
+      this.toastService.mostrarMensaje("Completá todos los campos y subí una imagen", "Registro exitoso.", "error");
       return;
     }
 
@@ -87,8 +89,8 @@ export class FormRegistroEspecialistaComponent {
       const respuesta = await this.authService.registrarEspecialistaDesdeBackend(datos);
       console.log('Registro backend ok:', respuesta);
 
-      setTimeout(() => {
-        alert('Registro exitoso. Inicia sesion para verificar tu email');
+      setTimeout(() => {        
+        this.toastService.mostrarMensaje("Inicia sesion para verificar tu correo", "Registro exitoso.", "success");
         this.formulario.reset();
         this.cargando = false;
         this.dialogRef.disableClose = false;
@@ -96,6 +98,8 @@ export class FormRegistroEspecialistaComponent {
       }, 2000);
 
     } catch (error: any) {
+      
+      this.toastService.mensajeErrorRegistro(error);
       console.error('Error desde el backend:', error);
       alert('Error al registrar: ' + error.message);
       this.cargando = false;

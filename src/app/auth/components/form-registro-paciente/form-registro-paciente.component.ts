@@ -48,7 +48,7 @@ formulario: FormGroup;
   }
   async registrar() {
     if (this.formulario.invalid || !this.imagen1 || !this.imagen2) {
-      this.toastService.mostrarMensaje("Completa todos los campos y subí ambas imagenes","success", 5000)
+      this.toastService.mostrarMensaje("Completa todos los campos y subí ambas imagenes", "Registro" ,"error")
       return;
     }
 
@@ -94,9 +94,8 @@ formulario: FormGroup;
       const jsonRecepcion = await this.authService.registrarUsuarioDesdeBackend(datos);
       console.log(jsonRecepcion);
 
-      // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
-      setTimeout(() => {
-        alert('Registro exitoso. Inicia sesion para verificar tu email');
+      setTimeout(() => {        
+        this.toastService.mostrarMensaje("Inicia sesion para verificar tu correo", "Registro exitoso.", "success");
         this.formulario.reset();
         this.cargando = false;
         this.dialogRef.disableClose = false;
@@ -104,6 +103,7 @@ formulario: FormGroup;
       }, 3000);
 
     } catch (error: any) {
+      this.toastService.mensajeErrorRegistro(error);
       console.error(error);
       alert('Error al registrar: ' + error.message);
       this.cargando = false; // Mantené esto aquí para que el spinner se detenga si hay error

@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../material.module';
 @Component({
   selector: 'app-registro',
-  imports: [FormRegistroEspecialistaComponent, FormRegistroPacienteComponent, CommonModule, MaterialModule],
+  imports: [ CommonModule, MaterialModule],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss'
 })

@@ -9,8 +9,7 @@ import { ToastService } from '../../../core/services/toast.service';
   styleUrl: './bienvenida.component.scss'
 })
 export class BienvenidaComponent {
-constructor(private toastService: ToastService) {
-  this.toastService.mostrarMensaje('Toast de prueba', 'success');
+constructor() {
 }
 
 }

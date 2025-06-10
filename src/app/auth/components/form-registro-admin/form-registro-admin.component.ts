@@ -7,6 +7,7 @@ import { MaterialModule } from '../../../material.module';
 import { NgFor, NgIf } from '@angular/common';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
 import { UsuarioAdmin } from '../../../core/models/usuarioAdmin';
+import { ToastService } from '../../../core/services/toast.service';
 @Component({
   selector: 'app-form-registro-admin',
   imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent, NgIf],
@@ -20,7 +21,8 @@ export class FormRegistroAdminComponent {
   cargando = false;
   constructor(
     private fb: FormBuilder, private usuarioService : UsuarioService, 
-    private authService : AuthService, private imagenesService : ImagenesService
+    private authService : AuthService, private imagenesService : ImagenesService,
+    private toastService : ToastService
   ) {
     this.formulario = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -38,7 +40,7 @@ export class FormRegistroAdminComponent {
 
   async registrar() {
     if (this.formulario.invalid || !this.imagen) {
-      alert('Completá todos los campos y subí una imagen');
+      this.toastService.mostrarMensaje("Completá todos los campos y subí una imagen", "Registro exitoso.", "error");
       return;
     }
 
@@ -69,14 +71,14 @@ export class FormRegistroAdminComponent {
       this.authService.registrarAdminDesdeBackend(datos);
        // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
       setTimeout(() => {
-        alert('Registro exitoso. Inicia sesion para verificar tu email');
+        this.toastService.mostrarMensaje("Inicia sesion para verificar tu correo", "Registro exitoso.", "success");
         this.formulario.reset();
         this.cargando = false;
       }, 3000);
     
     } catch (err: any) {
+      this.toastService.mensajeErrorRegistro(err);
       console.error(err);
-      alert('Error al registrar: ' + err.message);
     }
   }
 }
