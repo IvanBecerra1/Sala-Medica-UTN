@@ -28,6 +28,15 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
+
+  miPerfil(){
+    switch (this.usuario.rol){
+      case "paciente": this.router.navigateByUrl('paciente/perfil'); break;
+      case "admin": this.router.navigateByUrl('admin/perfil'); break;
+      case "especialista": this.router.navigateByUrl('especialista/perfil'); break;
+
+    }
+  }
   async cerrarSesion() {
 
     await this.auth.cerrarSesion();

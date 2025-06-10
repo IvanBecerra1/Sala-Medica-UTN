@@ -33,6 +33,11 @@ export class UsuarioService {
       throw error; 
     }
   }
+
+  async actualizarDisponibilidad(uid: string, disponibilidad: any) {
+    const docRef = doc(this.firestore, 'sala_medica_usuarios', uid);
+    await updateDoc(docRef, { disponibilidad });
+  }
   async guardarUsuario(uid: string, datos: any) {
     const usuarioDoc = doc(this.firestore, `sala_medica_usuarios/${uid}`);
     await setDoc(usuarioDoc, datos);

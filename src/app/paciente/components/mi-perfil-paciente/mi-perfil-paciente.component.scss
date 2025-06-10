@@ -1,0 +1,14 @@
+.perfil-container {
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+  padding: 1rem;
+}
+
+.foto-perfil {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin: auto;
+}

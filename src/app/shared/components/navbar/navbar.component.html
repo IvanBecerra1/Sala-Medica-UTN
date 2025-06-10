@@ -6,15 +6,19 @@
 
   <span class="spacer"></span>
 
-  <ng-container *ngIf="usuario.rol !== 'no-registrado'; else noRegistrado">
-    <a mat-button routerLink="/auth/bienvenida">Inicio</a>
-    <a mat-button routerLink="/perfil">Mi perfil</a>
-    <a mat-button (click)="cerrarSesion()">Cerrar sesión</a>
-    <a *ngIf="usuario.rol === 'admin'" mat-button routerLink="/admin">Panel Admin</a>
-  </ng-container>
-
   <ng-template #noRegistrado>
     <a mat-button routerLink="/auth/login">Iniciar Sesión</a>
     <a mat-button routerLink="/auth/registro">Registrarse</a>
   </ng-template>
+
+  <ng-container *ngIf="usuario.rol !== 'no-registrado'; else noRegistrado">
+
+
+    <a mat-button (click)="miPerfil()">Mi perfil</a>
+    <a *ngIf="usuario.rol === 'admin'" mat-button routerLink="/admin">Panel Admin</a>
+    <a *ngIf="usuario.rol === 'paciente'" mat-button routerLink="/paciente">Panel Paciente</a>
+    
+    <a mat-button (click)="cerrarSesion()">Cerrar sesión</a>
+  </ng-container>
+
 </mat-toolbar>

@@ -11,8 +11,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox'; // <-- Importa esto
+
 @NgModule({
   exports: [
+    MatCheckboxModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,

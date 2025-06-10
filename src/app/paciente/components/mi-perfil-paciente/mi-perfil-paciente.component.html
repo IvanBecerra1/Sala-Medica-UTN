@@ -1,0 +1,17 @@
+<mat-card class="perfil-container">
+
+<ng-container *ngIf="usuario">
+    
+  <img mat-card-image [src]="usuario.imagenUrl" alt="Foto de perfil" class="foto-perfil">
+
+  <mat-card-content>
+    <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+    <p><strong>Email:</strong> {{ usuario.email }}</p>
+    <p><strong>Rol:</strong> {{ usuario.rol }}</p>
+    <p *ngIf="usuario.dni"><strong>DNI:</strong> {{ usuario.dni }}</p>
+    <p *ngIf="usuario.edad"><strong>Edad:</strong> {{ usuario.edad }}</p>
+
+  </mat-card-content>
+  
+</ng-container>
+</mat-card>
