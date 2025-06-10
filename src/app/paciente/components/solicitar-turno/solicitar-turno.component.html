@@ -1,0 +1,44 @@
+<div class="contenedor-turno">
+
+  <!-- SELECCIÓN DE ESPECIALIDAD -->
+  <label>Especialidad:</label>
+  <select [(ngModel)]="especialidadSeleccionada" (change)="cargarEspecialistas()">
+    <option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</option>
+  </select>
+
+  <!-- SELECCIÓN DE ESPECIALISTA -->
+  <div *ngIf="especialistasFiltrados.length > 0">
+    <label>Especialista:</label>
+    <select [(ngModel)]="especialistaSeleccionado" (change)="cargarFechasDisponibles()">
+      <option *ngFor="let esp of especialistasFiltrados" [ngValue]="esp">
+        {{ esp.nombre }} {{ esp.apellido }}
+      </option>
+    </select>
+  </div>
+
+  <!-- SELECCIÓN DE FECHA -->
+  <div *ngIf="fechasDisponibles.length > 0">
+    <label>Fecha disponible (próximos 15 días):</label>
+    <div class="fechas-grid">
+      <button *ngFor="let fecha of fechasDisponibles"
+              (click)="seleccionarFecha(fecha)"
+              [ngClass]="{'seleccionado': fecha === fechaSeleccionada}">
+        {{ fecha }}
+      </button>
+    </div>
+  </div>
+
+  <!-- SELECCIÓN DE HORARIO -->
+  <div *ngIf="horariosDisponibles.length > 0">
+    <label>Horarios:</label>
+    <div class="horarios-grid">
+      <button *ngFor="let h of horariosDisponibles"
+              [disabled]="h.estado === 'ocupado'"
+              [ngClass]="{ 'ocupado': h.estado === 'ocupado', 'disponible': h.estado === 'disponible' }"
+              (click)="reservarTurno(fechaSeleccionada, h.hora)">
+        {{ h.hora }}
+      </button>
+    </div>
+  </div>
+
+</div>

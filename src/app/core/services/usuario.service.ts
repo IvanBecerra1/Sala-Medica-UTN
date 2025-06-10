@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, doc, setDoc, getDoc, collection, query, where, orderBy, snapToData, getDocs, updateDoc } from '@angular/fire/firestore';
+import { Firestore, doc, setDoc, getDoc, collection, query, where, orderBy, snapToData, getDocs, updateDoc, collectionData } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -57,4 +58,10 @@ export class UsuarioService {
     return usuarios;
   }
 
+    getUsuarios(): Observable<any[]> {
+    const usuariosRef = collection(this.firestore, 'sala_medica_usuarios');
+    return collectionData(usuariosRef, { idField: 'uid' }).pipe(
+      tap(data => console.log('Datos obtenidos de usuarios:', data)) // Muestra los datos en consola
+    ) as Observable<any[]>;
+  }
 }
