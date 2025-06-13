@@ -1,29 +1,52 @@
 <div class="login-container">
   <mat-card class="login-card">
 
-    <img src="../../../../assets/imagenes/icono.png" alt="icono" class="login-icono" />
-    <h1>Bienvenido, inicia sesion para continuar</h1>
+    <div class="login-content">
 
-    <form [formGroup]="formulario" (ngSubmit)="login()">
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email">
-      </mat-form-field>
+      <!-- FORMULARIO LOGIN -->
+      <div class="login-form">
+        <img src="../../../../assets/imagenes/icono.png" alt="icono" class="login-icono" />
+        <h1>Bienvenido, inicia sesión para continuar</h1>
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Contraseña</mat-label>
-        <input matInput type="password" formControlName="password">
-      </mat-form-field>
+        <form [formGroup]="formulario" (ngSubmit)="login()">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+          </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit" class="full-width">
-        Iniciar sesión
-      </button>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" formControlName="password">
+          </mat-form-field>
 
-      <div class="botones-rapidos">
-        <button mat-stroked-button (click)="loginRapido('paciente')">Paciente demo</button>
-        <button mat-stroked-button (click)="loginRapido('especialista')">Especialista demo</button>
-        <button mat-stroked-button (click)="loginRapido('admin')">Admin demo</button>
+          <button mat-raised-button color="primary" type="submit" class="full-width">
+            Iniciar sesión
+          </button>
+        </form>
       </div>
-    </form>
+
+      <!-- BOTONES DE ACCESO RÁPIDO -->
+      <div class="botones-rapidos">
+        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('paciente_1')">
+          <img src="../../../../assets/usuarios/paciente_1.png" alt="Paciente 1" />
+        </button>
+        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('paciente_2')">
+          <img src="../../../../assets/usuarios/paciente_2.png" alt="Paciente 2" />
+        </button>
+        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('paciente_3')">
+          <img src="../../../../assets/usuarios/paciente_3.png" alt="Paciente 3" />
+        </button>
+        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('especialista_1')">
+          <img src="../../../../assets/usuarios/especialista_1.png" alt="Especialista 1" />
+        </button>
+        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('especialista_2')">
+          <img src="../../../../assets/usuarios/especialista_2.png" alt="Especialista 2" />
+        </button>
+        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('admin_1')">
+          <img src="../../../../assets/usuarios/admin_1.png" alt="Admin 1" />
+        </button>
+      </div>
+
+    </div>
   </mat-card>
 </div>
