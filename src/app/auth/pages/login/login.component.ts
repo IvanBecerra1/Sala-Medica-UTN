@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } 
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Router } from '@angular/router';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent {
   constructor (  private fb: FormBuilder,
   private authService: AuthService,
   private usuarioService: UsuarioService,
-  private router: Router){
+  private router: Router,
+  private toast : ToastService){
 
     this.formulario = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -32,7 +34,8 @@ export class LoginComponent {
       const user = cred.user;
 
       if (!user.emailVerified) {
-        alert('Debes verificar tu correo electrónico.');
+        this.toast.mostrarMensaje('Debes verificar tu correo electrónico.', 'Inicio de sesion', 'info'); 
+        await this.authService.cerrarSesion();
         return;
       }
 
@@ -40,7 +43,7 @@ export class LoginComponent {
 
       console.log(datosUsuario);
       if (datosUsuario!.rol === 'especialista' && datosUsuario!.aprobado == false) {
-        alert('Tu cuenta aun no fue aprobada por un administrador.');
+        this.toast.mostrarMensaje('Tu cuenta aun no fue aprobada por un administrador.', 'Perfil paciente', 'info');
         console.log(this.authService.cerrarSesion());
         return;
       }

@@ -5,28 +5,20 @@ import { FormRegistroPacienteComponent } from "../../components/form-registro-pa
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../material.module';
+import { Route, Router } from '@angular/router';
 @Component({
   selector: 'app-registro',
-  imports: [ CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, FormRegistroEspecialistaComponent, FormRegistroPacienteComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss'
 })
 export class RegistroComponent {
   tipo: 'paciente' | 'especialista' | null = null;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private router : Router) {}
   abrirModal(tipo: 'paciente' | 'especialista') {
-  if (tipo === 'paciente') {
-    this.dialog.open(FormRegistroPacienteComponent, {
-      width: '500px',
-      panelClass: 'custom-dialog-container'
-    });
-  } else if (tipo === 'especialista') {
-    this.dialog.open(FormRegistroEspecialistaComponent, {
-      width: '400px',
-      panelClass: 'custom-dialog-container'
-    });
+    let url = "auth/registro/" + tipo;
+    this.router.navigateByUrl(url);
   }
-}
 
 }

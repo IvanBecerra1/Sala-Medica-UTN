@@ -1,14 +1,15 @@
-<h2 class="titulo-registro">Registrarte como...</h2>
+<h2 class="titulo-registro">Registrar a usuarios como...</h2>
 
 <div class="selector">
-  <button class="boton-selector paciente" (click)="abrirModal('paciente')">
+  <button class="boton-selector paciente" (click)="this.abrirModal('paciente')">
     <span class="texto-superpuesto">Paciente</span>
   </button>
 
-  <button class="boton-selector especialista" (click)="abrirModal('especialista')">
+  <button class="boton-selector especialista" (click)="this.abrirModal('especialista')">
     <span class="texto-superpuesto">Especialista</span>
   </button>
-    <button class="boton-selector admin" (click)="abrirModal('admin')">
-    <span class="texto-superpuesto">Administrador</span>
+
+    <button class="boton-selector admin" (click)="this.abrirModal('admin')">
+    <span class="texto-superpuesto">Especialista</span>
   </button>
 </div>

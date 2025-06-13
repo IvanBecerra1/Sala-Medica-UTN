@@ -25,7 +25,6 @@ formulario: FormGroup;
     private authService : AuthService,
     private usuarioService : UsuarioService,
     private imagenesService : ImagenesService,
-    private dialogRef: MatDialogRef<FormRegistroPacienteComponent>,
     private toastService: ToastService
   ) {
     this.formulario = this.fb.group({
@@ -53,7 +52,6 @@ formulario: FormGroup;
     }
 
     this.cargando = true;
-    this.dialogRef.disableClose = true;
     const { email, password } = this.formulario.value;
 
     try {
@@ -98,8 +96,6 @@ formulario: FormGroup;
         this.toastService.mostrarMensaje("Inicia sesion para verificar tu correo", "Registro exitoso.", "success");
         this.formulario.reset();
         this.cargando = false;
-        this.dialogRef.disableClose = false;
-        this.dialogRef.close();
       }, 3000);
 
     } catch (error: any) {

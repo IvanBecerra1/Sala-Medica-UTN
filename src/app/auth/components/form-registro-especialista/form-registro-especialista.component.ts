@@ -9,6 +9,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastService } from '../../../core/services/toast.service';
+
 @Component({
   selector: 'app-form-registro-especialista',
   imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent, NgIf],
@@ -27,7 +28,6 @@ export class FormRegistroEspecialistaComponent {
     private fb: FormBuilder, private usuarioService : UsuarioService, 
     private authService : AuthService, 
     private imagenesService : ImagenesService,
-    private dialogRef: MatDialogRef<FormRegistroEspecialistaComponent>,
     private toastService : ToastService
   ) {
     this.formulario = this.fb.group({
@@ -64,7 +64,7 @@ export class FormRegistroEspecialistaComponent {
     }
 
     this.cargando = true;
-    this.dialogRef.disableClose = true;
+    //this.dialogRef.disableClose = true;
 
     const { email, password, nombre, apellido, edad, dni, especialidadesSeleccionadas } = this.formulario.value;
 
@@ -93,8 +93,8 @@ export class FormRegistroEspecialistaComponent {
         this.toastService.mostrarMensaje("Inicia sesion para verificar tu correo", "Registro exitoso.", "success");
         this.formulario.reset();
         this.cargando = false;
-        this.dialogRef.disableClose = false;
-        this.dialogRef.close();
+       // this.dialogRef.disableClose = false;
+       // this.dialogRef.close();
       }, 2000);
 
     } catch (error: any) {
@@ -103,7 +103,7 @@ export class FormRegistroEspecialistaComponent {
       console.error('Error desde el backend:', error);
       alert('Error al registrar: ' + error.message);
       this.cargando = false;
-      this.dialogRef.disableClose = false;
+    //  this.dialogRef.disableClose = false;
     }
   }
 }

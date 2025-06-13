@@ -5,6 +5,7 @@ import { FormRegistroAdminComponent } from "../../../auth/components/form-regist
 import { MaterialModule } from '../../../material.module';
 import { NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro-admin',
@@ -17,24 +18,10 @@ import { MatDialog } from '@angular/material/dialog';
 export class RegistroAdminComponent {
   tipo: 'paciente' | 'especialista' |'admin' | null = null;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private router: Router) {}
   abrirModal(tipo: 'paciente' | 'especialista' | 'admin') {
-  if (tipo === 'paciente') {
-    this.dialog.open(FormRegistroPacienteComponent, {
-      width: '500px',
-      panelClass: 'custom-dialog-container'
-    });
-  } else if (tipo === 'especialista') {
-    this.dialog.open(FormRegistroEspecialistaComponent, {
-      width: '400px',
-      panelClass: 'custom-dialog-container'
-    });
-  } else if (tipo === 'admin') {
-    this.dialog.open(FormRegistroAdminComponent, {
-      width: '400px',
-      panelClass: 'custom-dialog-container'
-    });
-  }
+ let url = "auth/registro/" + tipo;
+    this.router.navigateByUrl(url);
 }
 
 }

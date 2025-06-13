@@ -1,92 +1,79 @@
-<mat-card class="card-registro">
-  <h2 class="titulo-form">Registro de Paciente</h2>
-  <br><br>
-  <app-spinner *ngIf="cargando" class="overlay-spinner"></app-spinner>
+<mat-card class="registro-card">
+  <div class="registro-header">
+    <img src="../../../../assets/imagenes/icono.png" alt="Logo" class="logo">
+    <h2>Registro de Paciente</h2>
+  </div>
 
-  <form [formGroup]="formulario" (ngSubmit)="registrar()" class="form-grid-compact">
+  <form [formGroup]="formulario" (ngSubmit)="registrar()" class="registro-form">
+    <div class="form-grid">
 
-    <!-- PASO 1: Datos personales -->
-    <ng-container *ngIf="paso === 1">
-      <mat-form-field appearance="fill">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre">
-        <mat-error *ngIf="formulario.get('nombre')?.hasError('required')">El nombre es requerido</mat-error>
-      </mat-form-field>
+      <!-- Columna izquierda -->
+      <div class="columna">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" />
+          <mat-error *ngIf="formulario.get('nombre')?.hasError('required')">El nombre es requerido</mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Apellido</mat-label>
-        <input matInput formControlName="apellido">
-        <mat-error *ngIf="formulario.get('apellido')?.hasError('required')">El apellido es requerido</mat-error>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="apellido" />
+          <mat-error *ngIf="formulario.get('apellido')?.hasError('required')">El apellido es requerido</mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Edad</mat-label>
-        <input matInput type="number" formControlName="edad">
-        <mat-error *ngIf="formulario.get('edad')?.hasError('required')">La edad es requerida</mat-error>
-        <mat-error *ngIf="formulario.get('edad')?.hasError('min')">La edad mínima es 18</mat-error>
-        <mat-error *ngIf="formulario.get('edad')?.hasError('max')">La edad máxima es 100</mat-error>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Edad</mat-label>
+          <input matInput type="number" formControlName="edad" />
+          <mat-error *ngIf="formulario.get('edad')?.hasError('required')">La edad es requerida</mat-error>
+          <mat-error *ngIf="formulario.get('edad')?.hasError('min')">La edad mínima es 18</mat-error>
+          <mat-error *ngIf="formulario.get('edad')?.hasError('max')">La edad máxima es 100</mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>DNI</mat-label>
-        <input matInput formControlName="dni">
-        <mat-error *ngIf="formulario.get('dni')?.hasError('required')">El DNI es requerido</mat-error>
-        <mat-error *ngIf="formulario.get('dni')?.hasError('pattern')">El DNI debe tener entre 7 y 8 números</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Obra Social</mat-label>
-        <input matInput formControlName="obraSocial">
-        <mat-error *ngIf="formulario.get('obraSocial')?.hasError('required')">La obra social es requerida</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email">
-        <mat-error *ngIf="formulario.get('email')?.hasError('required')">El correo es requerido</mat-error>
-        <mat-error *ngIf="formulario.get('email')?.hasError('email')">El correo es inválido</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Contraseña</mat-label>
-        <input matInput type="password" formControlName="password">
-        <mat-error *ngIf="formulario.get('password')?.hasError('required')">La contraseña es requerida</mat-error>
-        <mat-error *ngIf="formulario.get('password')?.hasError('minlength')">Debe tener al menos 6 caracteres</mat-error>
-      </mat-form-field>
-
-      <div class="campo-full">
-        <button mat-raised-button color="primary" type="button" (click)="paso = 2" class="boton-siguiente">
-          Siguiente
-        </button>
+        <mat-form-field appearance="outline">
+          <mat-label>DNI</mat-label>
+          <input matInput formControlName="dni" />
+          <mat-error *ngIf="formulario.get('dni')?.hasError('required')">El DNI es requerido</mat-error>
+          <mat-error *ngIf="formulario.get('dni')?.hasError('pattern')">El DNI debe tener entre 7 y 8 números</mat-error>
+        </mat-form-field>
       </div>
-    </ng-container>
 
-    <!-- PASO 2: Imágenes -->
-    <ng-container *ngIf="paso === 2">
-      <div class="campo-full fila-imagenes">
-        <div class="campo-imagen">
-          <mat-icon class="icono-imagen">image</mat-icon>
-          <label for="imagen1">Imagen 1:</label>
-          <input id="imagen1" type="file" (change)="seleccionarImagen1($event)">
+      <!-- Columna derecha -->
+      <div class="columna">
+        <mat-form-field appearance="outline">
+          <mat-label>Obra Social</mat-label>
+          <input matInput formControlName="obraSocial" />
+          <mat-error *ngIf="formulario.get('obraSocial')?.hasError('required')">La obra social es requerida</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" />
+          <mat-error *ngIf="formulario.get('email')?.hasError('required')">El correo es requerido</mat-error>
+          <mat-error *ngIf="formulario.get('email')?.hasError('email')">El correo es inválido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password" />
+          <mat-error *ngIf="formulario.get('password')?.hasError('required')">La contraseña es requerida</mat-error>
+          <mat-error *ngIf="formulario.get('password')?.hasError('minlength')">Debe tener al menos 6 caracteres</mat-error>
+        </mat-form-field>
+
+        <label class="subtitulo">Imágenes del paciente</label>
+        <div class="file-upload">
+          <label for="imagen1" class="file-label">Imagen 1</label>
+          <input type="file" id="imagen1" (change)="seleccionarImagen1($event)" />
         </div>
 
-        <div class="campo-imagen">
-          <mat-icon class="icono-imagen">image</mat-icon>
-          <label for="imagen2">Imagen 2:</label>
-          <input id="imagen2" type="file" (change)="seleccionarImagen2($event)">
+        <div class="file-upload">
+          <label for="imagen2" class="file-label">Imagen 2</label>
+          <input type="file" id="imagen2" (change)="seleccionarImagen2($event)" />
         </div>
       </div>
+    </div>
 
-      <div class="botones-navegacion campo-full">
-    
-        <button mat-stroked-button type="button" class="boton-siguiente" (click)="paso = 1">Atrás</button>
-      </div>
-      <div class="botones-navegacion campo-full">
-        <button mat-raised-button color="primary" class="boton-siguiente" type="submit" [disabled]="cargando">
-          Registrarse
-        </button>
-      </div>
-    </ng-container>
-
+    <button mat-raised-button color="primary" type="submit" class="boton-registrar" [disabled]="formulario.invalid || cargando">
+      Registrarse
+    </button>
   </form>
 </mat-card>
