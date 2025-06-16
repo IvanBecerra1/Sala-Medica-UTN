@@ -1,8 +1,9 @@
 export interface Turno {
   especialidad: string;
-  fecha: string;
+  fechaTurno: string;
+  fechaSolicictado: any;
   hora: string;
-  estado: 'pendiente' | 'aceptado' | 'rechazado' | 'atendido';
+  estado: 'pendiente' | 'cancelado' | 'aceptado' | 'rechazado' | 'atendido' | 'realizado';
 
   especialistaUid: string;
   especialistaNombre: string;

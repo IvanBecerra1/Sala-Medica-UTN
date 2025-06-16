@@ -3,10 +3,14 @@
 <div class="selector">
  <button mat-raised-button color="primary" (click)="tipo = 'aceptar-rechazar'">Aceptar o Rechazar Especialistas</button>
  <button mat-raised-button color="accent" (click)="tipo = 'registrar-usuarios'">Registrar usuarios</button>
+ <button mat-raised-button color="accent" (click)="tipo = 'listado'">Listado de turnos</button>
+ <button mat-raised-button color="accent" (click)="tipo = 'turnos'">Gestionar turno</button>
 </div>
 <br><br>
 
 <div class="formulario">
     <app-registro-admin *ngIf="tipo === 'registrar-usuarios'" ></app-registro-admin>
     <app-usuarios *ngIf="tipo === 'aceptar-rechazar'" ></app-usuarios>
+    <app-turnos-admin *ngIf="tipo === 'listado'" ></app-turnos-admin>
+    <app-solicitar-turno-admin *ngIf="tipo === 'turnos'" ></app-solicitar-turno-admin>
 </div>

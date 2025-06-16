@@ -2,12 +2,14 @@
   <h2>Especialistas</h2>
 
   <!-- Filtro por rol 
+  -->
+
   <mat-form-field appearance="fill">
     <mat-label>Filtrar por rol</mat-label>
     <mat-select [(value)]="rolSeleccionado" (selectionChange)="listar()">
       <mat-option *ngFor="let r of roles" [value]="r">{{ r | titlecase }}</mat-option>
     </mat-select>
-  </mat-form-field>-->
+  </mat-form-field>
 
   <table mat-table [dataSource]="usuarios" class="mat-elevation-z8" style="width: 100%; margin-top: 16px;">
 

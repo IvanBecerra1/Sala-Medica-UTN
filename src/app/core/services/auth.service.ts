@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
-import { doc, Firestore, getDoc } from '@angular/fire/firestore';
+import { doc, Firestore, getDoc, updateDoc } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { authState } from '@angular/fire/auth';
 @Injectable({
@@ -8,8 +8,6 @@ import { authState } from '@angular/fire/auth';
 })
 export class AuthService {
   
-  private readonly emailKey = 'admin_email';
-  private readonly passwordKey = 'admin_password';
 
   private usuarioSubject = new BehaviorSubject<any>(null);
   usuario$ = this.usuarioSubject.asObservable();
@@ -20,6 +18,14 @@ export class AuthService {
 
     authState(this.auth).subscribe(async (user) => {
       if (user) {
+        await user.reload(); 
+
+        if (user.emailVerified) {
+          const ref = doc(this.firestore, 'sala_medica_usuarios', user.uid);
+          await updateDoc(ref, { correoVerificado: true });
+          console.log('✔ Email verificado actualizado en Firestore');
+        }
+
         const datos = await this.obtenerUsuario(user.uid);
         this.usuarioSubject.next({ ...datos, email: user.email });
       } else {
@@ -27,32 +33,7 @@ export class AuthService {
       }
     });
   } 
-  
-  guardar(email: string, password: string) {
-    localStorage.setItem(this.emailKey, email);
-    localStorage.setItem(this.passwordKey, password);
 
-    console.log("datos localstorage");
-    console.log(email);
-    console.log(password);
-  } 
-
-  
-  obtener(): { email: string, password: string } | null {
-    const email = localStorage.getItem(this.emailKey);
-    const password = localStorage.getItem(this.passwordKey);
-
-    if (email && password) {
-      return { email, password };
-    }
-
-    return null;
-  }
-
-  limpiar() {
-    localStorage.removeItem(this.emailKey);
-    localStorage.removeItem(this.passwordKey);
-  }
   async iniciarSesion(email : string, password : string) {
     const user = await signInWithEmailAndPassword(this.auth, email, password);
     
@@ -104,16 +85,21 @@ export class AuthService {
 
   // auth.service.ts
   async registrarUsuarioDesdeBackend(datos: any): Promise<any> {
+    const guardarData = {
+      ...datos,
+      correoVerificado: false
+    };
+
     const response = await fetch('https://backend-push-eii4.onrender.com/registrar-paciente', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(datos)
+      body: JSON.stringify(guardarData)
     });
 
     if (!response.ok) {
-      const errorData = await response.json();  // <- acá se obtiene el JSON de error
+      const errorData = await response.json(); 
       console.error("Detalle del error del backend:", errorData);
       throw new Error(`Error al registrar usuario: ${errorData.mensaje || 'desconocido'}`);
     }
@@ -123,16 +109,20 @@ export class AuthService {
 
   
   async registrarEspecialistaDesdeBackend(datos: any): Promise<any> {
+    const guardarData = {
+      ...datos,
+      correoVerificado: false
+    };
     const response = await fetch('https://backend-push-eii4.onrender.com/registrar-especialista', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(datos)
+      body: JSON.stringify(guardarData)
     });
 
     if (!response.ok) {
-      const errorData = await response.json();  // <- acá se obtiene el JSON de error
+      const errorData = await response.json(); 
       console.error("Detalle del error del backend:", errorData);
       throw new Error(`Error al registrar usuario: ${errorData.mensaje || 'desconocido'}`);
     }
@@ -142,16 +132,20 @@ export class AuthService {
 
   
   async registrarAdminDesdeBackend(datos: any): Promise<any> {
+     const guardarData = {
+      ...datos,
+      correoVerificado: false
+    };
     const response = await fetch('https://backend-push-eii4.onrender.com/registrar-admin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(datos)
+      body: JSON.stringify(guardarData)
     });
 
     if (!response.ok) {
-      const errorData = await response.json();  // <- acá se obtiene el JSON de error
+      const errorData = await response.json(); 
       console.error("Detalle del error del backend:", errorData);
       throw new Error(`Error al registrar usuario: ${errorData.mensaje || 'desconocido'}`);
     }

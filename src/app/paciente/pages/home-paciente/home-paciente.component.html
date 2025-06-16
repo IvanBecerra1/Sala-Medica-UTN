@@ -1,3 +1,25 @@
-<h1>home-paciente works!</h1>
+<div class="header-turnos">
+  <h1>Mis Turnos</h1>
+  <p>Gestiona tus turnos médicos</p>
 
-<app-solicitar-turno></app-solicitar-turno>
+  <div class="selector-vista">
+    <button 
+      (click)="seleccionarVista('solicitar')" 
+      [class.activo]="vistaSeleccionada === 'solicitar'"
+    >
+      <mat-icon>event_available</mat-icon> Solicitar turno
+    </button>
+
+    <button 
+      (click)="seleccionarVista('ver')" 
+      [class.activo]="vistaSeleccionada === 'ver'"
+    >
+      <mat-icon>format_list_bulleted</mat-icon> Ver turnos
+    </button>
+  </div>
+</div>
+
+<div class="vista-contenido">
+  <app-solicitar-turno *ngIf="vistaSeleccionada === 'solicitar'"></app-solicitar-turno>
+  <app-mis-turnos *ngIf="vistaSeleccionada === 'ver'"></app-mis-turnos>
+</div>

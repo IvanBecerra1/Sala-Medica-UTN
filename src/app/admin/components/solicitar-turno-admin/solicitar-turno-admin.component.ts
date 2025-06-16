@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { TurnosService } from '../../../core/services/turnos.service';
-import { Turno } from '../../../core/models/turno';
 import { MaterialModule } from '../../../material.module';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
-import { ToastService } from '../../../core/services/toast.service';
+import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TurnosService } from '../../../core/services/turnos.service';
+import { ToastService } from '../../../core/services/toast.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
-
-import { NgClass } from '@angular/common'; // <-- Añade esta línea
 import { AuthService } from '../../../core/services/auth.service';
+import { Turno } from '../../../core/models/turno';
+
 @Component({
-  selector: 'app-solicitar-turno',
+  selector: 'app-solicitar-turno-admin',
   imports: [MaterialModule, NgFor, NgIf,FormsModule,NgClass , DatePipe],
-  templateUrl: './solicitar-turno.component.html',
-  styleUrl: './solicitar-turno.component.scss'
+  templateUrl: './solicitar-turno-admin.component.html',
+  styleUrl: './solicitar-turno-admin.component.scss'
 })
-export class SolicitarTurnoComponent implements OnInit {
+export class SolicitarTurnoAdminComponent implements OnInit {
   especialidades: string[] = ['Dermatología', 'Cardiología', 'Pediatría']; // o cargalas desde DB si querés
   especialidadSeleccionada: string = '';
   especialistasFiltrados: any[] = [];
@@ -25,11 +24,13 @@ export class SolicitarTurnoComponent implements OnInit {
   fechaSeleccionada: string = '';
   horariosDisponibles: { hora: string; estado: 'disponible' | 'ocupado' }[] = [];
 
-
   usuarioLogueado: any | null = null;  
   
   pacientes: any;
   pacienteSeleccionado: any;
+
+  filtroPaciente: string = '';
+  pacienteFiltrados: any[] = [];
 
   constructor(private turnosService : TurnosService, 
     private toastService : ToastService,
@@ -47,9 +48,26 @@ export class SolicitarTurnoComponent implements OnInit {
       }
     });
 
+    this.cargarPaciente(); // <--- DESCOMENTAR ESTA LÍNEA
    // this.cargarPacientes();
   }
 
+  pacientesFiltrados() {
+    if (!this.filtroPaciente) return this.pacientes;
+
+    const filtro = this.filtroPaciente.toLowerCase();
+    return this.pacientes.filter((p : any)  =>
+      p.apellido.toLowerCase().includes(filtro) ||
+      p.nombre.toLowerCase().includes(filtro) ||
+      p.dni.toString().includes(filtro)
+    );
+  }
+
+  cargarPaciente() {
+    this.usuariosService.getUsuarios().subscribe(usuarios => {
+      this.pacientes = usuarios.filter(u => u.rol === 'paciente' && u.correoVerificado === true);
+    });
+  }
   cargarEspecialistas() {
     this.usuariosService.getUsuarios().subscribe(usuarios => {
       this.especialistasFiltrados = usuarios.filter(
@@ -80,6 +98,8 @@ export class SolicitarTurnoComponent implements OnInit {
     return resultado;
   }
   cargarFechasDisponibles() {
+    console.log("PACINETE SELECCIONADO");
+    console.log(this.pacienteSeleccionado);
     this.fechaSeleccionada = '';
     this.fechasDisponibles = [];
 
@@ -142,6 +162,7 @@ export class SolicitarTurnoComponent implements OnInit {
   async reservarTurno(fecha: string, hora: string) {
     const disponible = await this.turnosService.verificarDisponibilidad(this.especialistaSeleccionado.uid, fecha, hora);
 
+
     if (!disponible) {
       this.toastService.mostrarMensaje('Horario ocupado', 'Ese turno ya fue solicitado.', 'info');
       return;
@@ -159,11 +180,11 @@ export class SolicitarTurnoComponent implements OnInit {
       especialistaApellido: this.especialistaSeleccionado.apellido,
       especialistaDni: this.especialistaSeleccionado.dni,
 
-      pacienteUid: this.usuarioLogueado.uid,
-      pacienteNombre: this.usuarioLogueado.nombre,
-      pacienteApellido: this.usuarioLogueado.apellido,
-      pacienteDni: this.usuarioLogueado.dni,
-      obraSocial: this.usuarioLogueado.obraSocial
+      pacienteUid: this.pacienteSeleccionado.uid,
+      pacienteNombre: this.pacienteSeleccionado.nombre,
+      pacienteApellido: this.pacienteSeleccionado.apellido,
+      pacienteDni: this.pacienteSeleccionado.dni,
+      obraSocial: this.pacienteSeleccionado.obraSocial
     };
 
     await this.turnosService.guardarTurno(turno);

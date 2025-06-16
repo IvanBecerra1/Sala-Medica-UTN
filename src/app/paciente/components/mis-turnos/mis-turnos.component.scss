@@ -1,0 +1,42 @@
+.contenedor-turnos {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.card-turnos {
+  width: 100%;
+  max-width: 1000px;
+  padding: 20px;
+}
+
+.header-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.buscador {
+  flex: 1;
+  min-width: 250px;
+}
+
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  button.activo {
+    font-weight: bold;
+    border-bottom: 2px solid currentColor;
+  }
+}
+
+.tabla-scroll {
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 8px;
+}

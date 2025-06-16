@@ -1,7 +1,30 @@
 <mat-card class="form-card">
   <h2 class="titulo">Solicitar Nuevo Turno</h2>
 
-  <!-- Especialidad -->
+  <!-- paciente -->
+  <mat-form-field appearance="fill" class="form-control">
+  <mat-label>🩺 Paciente</mat-label>
+  <mat-select [(ngModel)]="pacienteSeleccionado">
+    
+    <mat-option >
+      <input
+        placeholder="Buscar por nombre o DNI"
+        [(ngModel)]="filtroPaciente"
+        (click)="$event.stopPropagation()"
+        (keyup)="$event.stopPropagation()"
+        style="width: 100%; border: none; outline: none; padding: 5px"
+      />
+    </mat-option>
+
+    <mat-option *ngFor="let pac of pacientesFiltrados()" [value]="pac">
+      {{ pac.apellido }} {{ pac.nombre }} - {{ pac.dni }}
+    </mat-option>
+
+  </mat-select>
+</mat-form-field>
+
+<div *ngIf="pacienteSeleccionado">
+
   <mat-form-field appearance="fill" class="form-control">
     <mat-label>🩺 Especialidad Médica</mat-label>
     <mat-select [(ngModel)]="especialidadSeleccionada" (selectionChange)="cargarEspecialistas()">
@@ -49,4 +72,6 @@
       📅 Confirmar Turno
     </button>
   </div>
+</div>
+
 </mat-card>

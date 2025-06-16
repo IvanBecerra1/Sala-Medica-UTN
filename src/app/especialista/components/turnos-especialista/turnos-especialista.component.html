@@ -1,0 +1,76 @@
+<mat-card class="card-turnos-especialista">
+  <h2>Mis Turnos Asignados</h2>
+
+  <div class="filtros">
+    <button mat-button color="primary" (click)="filtrar('activos')" [class.activo]="estadoSeleccionado === 'activos'">
+      🕒 Pendientes / Aceptados
+    </button>
+    <button mat-button color="accent" (click)="filtrar('realizado')" [class.activo]="estadoSeleccionado === 'realizado'">
+      ✔ Realizados
+    </button>
+    <button mat-button color="warn" (click)="filtrar('cancelados')" [class.activo]="estadoSeleccionado === 'cancelados'">
+      ❌ Cancelados / Rechazados
+    </button>
+
+    <mat-form-field appearance="outline" class="buscador">
+      <mat-label>Buscar paciente o especialidad</mat-label>
+      <input matInput [(ngModel)]="busqueda" (input)="aplicarFiltro()" />
+    </mat-form-field>
+  </div>
+
+  <div class="tabla-scroll">
+    <table mat-table [dataSource]="turnosFiltrados" class="mat-elevation-z2 tabla-turnos">
+
+      <ng-container matColumnDef="fechaTurno">
+        <th mat-header-cell *matHeaderCellDef>📅 Fecha</th>
+        <td mat-cell *matCellDef="let t">{{ t.fechaTurno }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="hora">
+        <th mat-header-cell *matHeaderCellDef>🕓 Hora</th>
+        <td mat-cell *matCellDef="let t">{{ t.hora }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="paciente">
+        <th mat-header-cell *matHeaderCellDef>👤 Paciente</th>
+        <td mat-cell *matCellDef="let t">{{ t.pacienteNombre }} {{ t.pacienteApellido }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="especialidad">
+        <th mat-header-cell *matHeaderCellDef>🩺 Especialidad</th>
+        <td mat-cell *matCellDef="let t">{{ t.especialidad }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>📌 Estado</th>
+        <td mat-cell *matCellDef="let t">
+          <span class="estado" [ngClass]="t.estado">{{ t.estado | titlecase }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>⚙ Acciones</th>
+        <td mat-cell *matCellDef="let t">
+
+          <button mat-button color="primary" *ngIf="puedeAceptar(t)" (click)="aceptarTurno(t)">Aceptar</button>
+
+          <button mat-button color="warn" *ngIf="puedeRechazar(t)" (click)="rechazarTurno(t)">Rechazar</button>
+
+          <button mat-button color="warn" *ngIf="puedeCancelar(t)" (click)="cancelarTurno(t)">Cancelar</button>
+
+          <button mat-button color="accent" *ngIf="puedeFinalizar(t)" (click)="finalizarTurno(t)">Finalizar</button>
+
+          <button mat-button color="primary" *ngIf="t.comentarioCancelacion" (click)="verCancelacion(t)">Motivo</button>
+
+          <button mat-button color="primary" *ngIf="t.resenaEspecialista" (click)="verDevolucion(t)">Mi devolución</button>
+
+          <button mat-button color="primary" *ngIf="t.calificacionPaciente" (click)="verCalificacion(t)">Calificación</button>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+  </div>
+</mat-card>
