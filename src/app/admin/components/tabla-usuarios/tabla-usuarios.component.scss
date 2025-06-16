@@ -1,138 +1,36 @@
-mat-card {
-  padding: 1rem;
-  border-radius: 12px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 100%;
+.card-turnos-especialista {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
 }
 
-/* Título centrado */
-h2 {
-  text-align: center;
-  font-size: 1.4rem;
-  margin-bottom: 0.8rem;
-  color: #3f51b5;
+.filtros {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+
+  button.activo {
+    font-weight: bold;
+    border-bottom: 2px solid currentColor;
+  }
 }
 
-/* Tabla general */
-table.mat-table {
-  font-size: 0.85rem;
+.tabla-scroll {
+  max-height: 400px;
+  overflow-y: auto;
   border-radius: 8px;
-  overflow: hidden;
 }
 
-/* Cabecera */
-.mat-header-row {
-  background-color: #00bcd4;
-  color: white;
-  font-weight: bold;
-  height: 40px;
-}
+.tabla-turnos {
+  width: 100%;
+  min-width: 600px;
 
-.mat-header-cell {
-  padding: 6px 12px;
-}
+  th, td {
+    padding: 8px 12px;
+  }
 
-/* Celdas */
-.mat-cell {
-  padding: 6px 12px;
-  line-height: 1.2;
-  height: 36px;
-}
-
-.mat-row:hover {
-  background-color: #f0faff;
-}
-
-/* Imagen redonda más pequeña */
-.mat-cell img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Botón más chico */
-.mat-cell button[mat-button] {
-  padding: 2px 8px;
-  font-size: 0.75rem;
-  min-width: unset;
-  line-height: 1.4;
-  border-radius: 6px;
-}
-mat-card {
-  padding: 2rem;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Título */
-h2 {
-  text-align: center;
-  font-size: 1.6rem;
-  color: #3f51b5;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-/* Tabla */
-table.mat-table {
-  font-size: 0.85rem;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Cabecera */
-.mat-header-row {
-  background-color: rgba(0, 188, 212, 0.4);
-  color: #ffffff;
-  font-weight: bold;
-  height: 42px;
-}
-
-.mat-header-cell {
-  padding: 8px 12px;
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* Celdas */
-.mat-cell {
-  padding: 8px 12px;
-  color: #f0f0f0;
-  backdrop-filter: blur(4px);
-  height: 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.mat-row:hover {
-  background-color: rgba(0, 188, 212, 0.1);
-  transition: 0.2s ease-in-out;
-}
-
-/* Imagen redonda */
-.mat-cell img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Botón */
-.mat-cell button[mat-button] {
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  color: #00bcd4;
-  font-weight: bold;
-  background: transparent;
-  border-radius: 6px;
-  transition: background 0.2s;
-}
-
-.mat-cell button[mat-button]:hover {
-  background-color: rgba(0, 188, 212, 0.1);
+  td img {
+    border-radius: 50%;
+    object-fit: cover;
+  }
 }

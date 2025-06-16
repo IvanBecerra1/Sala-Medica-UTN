@@ -16,7 +16,7 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrl: './solicitar-turno.component.scss'
 })
 export class SolicitarTurnoComponent implements OnInit {
-  especialidades: string[] = ['Dermatología', 'Cardiología', 'Pediatría']; // o cargalas desde DB si querés
+  especialidades: string[] = [''];
   especialidadSeleccionada: string = '';
   especialistasFiltrados: any[] = [];
   especialistaSeleccionado: any;
@@ -47,13 +47,25 @@ export class SolicitarTurnoComponent implements OnInit {
       }
     });
 
+    this.cargarListaEspecialidades();
    // this.cargarPacientes();
   }
 
+  async cargarListaEspecialidades(){
+    this.especialidades = await this.usuariosService.obtenerEspecialidadesUnicas();
+  }
+
   cargarEspecialistas() {
-    this.usuariosService.getUsuarios().subscribe(usuarios => {
+    this.especialistaSeleccionado = null;
+    this.fechaSeleccionada = '';
+    this.fechasDisponibles = [];
+    this.horariosDisponibles = [];
+    
+    this.usuariosService.getUsuarios().subscribe((usuarios) => {
       this.especialistasFiltrados = usuarios.filter(
-        u => u.rol === 'especialista' && u.aprobado && u.especialidades.includes(this.especialidadSeleccionada)
+        (u) => u.rol === 'especialista' 
+            && u.aprobado 
+            && u.especialidades.includes(this.especialidadSeleccionada)
       );
     });
   }
@@ -80,6 +92,7 @@ export class SolicitarTurnoComponent implements OnInit {
     return resultado;
   }
   cargarFechasDisponibles() {
+    this.horariosDisponibles = [];
     this.fechaSeleccionada = '';
     this.fechasDisponibles = [];
 
@@ -91,11 +104,39 @@ export class SolicitarTurnoComponent implements OnInit {
   //  if (!this.especialistaSeleccionado?.disponibilidad?.[0]) return;
 
     const diasPermitidos = this.especialistaSeleccionado.disponibilidad;
-    console.log(diasPermitidos.dias);
-    const diasSemana = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+    /*
+    Datos que devuelve disponibilidad:
+    disponibilidad {
+      dias : [""]
+      horarios : [""]
+    }
+    */
+   if (
+      !diasPermitidos ||
+      !Array.isArray(diasPermitidos.dias) || diasPermitidos.dias.length === 0 ||
+      !Array.isArray(diasPermitidos.horarios) || diasPermitidos.horarios.length === 0
+    ) {
+      this.toastService.mostrarMensaje('El especialista no tiene horarios/días disponibles', 'Solicitud turnos', 'info');
+      return;
+    }
+    const diasSemana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
     const hoy = new Date();
 
-    for (let i = 0; this.fechasDisponibles.length < 3; i++) {
+    let forVar=1;
+    switch (diasPermitidos.dias.length){
+      case 1: forVar = 3; break
+      case 2: forVar = 5; break;
+      case 3: forVar = 7; break;
+      case 4: forVar = 9; break;
+      case 5: forVar = 11; break;
+      case 6: forVar = 13; break;
+
+    }
+    console.log("dias leght: " + diasPermitidos.dias.length );
+    console.log("for contador: " + (forVar));
+    console.log("for contador multipli: " + (2 + (diasPermitidos.dias.length + diasPermitidos.dias.length-1) ))
+
+    for (let i = 0; this.fechasDisponibles.length < forVar; i++) {
       const fecha = new Date();
       fecha.setDate(hoy.getDate() + i);
       const nombreDia = diasSemana[fecha.getDay()];
@@ -140,6 +181,10 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   async reservarTurno(fecha: string, hora: string) {
+    if (!this.especialidadSeleccionada || !this.especialistaSeleccionado || !fecha || !hora) {
+      this.toastService.mostrarMensaje('Faltan datos obligatorios para reservar el turno.', 'Reserva de turno', 'error');
+      return;
+    }
     const disponible = await this.turnosService.verificarDisponibilidad(this.especialistaSeleccionado.uid, fecha, hora);
 
     if (!disponible) {

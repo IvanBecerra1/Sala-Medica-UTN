@@ -1,3 +1,4 @@
+<!--
 <mat-card class="perfil-container">
 
 <ng-container *ngIf="usuario">
@@ -15,3 +16,35 @@
   
 </ng-container>
 </mat-card>
+
+-->
+
+<mat-card class="perfil-facebook">
+  <!-- Imagen de portada fija para especialistas -->
+  <div class="portada-container">
+    <img src="../../../../assets/imagenes/bienvenida.jpg" alt="Foto de portada" class="foto-portada">
+    <img [src]="usuario?.imagenUrl" alt="Foto de perfil" class="foto-perfil-superpuesta">
+  </div>
+
+  <mat-card-content class="contenido-perfil">
+    <br>
+    <h2 class="nombre-usuario">Administrador. {{ usuario?.nombre }} {{ usuario?.apellido }}
+    </h2>
+    <h4 class="nombre-usuario"> 
+        <mat-icon>mail</mat-icon><span>Email: {{ usuario?.email }}</span>
+    </h4>
+    <!-- SECCIONES EN LAYOUT FLEX -->
+    <div class="perfil-grid">
+
+      <!-- Datos personales -->
+      <div class="seccion-info">
+        <h3><mat-icon>person</mat-icon> Datos Personales</h3>
+        <div class="info-item"><mat-icon>badge</mat-icon><span>DNI: {{ usuario?.dni }}</span></div>
+        <div class="info-item"><mat-icon>calendar_today</mat-icon><span>Edad: {{ usuario?.edad }}</span></div>
+        <div class="info-item"><mat-icon>verified_user</mat-icon><span>Rol: {{ usuario?.rol }}</span></div>
+
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+

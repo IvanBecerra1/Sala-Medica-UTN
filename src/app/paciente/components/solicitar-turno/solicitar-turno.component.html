@@ -20,7 +20,7 @@
   </mat-form-field>
 
   <!-- Fecha disponible -->
-  <mat-form-field appearance="fill" class="form-control" *ngIf="fechasDisponibles.length > 0">
+  <mat-form-field appearance="fill" class="form-control" *ngIf="fechasDisponibles.length > 0  && especialistasFiltrados.length >0">
     <mat-label>📅 Fecha Disponible</mat-label>
     <mat-select [(ngModel)]="fechaSeleccionada" (selectionChange)="seleccionarFecha(fechaSeleccionada)">
       <mat-option *ngFor="let fecha of fechasDisponibles" [value]="fecha">
@@ -30,7 +30,7 @@
   </mat-form-field>
 
   <!-- Horario disponible -->
-  <mat-form-field appearance="fill" class="form-control" *ngIf="horariosDisponibles.length > 0">
+  <mat-form-field appearance="fill" class="form-control" *ngIf="horariosDisponibles.length > 0  && especialistasFiltrados.length >0">
     <mat-label>🕒 Horario Disponible</mat-label>
     <mat-select >
       <mat-option *ngFor="let h of horariosDisponibles" [value]="h.hora" [disabled]="h.estado === 'ocupado'">

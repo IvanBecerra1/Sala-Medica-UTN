@@ -1,14 +1,67 @@
-.perfil-container {
-  max-width: 500px;
-  margin: auto;
-  text-align: center;
-  padding: 1rem;
-}
 
-.foto-perfil {
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  margin: auto;
-}
+  .perfil-facebook {
+    max-width: 850px;
+    margin: auto;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .portada-container {
+    position: relative;
+    height: 200px;
+  }
+
+  .foto-portada {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .foto-perfil-superpuesta {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    background-color: white;
+  }
+
+  .contenido-perfil {
+    padding-top: 60px;
+    padding: 1rem;
+    text-align: left;
+  }
+
+  .nombre-usuario {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .perfil-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 1rem;
+  }
+
+  .seccion-info h3 {
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #1a237e;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0;
+  }
+
+  mat-icon {
+    color: #1a73e8;
+  }

@@ -8,9 +8,8 @@ import { SpinnerComponent } from '../../../shared/components/spinner/spinner.com
 import { NgIf } from '@angular/common';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastService } from '../../../core/services/toast.service';
-import { NgxCaptchaModule } from 'ngx-captcha';
 
-import { RecaptchaModule } from "ng-recaptcha"; // ✅ ESTE ES EL CORRECTO
+import { RecaptchaModule } from "ng-recaptcha"; 
 @Component({
   selector: 'app-form-registro-paciente',
   imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf, 
@@ -90,7 +89,7 @@ export class FormRegistroPacienteComponent {
       const { email, password, nombre, apellido, edad, dni, obraSocial } = this.formulario.value;
       const uid = email;
 
-      const imagen1Url = await this.imagenesService.subirImagen(`salaMedica/${uid}_img1.jpg`, this.imagen1);
+      const imagenUrl = await this.imagenesService.subirImagen(`salaMedica/${uid}_img1.jpg`, this.imagen1);
       const imagen2Url = await this.imagenesService.subirImagen(`salaMedica/${uid}_img2.jpg`, this.imagen2);
 
       const datos = {
@@ -102,7 +101,7 @@ export class FormRegistroPacienteComponent {
         dni,
         obraSocial,
         rol: 'paciente', // o el que corresponda
-        imagen1Url,
+        imagenUrl,
         imagen2Url
       };
 

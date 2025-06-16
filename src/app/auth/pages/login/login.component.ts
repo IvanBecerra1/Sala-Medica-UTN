@@ -84,54 +84,7 @@ export class LoginComponent {
       
     //}
   }
-  async login_pre() {
-    this.cargando = true;
-    const { email, password } = this.formulario.value;
-
-    try {
-      setTimeout( async () => {       
-        const cred = await this.authService.iniciarSesion(email, password);
-        const user = cred.user;
-
-        if (!user.emailVerified) {
-          this.toast.mostrarMensaje('Debes verificar tu correo electrónico.', 'Inicio de sesion', 'info'); 
-          this.cargando = false;
-          return;
-        }
-
-        const datosUsuario = await this.usuarioService.obtenerUsuario(user.uid);
-
-        console.log(datosUsuario);
-        if (datosUsuario!.rol === 'especialista' && datosUsuario!.aprobado == false) {
-          this.toast.mostrarMensaje('Tu cuenta aun no fue aprobada por un administrador.', 'Perfil paciente', 'info');
-          console.log(this.authService.cerrarSesion());
-          this.cargando = false;
-          return;
-        } 
-          this.toast.mostrarMensaje("Sesion iniciada con exito!", "Bienvenido", "success");
-          this.formulario.reset();
-
-          this.cargando = false;
-            switch (datosUsuario.rol) {
-            case 'paciente':
-              this.router.navigate(['/paciente']);
-              break;
-            case 'especialista':
-              this.router.navigate(['/especialista']);
-              break;
-            case 'admin':
-              this.router.navigate(['/admin']);
-              break;
-          }
-      }, 3000);
-    } catch (error: any) {
-      console.log("CARGANDO FALSE ");
-      this.cargando = false;
-      console.error(error);
-      this.toast.mensajeErrorRegistro(error);
-      //alert('Error al iniciar sesión: ' + error.message);
-    }
-  }
+ 
   loginRapido(tipo: any) {
     const credenciales: Record<any, { email: string; password: string }> = {
       paciente_1: {email : "fwfunab657@tormails.com", password: "1234567890"},

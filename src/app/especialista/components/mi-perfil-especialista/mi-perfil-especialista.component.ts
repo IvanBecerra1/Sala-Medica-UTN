@@ -4,6 +4,7 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 import { MaterialModule } from '../../../material.module';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastService } from '../../../core/services/toast.service';
 @Component({
   selector: 'app-mi-perfil-especialista',
   imports: [MaterialModule, NgIf, NgFor, FormsModule],
@@ -17,10 +18,10 @@ export class MiPerfilEspecialistaComponent {
   diasDisponibles = [
     { nombre: 'Lunes', seleccionado: false },
     { nombre: 'Martes', seleccionado: false },
-    { nombre: 'Miércoles', seleccionado: false },
+    { nombre: 'Miercoles', seleccionado: false },
     { nombre: 'Jueves', seleccionado: false },
     { nombre: 'Viernes', seleccionado: false },
-    { nombre: 'Sábado', seleccionado: false }
+    { nombre: 'Sabado', seleccionado: false }
   ];
 
   franjasHorarias = [
@@ -30,7 +31,7 @@ export class MiPerfilEspecialistaComponent {
   ];
 
 
-  constructor(private auth: AuthService, private usuarioService: UsuarioService) {}
+  constructor(private auth: AuthService, private toast : ToastService,private usuarioService: UsuarioService) {}
 
   async ngOnInit() {
     const currentUser = await this.auth.obtenerSesion();
@@ -52,6 +53,6 @@ export class MiPerfilEspecialistaComponent {
     const disponibilidad = { dias, horarios };
 
     await this.usuarioService.actualizarDisponibilidad(this.usuario.uid, disponibilidad);
-    alert('¡Disponibilidad actualizada!');
+    this.toast.mostrarMensaje('Datos actualizados', 'Mi perfil especialista', 'success');
   }
 }

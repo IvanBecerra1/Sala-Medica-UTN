@@ -9,6 +9,22 @@ import { Observable, tap } from 'rxjs';
 export class UsuarioService {
   constructor(private firestore: Firestore) {}
 
+  async obtenerEspecialidadesUnicas(): Promise<string[]> {
+    const ref = collection(this.firestore, 'sala_medica_usuarios');
+    const snapshot = await getDocs(ref);
+
+    const especialidadesSet = new Set<string>();
+
+    snapshot.forEach( (doc : any) => {
+      const data = doc.data();
+      if (data.rol === 'especialista' && Array.isArray(data.especialidades)) {
+        data.especialidades.forEach((esp: string) => especialidadesSet.add(esp));
+      }
+    });
+
+    return Array.from(especialidadesSet).sort(); // Opcional: orden alfabético
+  }
+
   async actualizarEstadoEspecialista(uid: string, estado: boolean) {
     const docRef = doc(this.firestore, 'sala_medica_usuarios', uid);
     await updateDoc(docRef, { aprobado: estado });

@@ -1,42 +1,58 @@
-<mat-card class="perfil-container">
+<mat-card class="perfil-facebook">
+  <!-- Imagen de portada fija para especialistas -->
+  <div class="portada-container">
+    <img src="../../../../assets/imagenes/bienvenida.jpg" alt="Foto de portada" class="foto-portada">
+    <img [src]="usuario?.imagenUrl" alt="Foto de perfil" class="foto-perfil-superpuesta">
+  </div>
 
-<ng-container *ngIf="usuario">
-    
-  <img mat-card-image [src]="usuario.imagenUrl" alt="Foto de perfil" class="foto-perfil">
+  <mat-card-content class="contenido-perfil">
+    <br>
+    <h2 class="nombre-usuario">Dr./Dra. {{ usuario?.nombre }} {{ usuario?.apellido }}
+    </h2>
+    <h4 class="nombre-usuario"> 
+        <mat-icon>mail</mat-icon><span>Email: {{ usuario?.email }}</span>
+    </h4>
+    <!-- SECCIONES EN LAYOUT FLEX -->
+    <div class="perfil-grid">
 
-  <mat-card-content>
-    <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
-    <p><strong>Email:</strong> {{ usuario.email }}</p>
-    <p><strong>Rol:</strong> {{ usuario.rol }}</p>
-    <p *ngIf="usuario.dni"><strong>DNI:</strong> {{ usuario.dni }}</p>
-    <p *ngIf="usuario.edad"><strong>Edad:</strong> {{ usuario.edad }}</p>
-    <div>
-      <p><strong>Especialidades:</strong></p>
-      <ul>
-        <li *ngFor="let esp of usuario.especialidades">{{ esp }}</li>
-      </ul>
+      <!-- Datos personales -->
+      <div class="seccion-info">
+        <h3><mat-icon>person</mat-icon> Datos Personales</h3>
+        <div class="info-item"><mat-icon>badge</mat-icon><span>DNI: {{ usuario?.dni }}</span></div>
+        <div class="info-item"><mat-icon>calendar_today</mat-icon><span>Edad: {{ usuario?.edad }}</span></div>
+        <div class="info-item"><mat-icon>verified_user</mat-icon><span>Rol: {{ usuario?.rol }}</span></div>
+
+      </div>
+
+      <!-- Especialidades -->
+      <div class="seccion-info">
+        <h3><mat-icon>medical_information</mat-icon> Especialidades</h3>
+        <ul>
+          <li *ngFor="let esp of usuario?.especialidades">{{ esp }}</li>
+        </ul>
+      </div>
+
+      <!-- Días disponibles -->
+      <div class="seccion-info">
+        <h3><mat-icon>calendar_view_day</mat-icon> Días de Atención</h3>
+        <div *ngFor="let dia of diasDisponibles">
+          <mat-checkbox [(ngModel)]="dia.seleccionado">{{ dia.nombre }}</mat-checkbox>
+        </div>
+      </div>
+
+      <!-- Horarios disponibles -->
+      <div class="seccion-info">
+        <h3><mat-icon>schedule</mat-icon> Horarios</h3>
+        <div *ngFor="let franja of franjasHorarias">
+          <mat-checkbox [(ngModel)]="franja.seleccionado">{{ franja.nombre }}</mat-checkbox>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Botón Guardar -->
+    <div style="margin-top: 20px; text-align:center">
+      <button mat-raised-button color="primary" (click)="guardar()">Guardar Cambios</button>
     </div>
   </mat-card-content>
-
-  <div *ngIf="usuario.rol === 'especialista'">
-    <mat-card class="perfil-horario">
-        <h2>Mis Horarios de Atención</h2>
-
-        <h3>Días disponibles</h3>
-        <mat-checkbox *ngFor="let dia of diasDisponibles" [(ngModel)]="dia.seleccionado">
-            {{ dia.nombre }}
-        </mat-checkbox>
-
-        <h3>Horarios disponibles</h3>
-        <mat-checkbox *ngFor="let franja of franjasHorarias" [(ngModel)]="franja.seleccionado">
-            {{ franja.nombre }}
-        </mat-checkbox>
-
-        <div style="margin-top: 16px;">
-            <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
-        </div>
-        </mat-card>
-  </div>
-  
-</ng-container>
 </mat-card>
