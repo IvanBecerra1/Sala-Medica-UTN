@@ -8,13 +8,17 @@ import { SpinnerComponent } from '../../../shared/components/spinner/spinner.com
 import { NgIf } from '@angular/common';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastService } from '../../../core/services/toast.service';
+import { NgxCaptchaModule } from 'ngx-captcha';
+
 @Component({
   selector: 'app-form-registro-paciente',
-  imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf ],
+  imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf, NgxCaptchaModule ],
   templateUrl: './form-registro-paciente.component.html',
   styleUrl: './form-registro-paciente.component.scss'
 })
 export class FormRegistroPacienteComponent {
+    captchaResuelto = false;
+  captchaToken: string = '';
 formulario: FormGroup;
   imagen1!: File;
   imagen2!: File;
@@ -36,6 +40,12 @@ formulario: FormGroup;
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+  onCaptchaResolved(captchaResponse: string) {
+    this.captchaResuelto = true;
+    this.captchaToken = captchaResponse;
+    console.log('Captcha resuelto correctamente:', captchaResponse);
   }
 
   seleccionarImagen1(event: any) {
