@@ -12,6 +12,9 @@ export enum EAutenticacion {
     CAMPO_CLAVE_VACIO = "El campo clave esta vacio",
     CAMPO_CORREO_VACIO = "El campo correo esta vacio",
 
+    MUCHOS_INTENTOS = "Espera un momento, para poder realizar la accion.",
+    USUARIO_NO_ENCONTRADO = "No se encontro el usuario",
+    CONTRASENA_INVALIDO = "La contraseña es incorrecta",
     EMAIL_EXISTS = "auth/email-already-in-use",
     INVALID_EMAIL = "auth/invalid-email",
     INVALID_PASSWORD = "auth/wrong-password",

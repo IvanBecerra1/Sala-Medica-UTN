@@ -10,9 +10,10 @@ import { SpinnerComponent } from "../../../shared/components/spinner/spinner.com
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastService } from '../../../core/services/toast.service';
 
+import { RecaptchaModule } from "ng-recaptcha"; 
 @Component({
   selector: 'app-form-registro-especialista',
-  imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent, NgIf],
+  imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent, NgIf, RecaptchaModule],
   templateUrl: './form-registro-especialista.component.html',
   styleUrl: './form-registro-especialista.component.scss'
 })
@@ -24,6 +25,8 @@ export class FormRegistroEspecialistaComponent {
   especialidadesDisponibles: string[] = ['Cardiología', 'Pediatría', 'Dermatología'];
   especialidadNueva = new FormControl('');
 
+  captcha: string | null = null;
+  captchaResuelto = false;
   constructor(
     private fb: FormBuilder, private usuarioService : UsuarioService, 
     private authService : AuthService, 
@@ -39,6 +42,12 @@ export class FormRegistroEspecialistaComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       especialidadesSeleccionadas: [[], Validators.required]
     });
+  }
+
+  resolved(token: string | null) {
+    this.captchaResuelto = true;
+    console.log('Captcha resuelto:', token);
+    this.captcha = token;
   }
 
   seleccionarImagen(event: any) {
@@ -62,7 +71,10 @@ export class FormRegistroEspecialistaComponent {
       this.toastService.mostrarMensaje("Completá todos los campos y subí una imagen", "Registro exitoso.", "error");
       return;
     }
-
+    if (!this.captchaResuelto) {
+      this.toastService.mostrarMensaje("Por favor, completa el capcha", "Registro" ,"error")
+      return;
+    }
     this.cargando = true;
     //this.dialogRef.disableClose = true;
 

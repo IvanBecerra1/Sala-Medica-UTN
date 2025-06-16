@@ -1,8 +1,9 @@
 <div class="login-container">
   <mat-card class="login-card">
-
     <div class="login-content">
 
+      
+      <app-spinner *ngIf="this.cargando" class="overlay-spinner"></app-spinner>
       <!-- FORMULARIO LOGIN -->
       <div class="login-form">
         <img src="../../../../assets/imagenes/icono.png" alt="icono" class="login-icono" />

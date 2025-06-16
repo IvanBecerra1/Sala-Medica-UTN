@@ -24,24 +24,35 @@ export class AuthService {
           const ref = doc(this.firestore, 'sala_medica_usuarios', user.uid);
           await updateDoc(ref, { correoVerificado: true });
           console.log('✔ Email verificado actualizado en Firestore');
-        }
 
-        const datos = await this.obtenerUsuario(user.uid);
-        this.usuarioSubject.next({ ...datos, email: user.email });
+          const datos = await this.obtenerUsuario(user.uid);
+          this.usuarioSubject.next({ ...datos, email: user.email });
+        }
+        else
+        {
+          
+          await this.cerrarSesion();
+
+        }
       } else {
         this.usuarioSubject.next(null);
       }
     });
   } 
 
-  async iniciarSesion(email : string, password : string) {
-    const user = await signInWithEmailAndPassword(this.auth, email, password);
-    
-    if (user.user.emailVerified == false){
-      await this.enviarVerificacionEmail(user.user)
-      console.log("SE ENVIO EL CORREO PARA VERIFICAR");
+  async iniciarSesion(email: string, password: string) {
+    try {
+      const user = await signInWithEmailAndPassword(this.auth, email, password);
+      
+      if (!user.user.emailVerified) {
+        await this.enviarVerificacionEmail(user.user);
+      }
+
+      return user;
+    } catch (error: any) {
+      console.error("Error al iniciar sesión :", error);
+      throw error;
     }
-    return user;
   }
 
   async registrarUsuario(email: string, password: string) {
@@ -79,7 +90,9 @@ export class AuthService {
   }
 
   async cerrarSesion() {
+
     await signOut(this.auth);
+    console.log('sesion Cerrada');
     this.usuarioSubject.next(null);
   }
 

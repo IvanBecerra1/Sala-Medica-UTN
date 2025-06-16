@@ -10,16 +10,20 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ToastService } from '../../../core/services/toast.service';
 import { NgxCaptchaModule } from 'ngx-captcha';
 
+import { RecaptchaModule } from "ng-recaptcha"; // ✅ ESTE ES EL CORRECTO
 @Component({
   selector: 'app-form-registro-paciente',
-  imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf, NgxCaptchaModule ],
+  imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf, 
+    RecaptchaModule ],
   templateUrl: './form-registro-paciente.component.html',
   styleUrl: './form-registro-paciente.component.scss'
 })
 export class FormRegistroPacienteComponent {
-    captchaResuelto = false;
-  captchaToken: string = '';
-formulario: FormGroup;
+
+  captcha: string | null = null;
+  captchaResuelto = false;
+
+  formulario: FormGroup;
   imagen1!: File;
   imagen2!: File;
   cargando = false;
@@ -42,10 +46,10 @@ formulario: FormGroup;
     });
   }
 
-  onCaptchaResolved(captchaResponse: string) {
+  resolved(token: string | null) {
     this.captchaResuelto = true;
-    this.captchaToken = captchaResponse;
-    console.log('Captcha resuelto correctamente:', captchaResponse);
+    console.log('Captcha resuelto:', token);
+    this.captcha = token;
   }
 
   seleccionarImagen1(event: any) {
@@ -56,8 +60,13 @@ formulario: FormGroup;
     this.imagen2 = event.target.files[0];
   }
   async registrar() {
+
     if (this.formulario.invalid || !this.imagen1 || !this.imagen2) {
       this.toastService.mostrarMensaje("Completa todos los campos y subí ambas imagenes", "Registro" ,"error")
+      return;
+    }
+    if (!this.captchaResuelto) {
+      this.toastService.mostrarMensaje("Por favor, completa el capcha", "Registro" ,"error")
       return;
     }
 
@@ -112,7 +121,7 @@ formulario: FormGroup;
       this.toastService.mensajeErrorRegistro(error);
       console.error(error);
       alert('Error al registrar: ' + error.message);
-      this.cargando = false; // Mantené esto aquí para que el spinner se detenga si hay error
+      this.cargando = false;
     }
   }
 }

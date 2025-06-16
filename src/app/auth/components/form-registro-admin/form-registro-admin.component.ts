@@ -8,9 +8,11 @@ import { NgFor, NgIf } from '@angular/common';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
 import { UsuarioAdmin } from '../../../core/models/usuarioAdmin';
 import { ToastService } from '../../../core/services/toast.service';
+
+import { RecaptchaModule } from "ng-recaptcha";
 @Component({
   selector: 'app-form-registro-admin',
-  imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent, NgIf],
+  imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent,RecaptchaModule, NgIf],
   templateUrl: './form-registro-admin.component.html',
   styleUrl: './form-registro-admin.component.scss'
 })
@@ -19,6 +21,9 @@ export class FormRegistroAdminComponent {
   formulario: FormGroup;
   imagen!: File;
   cargando = false;
+  
+  captcha: string | null = null;
+  captchaResuelto = false;
   constructor(
     private fb: FormBuilder, private usuarioService : UsuarioService, 
     private authService : AuthService, private imagenesService : ImagenesService,
@@ -34,6 +39,12 @@ export class FormRegistroAdminComponent {
     });
   }
 
+  resolved(token: string | null) {
+    this.captchaResuelto = true;
+    console.log('Captcha resuelto:', token);
+    this.captcha = token;
+  }
+
   seleccionarImagen(event: any) {
     this.imagen = event.target.files[0];
   }
@@ -41,6 +52,10 @@ export class FormRegistroAdminComponent {
   async registrar() {
     if (this.formulario.invalid || !this.imagen) {
       this.toastService.mostrarMensaje("Completá todos los campos y subí una imagen", "Registro exitoso.", "error");
+      return;
+    }
+    if (!this.captchaResuelto) {
+      this.toastService.mostrarMensaje("Por favor, completa el capcha", "Registro" ,"error")
       return;
     }
 
@@ -69,7 +84,6 @@ export class FormRegistroAdminComponent {
   //    await this.usuarioService.guardarUsuario(uid, datos);
     //  await this.authService.cerrarSesion();
       this.authService.registrarAdminDesdeBackend(datos);
-       // Esperar 2 segundos antes de mostrar éxito y ocultar spinner
       setTimeout(() => {
         this.toastService.mostrarMensaje("Inicia sesion para verificar tu correo", "Registro exitoso.", "success");
         this.formulario.reset();

@@ -4,6 +4,8 @@
     <h2>Registro Clinica online</h2>
   </div>
 
+  <app-spinner *ngIf="this.cargando" class="overlay-spinner"></app-spinner>
+
   <form [formGroup]="formulario" (ngSubmit)="registrar()" class="registro-form">
     <div class="form-grid">
 
@@ -87,7 +89,10 @@
       </div>
 
     </div>
-
+    <re-captcha
+      [siteKey]="'6LdlMmIrAAAAANsuw8gS-c7DW1TVtNb2Sy9RXkDP'"
+      (resolved)="resolved($event)">
+    </re-captcha>
     <button mat-raised-button color="primary" type="submit" class="boton-registrar" [disabled]="formulario.invalid || cargando">
       Registrar
     </button>

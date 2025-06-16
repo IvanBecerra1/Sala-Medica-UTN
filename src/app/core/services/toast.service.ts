@@ -34,7 +34,11 @@ export class ToastService {
       ["auth/invalid-email", EAutenticacion.CORREO_INVALIDO],
       ["auth/missing-email", EAutenticacion.CAMPO_CORREO_VACIO],
       ["auth/missing-password", EAutenticacion.CAMPO_CLAVE_VACIO],
-      ["auth/admin-restricted-operation", EAutenticacion.CAMPOS_VACIOS]
+      ["auth/admin-restricted-operation", EAutenticacion.CAMPOS_VACIOS],
+      ["auth/too-many-requests", EAutenticacion.MUCHOS_INTENTOS],
+      ['auth/user-not-found', EAutenticacion.USUARIO_NO_ENCONTRADO],
+      ["auth/wrong-password", EAutenticacion.CONTRASENA_INVALIDO],
+      ['auth/invalid-credential', EAutenticacion.CREDENCIALES_INVALIDAS]
     ]);
 
     const mensaje = mensajesError.get(error.code) || EAutenticacion.ERROR_DESCONOCIDO;
