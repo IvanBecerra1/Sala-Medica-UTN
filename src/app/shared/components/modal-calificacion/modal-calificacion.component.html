@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Calificación del Profesional</h2>
+
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Puntaje general (1 a 5)</mat-label>
+    <mat-select [(ngModel)]="calificacion.puntaje" [disabled]="modoVisualizacion">
+      <mat-option *ngFor="let p of [1,2,3,4,5]" [value]="p">{{ p }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>¿Cómo fue la atención del especialista?</mat-label>
+    <textarea matInput [(ngModel)]="calificacion.comentario" [readonly]="modoVisualizacion"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>¿Hubo demoras en la atención?</mat-label>
+    <mat-select [(ngModel)]="calificacion.demora" [disabled]="modoVisualizacion">
+      <mat-option value="Sí">Sí</mat-option>
+      <mat-option value="No">No</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>¿Recomendarías al profesional?</mat-label>
+    <mat-select [(ngModel)]="calificacion.recomendado" [disabled]="modoVisualizacion">
+      <mat-option value="Sí">Sí</mat-option>
+      <mat-option value="No">No</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button *ngIf="!modoVisualizacion" mat-raised-button color="primary" (click)="confirmar()">Enviar</button>
+</mat-dialog-actions>

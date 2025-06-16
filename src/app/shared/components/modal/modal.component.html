@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{ data.titulo }}</h1>
+
+<mat-dialog-content>
+  <h2><strong>Nombre:</strong> {{ data.nombre }}</h2>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Escriba el motivo</mat-label>
+    <textarea matInput [(ngModel)]="mensaje" rows="4"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cerrar()">Cancelar</button>
+  <button mat-flat-button color="warn" (click)="confirmar()" [disabled]="!mensaje.trim()">Confirmar</button>
+</mat-dialog-actions>

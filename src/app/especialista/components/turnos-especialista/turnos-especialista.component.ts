@@ -5,7 +5,12 @@ import { TurnosService } from '../../../core/services/turnos.service';
 import { FormsModule, NgModel } from '@angular/forms';
 import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ModalMotivoComponent } from '../../../shared/components/modal-motivo/modal-motivo.component';
+import { ToastService } from '../../../core/services/toast.service';
+import { ModalResenaComponent } from '../../../shared/components/modal-resena/modal-resena.component';
+import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { ModalCalificacionComponent } from '../../../shared/components/modal-calificacion/modal-calificacion.component';
 @Component({
   selector: 'app-turnos-especialista',
   imports: [MaterialModule, NgClass,FormsModule,  NgIf, TitleCasePipe],
@@ -18,14 +23,16 @@ export class TurnosEspecialistaComponent implements OnInit {
   columnas: string[] = ['fechaTurno', 'hora', 'paciente', 'especialidad', 'estado', 'acciones'];
   busqueda: string = '';
   uidEspecialista: string = '';
+  usuario : any;
   estadoSeleccionado: string = 'activos';
-  constructor(private turnosService : TurnosService, private authService : AuthService){
+  constructor(private turnosService : TurnosService, private authService : AuthService, private dialog: MatDialog, private toast : ToastService){
 
   }
   ngOnInit(): void {
     this.authService.usuario$.subscribe(usuario => {
       if (usuario) {
         this.uidEspecialista = usuario.uid;
+        this.usuario = usuario;
         console.log(this.uidEspecialista);
 
         this.turnosService.obtenerTurnosPorEspecialista(this.uidEspecialista).subscribe(turnos => {
@@ -91,37 +98,96 @@ export class TurnosEspecialistaComponent implements OnInit {
   }
 
   rechazarTurno(t: Turno) {
-    const motivo = prompt("Motivo del rechazo:");
+   /* const motivo = prompt("Motivo del rechazo:");
     if (motivo) {
       this.turnosService.actualizarEstado(t, 'rechazado', motivo);
-    }
+    }*/ 
+    
+    const dialogRef = this.dialog.open(ModalComponent, {
+            width: '400px',
+            data: {
+              titulo: 'Rechazar Turno',
+              nombre: `${t.especialistaNombre} ${t.especialistaApellido} (${this.usuario.rol})`
+            }
+          });
+      
+          dialogRef.afterClosed().subscribe((motivo: string) => {
+            if (motivo) {
+              let comentario = t.especialistaNombre + "@"+t.especialistaApellido+"@"+this.usuario.rol+"@" + motivo
+              
+              this.turnosService.actualizarEstado(t, 'rechazado', comentario);
+              console.log("Motivo ingresado:", motivo);
+            }
+          });
   }
 
   cancelarTurno(t: Turno) {
-    const motivo = prompt("Motivo de cancelación:");
-    if (motivo) {
-      this.turnosService.actualizarEstado(t, 'cancelado', motivo);
-    }
+      const dialogRef = this.dialog.open(ModalComponent, {
+            width: '400px',
+            data: {
+              titulo: 'Cancelar Turno',
+              nombre: `${t.especialistaNombre} ${t.especialistaApellido} (${this.usuario.rol})`
+            }
+          });
+      
+          dialogRef.afterClosed().subscribe((motivo: string) => {
+            if (motivo) {
+              let comentario = t.especialistaNombre + "@"+t.especialistaApellido+"@"+this.usuario.rol+"@" + motivo
+              
+              this.turnosService.actualizarEstado(t, 'cancelado', comentario);
+              console.log("Motivo ingresado:", motivo);
+            }
+          });
   }
 
   finalizarTurno(t: Turno) {
-    const reseña = prompt("Ingrese reseña o diagnóstico:");
-    if (reseña) {
-      this.turnosService.actualizarEstado(t, 'realizado', reseña);
-    }
-  }
+
+    const dialogRef = this.dialog.open(ModalResenaComponent, {
+      width: '500px',
+      data: { modo: 'crear' },
+      disableClose: true
+     });
+ 
+     dialogRef.afterClosed().subscribe((resultado) => {
+       if (resultado) { // id
+        console.log("id resena: "+ resultado);
+        this.turnosService.actualizarEstado(t, 'realizado', resultado);
+         
+       }
+     });
+   }
 
   verCancelacion(t: any) {
-    alert(t.comentarioCancelacion || 'Sin reseña cargada');
-  }
+    //alert(t.comentarioCancelacion || 'Sin reseña cargada');
 
+    this.dialog.open(ModalMotivoComponent, {
+      width: '400px',
+      data: {
+        comentario: t.comentarioCancelacion 
+      }
+    });
+  }
   verCalificacion(t: any) {
-    alert(t.calificacionPaciente || 'Sin calificacion');
+    if (!t.calificacionPaciente) {
+      this.toast.mostrarMensaje("Este turno no tiene calificación registrada", "Calificación", "info");
+    }
+    this.dialog.open(ModalCalificacionComponent, {
+      width: '500px',
+      data: { modo: 'ver', id: t.calificacionPaciente }
+    });
   }
-
   verDevolucion( t: any){
-    alert(t.resenaEspecialista || 'Sin devolucion');
-  }
+   /// alert(t.resenaEspecialista || 'Sin devolucion');
+    if (!t.resenaEspecialista) {
+      this.toast.mostrarMensaje("Este turno no tiene reseña registrada", "Reseña", "info");
+      return;
+    }
+    const dialogRef = this.dialog.open(ModalResenaComponent, {
+      width: '500px',
+      data: { modo: 'ver', id: t.resenaEspecialista },
+      disableClose: true
+     });
+   }
   
   formatearFecha(timestamp: any): string {
     const fecha = timestamp.toDate(); // convierte a Date de JS

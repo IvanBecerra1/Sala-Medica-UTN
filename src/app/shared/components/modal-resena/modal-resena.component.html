@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>🩺 {{ modoVisualizacion ? 'Ver Reseña del Paciente' : 'Nueva Reseña del Paciente' }}</h1>
+
+<div mat-dialog-content>
+  <form>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Altura (cm)</mat-label>
+      <input matInput [(ngModel)]="altura" name="altura" [readonly]="modoVisualizacion" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Peso (kg)</mat-label>
+      <input matInput [(ngModel)]="peso" name="peso" [readonly]="modoVisualizacion" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Temperatura (°C)</mat-label>
+      <input matInput [(ngModel)]="temperatura" name="temperatura" [readonly]="modoVisualizacion" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Presión</mat-label>
+      <input matInput [(ngModel)]="presion" name="presion" [readonly]="modoVisualizacion" />
+    </mat-form-field>
+
+    <div *ngFor="let dato of datosDinamicos; let i = index" class="row-dinamico">
+      <mat-form-field appearance="outline" class="clave">
+        <mat-label>Clave</mat-label>
+        <input matInput [(ngModel)]="dato.clave" [name]="'clave' + i" [readonly]="modoVisualizacion" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="valor">
+        <mat-label>Valor</mat-label>
+        <input matInput [(ngModel)]="dato.valor" [name]="'valor' + i" [readonly]="modoVisualizacion" />
+      </mat-form-field>
+
+      <button *ngIf="!modoVisualizacion" mat-icon-button color="warn" type="button" (click)="quitarDato(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+    <button *ngIf="!modoVisualizacion" mat-button type="button" color="primary" (click)="agregarDato()" [disabled]="datosDinamicos.length >= 3">
+      ➕ Agregar dato dinámico
+    </button>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button *ngIf="!modoVisualizacion" mat-flat-button color="primary" (click)="guardar()">Guardar Reseña</button>
+</div>

@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Encuesta de Satisfacción</h2>
+
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>¿Cómo calificarías el ambiente de la clínica?</mat-label>
+    <mat-select [(ngModel)]="encuesta.ambiente" [disabled]="modoVisualizacion">
+      <mat-option *ngFor="let opt of opciones" [value]="opt">{{ opt }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Escribe un comentario</mat-label>
+    <textarea matInput [(ngModel)]="encuesta.comentario" [readonly]="modoVisualizacion"></textarea>
+  </mat-form-field>
+
+  <mat-label>¿Volverías a atenderte?</mat-label>
+  <mat-radio-group [(ngModel)]="encuesta.volveria" [disabled]="modoVisualizacion">
+    <mat-radio-button value="Sí">Sí</mat-radio-button>
+    <mat-radio-button value="No">No</mat-radio-button>
+  </mat-radio-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button *ngIf="!modoVisualizacion" mat-raised-button color="primary" (click)="confirmar()">Enviar</button>
+</mat-dialog-actions>
