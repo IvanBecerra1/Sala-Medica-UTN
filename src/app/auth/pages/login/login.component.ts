@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ToastService } from '../../../core/services/toast.service';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
 import { NgIf } from '@angular/common';
+import { LogsService } from '../../../core/services/logs.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent {
   private authService: AuthService,
   private usuarioService: UsuarioService,
   private router: Router,
+  private log : LogsService,
   private toast : ToastService){
 
     this.formulario = this.fb.group({
@@ -48,6 +50,7 @@ export class LoginComponent {
         const datosUsuario = await this.usuarioService.obtenerUsuario(user.uid);
 
         console.log(datosUsuario);
+        this.log.registrarIngreso(datosUsuario);
         if (datosUsuario!.rol === 'especialista' && datosUsuario!.aprobado == false) {
           this.toast.mostrarMensaje('Tu cuenta aun no fue aprobada por un administrador.', 'Perfil paciente', 'info');
           console.log(this.authService.cerrarSesion());

@@ -1,5 +1,5 @@
 
-<h1>Panel de adminsitrador</h1>
+<h1>Panel de administrador...</h1>
 <div class="selector">
  <button mat-raised-button color="primary" (click)="tipo = 'aceptar-rechazar'">Aceptar o Rechazar Especialistas</button>
  <button mat-raised-button color="accent" (click)="tipo = 'registrar-usuarios'">Registrar usuarios</button>
@@ -16,3 +16,5 @@
     <app-solicitar-turno-admin *ngIf="tipo === 'turnos'" ></app-solicitar-turno-admin>
     <app-todo-usuarios *ngIf="tipo === 'usuarios'" ></app-todo-usuarios>
 </div>
+
+<app-graficos></app-graficos>
