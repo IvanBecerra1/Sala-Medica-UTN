@@ -5,6 +5,12 @@ import { TurnosService } from '../../../core/services/turnos.service';
 import { FormsModule, NgModel } from '@angular/forms';
 import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
+import { ToastService } from '../../../core/services/toast.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalResenaComponent } from '../../../shared/components/modal-resena/modal-resena.component';
+import { ModalCalificacionComponent } from '../../../shared/components/modal-calificacion/modal-calificacion.component';
+import { ModalMotivoComponent } from '../../../shared/components/modal-motivo/modal-motivo.component';
+import { ModalComponent } from '../../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-turnos-admin',
@@ -19,12 +25,14 @@ export class TurnosAdminComponent implements OnInit {
   busqueda: string = '';
   uidEspecialista: string = '';
   estadoSeleccionado: string = 'activos';
-  constructor(private turnosService : TurnosService, private authService : AuthService){
+  usuario : any;
+  constructor( private dialog: MatDialog, private toast : ToastService, private turnosService : TurnosService, private authService : AuthService){
 
   }
   ngOnInit(): void {
     this.authService.usuario$.subscribe(usuario => {
       if (usuario) {
+        this.usuario = usuario;
        // this.uidEspecialista = usuario.uid;
      //   console.log(this.uidEspecialista);
 
@@ -98,10 +106,27 @@ export class TurnosAdminComponent implements OnInit {
   }
 
   cancelarTurno(t: Turno) {
-    const motivo = prompt("Motivo de cancelación:");
+    
+   /* const motivo = prompt("Motivo de cancelación:");
     if (motivo) {
       this.turnosService.actualizarEstado(t, 'cancelado', motivo);
-    }
+    }*/
+
+       const dialogRef = this.dialog.open(ModalComponent, {
+      width: '400px',
+      data: {
+        titulo: 'Cancelar Turno',
+        nombre: `${this.usuario.nombre} ${this.usuario.apellido} (${this.usuario.rol})`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((motivo: string) => {
+      if (motivo) {
+        let comentario = this.usuario.nombre + "@"+this.usuario.apellido+"@"+this.usuario.rol+"@" + motivo
+        this.turnosService.actualizarEstado(t, 'cancelado', comentario);
+        console.log("Motivo ingresado:", motivo);
+      }
+    });
   }
 
   finalizarTurno(t: Turno) {
@@ -112,17 +137,39 @@ export class TurnosAdminComponent implements OnInit {
   }
 
   verCancelacion(t: any) {
-    alert(t.comentarioCancelacion || 'Sin reseña cargada');
-  }
+      //alert(t.comentarioCancelacion || 'Sin reseña cargada');
+     
+         this.dialog.open(ModalMotivoComponent, {
+           width: '400px',
+           data: {
+             comentario: t.comentarioCancelacion 
+           }
+         });
+       }
+   
 
   verCalificacion(t: any) {
-    alert(t.calificacionPaciente || 'Sin calificacion');
-  }
+   if (!t.calificacionPaciente) {
+         this.toast.mostrarMensaje("Este turno no tiene calificación registrada", "Calificación", "info");
+       }
+       this.dialog.open(ModalCalificacionComponent, {
+         width: '500px',
+         data: { modo: 'ver', id: t.calificacionPaciente }
+       });
+     }
 
   verDevolucion( t: any){
-    alert(t.resenaEspecialista || 'Sin devolucion');
-  }
-  
+     /// alert(t.resenaEspecialista || 'Sin devolucion');
+      if (!t.resenaEspecialista) {
+        this.toast.mostrarMensaje("Este turno no tiene reseña registrada", "Reseña", "info");
+        return;
+      }
+      const dialogRef = this.dialog.open(ModalResenaComponent, {
+        width: '500px',
+        data: { modo: 'ver', id: t.resenaEspecialista },
+        disableClose: true
+       });
+     }
   formatearFecha(timestamp: any): string {
     const fecha = timestamp.toDate(); // convierte a Date de JS
     const dia = fecha.getDate().toString().padStart(2, '0');

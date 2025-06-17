@@ -22,8 +22,13 @@ export class UsuarioService {
       }
     });
 
-    return Array.from(especialidadesSet).sort(); // Opcional: orden alfabético
+    return Array.from(especialidadesSet).sort(); 
   }
+  obtenerTodosLosUsuarios(): Observable<any[]> {
+    const ref = collection(this.firestore, 'sala_medica_usuarios');
+    return collectionData(ref, { idField: 'id' }) as Observable<any[]>;
+  }
+
 
   async actualizarEstadoEspecialista(uid: string, estado: boolean) {
     const docRef = doc(this.firestore, 'sala_medica_usuarios', uid);

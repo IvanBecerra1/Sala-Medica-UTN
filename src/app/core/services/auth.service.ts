@@ -30,7 +30,7 @@ export class AuthService {
         }
         else
         {
-          
+
           await this.cerrarSesion();
 
         }
@@ -85,7 +85,7 @@ export class AuthService {
       }
     }
 
-  async obtenerSesion() : Promise<User | null>{
+  async obtenerSesion() : Promise<any>{
     return this.auth.currentUser;
   }
 

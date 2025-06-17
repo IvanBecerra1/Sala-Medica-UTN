@@ -1,7 +1,33 @@
-<div class="header-turnos">
+<!--<div class="header-turnos">
   <h1>Mis Turnos</h1>
   <p>Gestiona tus turnos asignados</p>
 
 </div>
 
-<app-turnos-especialista></app-turnos-especialista>
+<app-turnos-especialista></app-turnos-especialista>!-->
+
+<div class="header-turnos">
+  <h1>Panel de especialista</h1>
+  <p>Gestiona tus turnos asignados y pacientes</p>
+
+  <div class="selector-vista">
+    <button 
+      (click)="seleccionarVista('solicitar')" 
+      [class.activo]="vistaSeleccionada === 'solicitar'"
+    >
+      <mat-icon>event_available</mat-icon> Turnos Asignados
+    </button>
+
+    <button 
+      (click)="seleccionarVista('ver')" 
+      [class.activo]="vistaSeleccionada === 'ver'"
+    >
+      <mat-icon>format_list_bulleted</mat-icon> Ver pacientes
+    </button>
+  </div>
+</div>
+
+<div class="vista-contenido">
+  <app-turnos-especialista *ngIf="vistaSeleccionada === 'solicitar'"></app-turnos-especialista>
+    <app-mis-pacientes *ngIf="vistaSeleccionada === 'ver'"></app-mis-pacientes>
+</div>

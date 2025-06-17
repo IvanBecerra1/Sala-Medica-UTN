@@ -1,0 +1,10 @@
+<br><br><div class="pacientes-grid">
+  <div *ngFor="let paciente of pacientes" class="paciente-card" (click)="verHistorial(paciente.uid)">
+    <div class="imagen-container">
+      <img [src]="paciente.imagenUrl" alt="foto de {{paciente.nombre}}" />
+    </div>
+    <div class="nombre-con-estado">
+      <span class="nombre">{{ paciente.nombre }} {{ paciente.apellido }}</span>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@
  <button mat-raised-button color="accent" (click)="tipo = 'registrar-usuarios'">Registrar usuarios</button>
  <button mat-raised-button color="accent" (click)="tipo = 'listado'">Listado de turnos</button>
  <button mat-raised-button color="accent" (click)="tipo = 'turnos'">Gestionar turno</button>
+ <button mat-raised-button color="accent" (click)="tipo = 'usuarios'">Usuarios</button>
 </div>
 <br><br>
 
@@ -13,4 +14,5 @@
     <app-usuarios *ngIf="tipo === 'aceptar-rechazar'" ></app-usuarios>
     <app-turnos-admin *ngIf="tipo === 'listado'" ></app-turnos-admin>
     <app-solicitar-turno-admin *ngIf="tipo === 'turnos'" ></app-solicitar-turno-admin>
+    <app-todo-usuarios *ngIf="tipo === 'usuarios'" ></app-todo-usuarios>
 </div>

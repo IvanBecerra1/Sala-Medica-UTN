@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>🩺 Historia Clínica</h1>
+
+<mat-dialog-content *ngIf="!cargando; else cargandoTpl">
+  <div *ngIf="historial.length === 0">No hay registros clínicos.</div>
+
+  <div *ngFor="let item of historial" class="historial-card">
+    <h3>Turno: {{ item.fechaTurno }}</h3>
+    <p><strong>Paciente:</strong> {{ item.nombre }} {{ item.apellido }} - DNI: {{ item.dni }}</p>
+    <p><strong>Altura:</strong> {{ item.altura }} cm</p>
+    <p><strong>Peso:</strong> {{ item.peso }} kg</p>
+    <p><strong>Temperatura:</strong> {{ item.temperatura }} °C</p>
+    <p><strong>Presión:</strong> {{ item.presion }}</p>
+
+    <div *ngIf="item.dinamicos?.length">
+      <h4>Otros datos:</h4>
+      <ul>
+        <li *ngFor="let d of item.dinamicos">
+          {{ d.clave }}: {{ d.valor }}
+        </li>
+      </ul>
+    </div>
+    <hr />
+  </div>
+</mat-dialog-content>
+
+<ng-template #cargandoTpl>
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</ng-template>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button mat-flat-button color="primary" (click)="descargarPDF()" [disabled]="cargando || historial.length === 0">
+    Descargar PDF
+  </button>
+</mat-dialog-actions>

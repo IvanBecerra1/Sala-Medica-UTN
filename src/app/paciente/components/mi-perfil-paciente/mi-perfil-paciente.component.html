@@ -1,7 +1,7 @@
 <mat-card class="perfil-facebook">
   <div class="portada-container">
     <img [src]="usuario?.imagen2Url" alt="Foto de portada" class="foto-portada">
-    <img [src]="usuario?.imagen1Url" alt="Foto de perfil" class="foto-perfil-superpuesta">
+    <img [src]="usuario?.imagenUrl" alt="Foto de perfil" class="foto-perfil-superpuesta">
   </div>
 
   <mat-card-content class="contenido-perfil">
@@ -38,5 +38,7 @@
       <h3><mat-icon>medical_services</mat-icon> Obra Social</h3>
       <p>{{ usuario?.obraSocial }}</p>
     </section>
+
+    <button mat-raised-button color="blue" (click)="generarPDF()">Descargar historial Clinica</button>
   </mat-card-content>
 </mat-card>

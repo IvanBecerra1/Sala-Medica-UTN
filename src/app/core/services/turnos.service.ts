@@ -21,7 +21,7 @@ export class TurnosService {
     return collectionData(q, { idField: 'id' }) as Observable<Turno[]>;
   }
 
-  obtenerTurnosPorPaciente(uid: string): Observable<Turno[]> {
+  obtenerTurnosPorPaciente(uid: string): Observable<any[]> {
     const ref = collection(this.firestore, 'sala_medica_turno');
     const q = query(ref, where('pacienteUid', '==', uid));
     return collectionData(q, { idField: 'id' }) as Observable<Turno[]>;

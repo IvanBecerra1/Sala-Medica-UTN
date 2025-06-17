@@ -48,4 +48,8 @@ export class EncuestaCalificacionService {
     const docSnap = await getDoc(docRef);
     return docSnap.exists() ? (docSnap.data() as any) : null;
   }
+
+  async obtenerHistorialMedico(){
+    
+  }
 }
