@@ -111,10 +111,26 @@ export class AuthService {
       body: JSON.stringify(guardarData)
     });
 
+    /*
+
+Object
+error
+: 
+"The email address is already in use by another account."
+mensaje
+: 
+"Error al registrar usuario"
+*/
+
     if (!response.ok) {
       const errorData = await response.json(); 
       console.error("Detalle del error del backend:", errorData);
-      throw new Error(`Error al registrar usuario: ${errorData.mensaje || 'desconocido'}`);
+      console.log(errorData);
+
+      if (errorData.error === 'The email address is already in use by another account.'){
+        errorData.code = 'auth/email-already-in-use';
+      }
+      throw errorData;
     }
 
     return await response.json();
@@ -137,7 +153,12 @@ export class AuthService {
     if (!response.ok) {
       const errorData = await response.json(); 
       console.error("Detalle del error del backend:", errorData);
-      throw new Error(`Error al registrar usuario: ${errorData.mensaje || 'desconocido'}`);
+      console.log(errorData);
+
+      if (errorData.error === 'The email address is already in use by another account.'){
+        errorData.code = 'auth/email-already-in-use';
+      }
+      throw errorData;
     }
 
     return await response.json();
@@ -160,7 +181,12 @@ export class AuthService {
     if (!response.ok) {
       const errorData = await response.json(); 
       console.error("Detalle del error del backend:", errorData);
-      throw new Error(`Error al registrar usuario: ${errorData.mensaje || 'desconocido'}`);
+      console.log(errorData);
+
+      if (errorData.error === 'The email address is already in use by another account.'){
+        errorData.code = 'auth/email-already-in-use';
+      }
+      throw errorData;
     }
 
     return await response.json();

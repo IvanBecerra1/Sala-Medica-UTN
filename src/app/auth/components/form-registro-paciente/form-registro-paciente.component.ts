@@ -117,10 +117,12 @@ export class FormRegistroPacienteComponent {
       }, 3000);
 
     } catch (error: any) {
+      
       this.toastService.mensajeErrorRegistro(error);
-      console.error(error);
-      alert('Error al registrar: ' + error.message);
+      console.error(error.error);
+      //alert('Error al registrar: ' + error.message);
       this.cargando = false;
+      this.captchaResuelto = false;
     }
   }
 }

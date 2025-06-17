@@ -24,7 +24,7 @@ export class MisTurnosComponent implements OnInit{
   turnos: any[] = [];
   turnosFiltrados: any[] = [];
   estadoSeleccionado: string = 'activos';
-  uidPacienteActual = "VXd9ZZMGAue9mmcToYjlNJ3k51a2"; // reemplazá dinámicamente
+  uidPacienteActual = "VXd9ZZMGAue9mmcToYjlNJ3k51a2"; 
   columnas: string[] = ['fechaSolicitado', 'mensaje', 'fechaTurno', 'especialista', 'especialidad', 'estado', 'acciones'];
 
   busqueda: string = '';
@@ -40,7 +40,7 @@ export class MisTurnosComponent implements OnInit{
       }
     });
 
-    this.turnoService.obtenerTurnosPorPaciente(this.uidPacienteActual).subscribe(turnos => {
+    this.turnoService.obtenerTurnosPorPaciente(this.usuario.uid).subscribe(turnos => {
       this.turnos = turnos;
       console.log("lista de turnos");
       console.log(turnos);

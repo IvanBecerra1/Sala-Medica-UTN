@@ -27,6 +27,9 @@ export class ToastService {
   }
 
   public mensajeErrorRegistro(error: any) {
+    console.log("error de mensaje registro toas");
+    console.log(error);
+    console.log("-----");
     // MAPS CLAVE VALOR
     const mensajesError = new Map<string, EAutenticacion>([
       ["auth/email-already-in-use", EAutenticacion.CORREO_EN_USO],

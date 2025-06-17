@@ -87,12 +87,15 @@ export class LoginComponent {
  
   loginRapido(tipo: any) {
     const credenciales: Record<any, { email: string; password: string }> = {
-      paciente_1: {email : "fwfunab657@tormails.com", password: "1234567890"},
-      paciente_2: {email : "relok94284@ihnpo.com", password: "1234567890"},
-      paciente_3: {email : "fwfunab657@tormails.com", password: "1234567890"},
+      paciente_1: {email : "wigotiy668@ihnpo.com", password: "123456"},
+      paciente_2: {email : "sewire7930@ihnpo.com", password: "123456"},
+      paciente_3: {email : "yeyade1739@nab4.com", password: "123456"},
       paciente: { email: 'becerraivan79@gmail.com', password: '1234567890' },
-      especialista_1: { email: 'motasi2546@ihnpo.com', password: '1234567890' },
-      admin_1: { email: 'pediyvasa@gmail.com', password: '1234567890' }
+      especialista_1: { email: 'lexefi2170@ihnpo.com', password: '123456' },
+      //
+      especialista_2: { email: 'linane9436@ihnpo.com', password: '123456' },
+
+      admin_1: { email: 'divoce3264@ihnpo.com', password: '123456' }
     };
 
     const datos = credenciales[tipo];
