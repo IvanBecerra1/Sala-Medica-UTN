@@ -59,6 +59,7 @@ ng serve
 # Abrir en http://localhost:4200
 ```
 
+## 📁 Estructura del proyecto
 ```bash
 src/
 ├── app/
