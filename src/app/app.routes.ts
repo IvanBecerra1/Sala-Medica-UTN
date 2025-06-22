@@ -4,23 +4,23 @@ export const routes: Routes = [
   { path: '', redirectTo: 'auth/bienvenida', pathMatch: 'full' },
   {
     path: 'auth',
+    data: { animation: 'LoginPage' },
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-    data: { animation: 'Auth' } 
   },
   {
     path: 'admin',
+    data: { animation: 'HomePage' },
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-    data: { animation: 'Admin' } 
   },
   {
     path: 'paciente',
+    data: { animation: 'HomePage' },
     loadChildren: () => import('./paciente/paciente.module').then(m => m.PacienteModule),
-    data: { animation: 'Paciente' } 
   },
   {
     path: 'especialista',
+    data: { animation: 'HomePage' },
     loadChildren: () => import('./especialista/especialista.module').then(m => m.EspecialistaModule),
-    data: { animation: 'Especialista' } 
   },
   { path: '**', redirectTo: 'auth/bienvenida' }
 ];

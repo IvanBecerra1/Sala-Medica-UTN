@@ -14,6 +14,7 @@ import { ModalEncuestaComponent } from '../../../shared/components/modal-encuest
 import { ModalMotivoComponent } from '../../../shared/components/modal-motivo/modal-motivo.component';
 import { ModalResenaComponent } from '../../../shared/components/modal-resena/modal-resena.component';
 import { ToastService } from '../../../core/services/toast.service';
+import { EncuestaCalificacionService } from '../../../core/services/encuesta-calificacion.service';
 @Component({
   selector: 'app-mis-turnos',
   imports: [NgClass, NgIf, NgFor, TitleCasePipe, FormsModule, MaterialModule],
@@ -29,24 +30,30 @@ export class MisTurnosComponent implements OnInit{
 
   busqueda: string = '';
   usuario : any;
-  constructor(private turnoService: TurnosService, private toast : ToastService,private dialog: MatDialog, private auth: AuthService) {}
+  constructor(private turnoService: TurnosService, private servicio : EncuestaCalificacionService,private toast : ToastService,private dialog: MatDialog, private auth: AuthService) {}
 
-  ngOnInit(): void {
-    this.auth.usuario$.subscribe((usuario) => {
-      if (usuario) {
-        this.usuario = usuario;
-      } else {
-        this.usuario = { rol: 'no-registrado' };
-      }
-    });
+  async ngOnInit() {
+  this.auth.usuario$.subscribe(async (usuario) => {
+    if (usuario) {
+      this.usuario = usuario;
 
-    this.turnoService.obtenerTurnosPorPaciente(this.usuario.uid).subscribe(turnos => {
-      this.turnos = turnos;
-      console.log("lista de turnos");
-      console.log(turnos);
-      this.filtrar('activos');
-    });
-  }
+      this.turnoService.obtenerTurnosPorPaciente(usuario.uid).subscribe(async (turnos) => {
+        const turnosCompletos = await Promise.all(turnos.map(async (turno: any) => {
+          if (turno.resenaEspecialista) {
+            const resena = await this.servicio.obtenerResena(turno.resenaEspecialista);
+            return { ...turno, historiaClinica: resena };
+          } else {
+            return turno;
+          }
+        }));
+
+        this.turnos = turnosCompletos;
+        this.filtrar('activos');
+      });
+    }
+  });
+}
+
 
   filtrar(tipo: string) {
       this.estadoSeleccionado = tipo;
@@ -60,6 +67,7 @@ export class MisTurnosComponent implements OnInit{
     }*/
     this.aplicarFiltro(); 
   }
+  /*
   aplicarFiltro() {
     let filtrados = this.turnos.filter(t => {
       if (this.estadoSeleccionado === 'activos') {
@@ -83,7 +91,41 @@ export class MisTurnosComponent implements OnInit{
     }
 
     this.turnosFiltrados = filtrados;
+  }*/
+
+  async aplicarFiltro() {
+      let filtrados = this.turnos.filter(t => {
+        // Filtro por estado
+        if (this.estadoSeleccionado === 'activos') {
+          return t.estado === 'pendiente' || t.estado === 'aceptado';
+        } else if (this.estadoSeleccionado === "cancelado") {
+          return t.estado === 'cancelado' || t.estado === 'rechazado';
+        } else {
+          return t.estado === this.estadoSeleccionado;
+        }
+      });
+
+      if (this.busqueda.trim()) {
+        const filtro = this.busqueda.toLowerCase();
+        filtrados = filtrados.filter(t => {
+          const historia = t.historiaClinica || {};
+          const dinamicos = historia.dinamicos?.map((d: any) => `${d.clave} ${d.valor}`).join(' ') || '';
+
+          return (
+            (t.especialistaNombre + ' ' + t.especialistaApellido).toLowerCase().includes(filtro) ||
+            t.especialidad?.toLowerCase().includes(filtro) ||
+            historia.altura?.toLowerCase().includes(filtro) ||
+            historia.peso?.toLowerCase().includes(filtro) ||
+            historia.temperatura?.toLowerCase().includes(filtro) ||
+            historia.presion?.toLowerCase().includes(filtro) ||
+            dinamicos.toLowerCase().includes(filtro)
+          );
+        });
+      }
+
+      this.turnosFiltrados = filtrados;
   }
+
   cancelar(turno: Turno) {
  //   this.turnoService.cancelarTurno(turno);
   }

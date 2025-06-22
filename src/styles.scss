@@ -30,3 +30,8 @@ body {
   color: #fff !important;
   font-weight: bold;
 }
+main {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}

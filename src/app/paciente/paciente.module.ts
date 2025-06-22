@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PacienteRoutingModule } from './paciente-routing.module';
+import { PacienteLayoutComponent } from './paciente-layout/paciente-layout.component';
 
 
 
@@ -8,7 +9,8 @@ import { PacienteRoutingModule } from './paciente-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    PacienteRoutingModule
+    PacienteRoutingModule,
+    PacienteLayoutComponent
   ]
 })
 export class PacienteModule { }

@@ -3,8 +3,12 @@
 
 
   <div class="contenido">
-    <router-outlet #outlet="outlet" [@animacionRutas]="getAnimacionRuta(outlet)"></router-outlet>
-  </div>
 
+    <main [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
+  </div>
+  <br><br>
   <app-footer></app-footer>
+
 </div>

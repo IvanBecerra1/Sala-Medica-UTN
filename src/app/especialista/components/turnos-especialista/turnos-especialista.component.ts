@@ -11,6 +11,7 @@ import { ToastService } from '../../../core/services/toast.service';
 import { ModalResenaComponent } from '../../../shared/components/modal-resena/modal-resena.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ModalCalificacionComponent } from '../../../shared/components/modal-calificacion/modal-calificacion.component';
+import { EncuestaCalificacionService } from '../../../core/services/encuesta-calificacion.service';
 @Component({
   selector: 'app-turnos-especialista',
   imports: [MaterialModule, NgClass,FormsModule,  NgIf, TitleCasePipe],
@@ -25,7 +26,7 @@ export class TurnosEspecialistaComponent implements OnInit {
   uidEspecialista: string = '';
   usuario : any;
   estadoSeleccionado: string = 'activos';
-  constructor(private turnosService : TurnosService, private authService : AuthService, private dialog: MatDialog, private toast : ToastService){
+  constructor(private turnosService : TurnosService, private servicio : EncuestaCalificacionService, private authService : AuthService, private dialog: MatDialog, private toast : ToastService){
 
   }
   ngOnInit(): void {
@@ -68,14 +69,53 @@ export class TurnosEspecialistaComponent implements OnInit {
 
    // this.aplicarFiltro(); // para aplicar búsqueda también
   }
-  aplicarFiltro() {
+  /*aplicarFiltro() {
     const filtro = this.busqueda.toLowerCase();
     this.turnosFiltrados = this.turnos.filter(t =>
       t.pacienteNombre.toLowerCase().includes(filtro) ||
       t.pacienteApellido.toLowerCase().includes(filtro) ||
       t.especialidad.toLowerCase().includes(filtro)
     );
+  }*/
+
+    async aplicarFiltro() {
+    const filtro = this.busqueda.toLowerCase();
+
+    const promesas = this.turnos
+      .filter(t => {
+        if (this.estadoSeleccionado === 'activos') {
+          return t.estado === 'pendiente' || t.estado === 'aceptado';
+        } else if (this.estadoSeleccionado === 'realizado') {
+          return t.estado === 'realizado';
+        } else if (this.estadoSeleccionado === 'cancelados') {
+          return t.estado === 'cancelado' || t.estado === 'rechazado';
+        }
+        return true;
+      })
+      .map(async (t : any) => {
+        let texto = `${t.pacienteNombre} ${t.pacienteApellido} ${t.especialidad}`.toLowerCase();
+
+        if (t.resenaEspecialista) {
+          try {
+            const resenaSnap = await this.servicio.obtenerResena(t.resenaEspecialista);
+            if (resenaSnap) {
+              const { altura, peso, temperatura, presion, dinamicos = [] } = resenaSnap;
+
+              texto += ` ${altura} ${peso} ${temperatura} ${presion}`;
+              texto += dinamicos.map((d: any) => ` ${d.clave} ${d.valor}`).join('');
+            }
+          } catch (error) {
+            console.warn('Error al obtener reseña:', error);
+          }
+        }
+
+        return texto.includes(filtro) ? t : null;
+      });
+
+    const resultados = await Promise.all(promesas);
+    this.turnosFiltrados = resultados.filter((t): t is Turno => t !== null);
   }
+
 
   puedeAceptar(t: Turno): boolean {
     return !['realizado', 'rechazado', 'aceptado', 'cancelado'].includes(t.estado);
