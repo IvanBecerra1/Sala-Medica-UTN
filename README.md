@@ -1,4 +1,5 @@
-![image](https://github.com/user-attachments/assets/cdfe43bc-2c39-4eb1-9625-c2c49c6ee58c)# 🏥 Sala Médica UTN
+![image](https://github.com/user-attachments/assets/cdfe43bc-2c39-4eb1-9625-c2c49c6ee58c)
+# 🏥 Sala Médica UTN
 
 Aplicación web de gestión de turnos médicos, desarrollada como trabajo práctico para la Universidad Tecnológica Nacional (UTN). Permite a pacientes, especialistas y administradores interactuar en un entorno seguro para la administración de turnos, historiales clínicos, calificaciones y más.
 
@@ -11,7 +12,6 @@ Aplicación web de gestión de turnos médicos, desarrollada como trabajo práct
 - **SCSS** (estilado personalizado)
 - **Angular Animations**
 - **Chart.js** (gráficos para estadísticas)
-- **RxJS** y buenas prácticas con servicios y observables
 
 ---
 
@@ -41,6 +41,19 @@ Aplicación web de gestión de turnos médicos, desarrollada como trabajo práct
 | Mis turnos (Paciente) | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/paciente/turnos-paciente.png) |
 | Mis turnos realizados | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/paciente/turnos-realizado-paciente.png) |
 | Solicitud turno paciente | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/paciente/solicitud-turno-paciente.png) |
+| Historial clinica | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/paciente/historial-clinica-paciente.png) |
+| PDF historial clinica | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/paciente/pdf-historial-clinico.png) |
+| Especialista perfil | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/especialista-perfil.png) |
+| Mis turnos especialista rechazados / cancelados | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/mis-turnos-especialista-cancelado-rechazado.png) |
+| Especialista rechazar turno | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/especialista-recharzar-turno.png) |
+
+| Mis turnos especialista realizados | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/mis-turnos-especialista-realizado.png) |
+
+| Panel especialista | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/panel-especialista.png) |
+
+| Reseña al paciente | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/rese%C3%B1a-paciente.png) |
+
+| Mis pacientes especialista | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/especialista-pacientes.png) |
 
 ---
 
