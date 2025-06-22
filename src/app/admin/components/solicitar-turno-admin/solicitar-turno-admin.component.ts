@@ -7,10 +7,11 @@ import { ToastService } from '../../../core/services/toast.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Turno } from '../../../core/models/turno';
+import { TodoUsuariosComponent } from '../todo-usuarios/todo-usuarios.component';
 
 @Component({
   selector: 'app-solicitar-turno-admin',
-  imports: [MaterialModule, NgFor, NgIf,FormsModule,NgClass , DatePipe],
+  imports: [MaterialModule, NgFor, NgIf,FormsModule,NgClass , DatePipe, TodoUsuariosComponent],
   templateUrl: './solicitar-turno-admin.component.html',
   styleUrl: './solicitar-turno-admin.component.scss'
 })
@@ -52,6 +53,33 @@ export class SolicitarTurnoAdminComponent implements OnInit {
     this.cargarListaEspecialidades();
    // this.cargarPacientes();
   }
+
+
+  
+  tieneImagenEspecialidad(esp: string): boolean {
+    console.log('tieneImagenEspecialidad');
+    console.log(esp);
+    const disponibles = ['Cardiología', 'Pediatría', 'Dermatología'];
+    return disponibles.includes(esp);
+  }
+
+  
+  seleccionarEspecialidad(esp: string) {
+    this.especialidadSeleccionada = esp;
+    this.cargarEspecialistas();
+    this.especialistaSeleccionado = null;
+    this.fechaSeleccionada = '';
+    this.fechasDisponibles = [];
+    this.horariosDisponibles = [];
+  }
+
+  seleccionarProfesional(prof: any) {
+    this.especialistaSeleccionado = prof;
+    this.cargarFechasDisponibles();
+    this.fechaSeleccionada = '';
+    this.horariosDisponibles = [];
+  }
+
   async cargarListaEspecialidades(){
     this.especialidades = await this.usuariosService.obtenerEspecialidadesUnicas();
   }
@@ -166,24 +194,27 @@ export class SolicitarTurnoAdminComponent implements OnInit {
 
   async seleccionarFecha(fecha: string) {
     this.fechaSeleccionada = fecha;
-
     const horarios = this.generarHorarios(this.especialistaSeleccionado);
-    const ocupados: string[] = [];
 
-    const turnos = await this.turnosService.getTurnosByEspecialistaFecha(
-      this.especialistaSeleccionado.uid, fecha
+    const verificaciones = await Promise.all(
+      horarios.map(async (hora) => {
+        const disponible = await this.turnosService.verificarDisponibilidad(
+          this.especialistaSeleccionado.uid,
+          fecha,
+          hora
+        );
+        return disponible ? hora : null;
+      })
     );
 
-    turnos.forEach(t => {
-      if (['pendiente', 'aceptado'].includes(t.estado)) {
-        ocupados.push(t.hora);
-      }
-    });
+    this.horariosDisponibles = verificaciones
+      .filter((h): h is string => h !== null)
+      .map(hora => ({
+        hora,
+        estado: 'disponible' as const
+      }));
 
-    this.horariosDisponibles = horarios.map(h => ({
-      hora: h,
-      estado: ocupados.includes(h) ? 'ocupado' : 'disponible'
-    }));
+    console.log('Horarios disponibles:', this.horariosDisponibles);
   }
 
   get puedeConfirmarTurno(): boolean {
@@ -195,6 +226,9 @@ export class SolicitarTurnoAdminComponent implements OnInit {
     return horario ? horario.hora : "";
   }
 
+  SeleccionarPaciente(paciente : any){
+    this.pacienteSeleccionado = paciente;
+  }
   async reservarTurno(fecha: string, hora: string) {
     if (!this.especialidadSeleccionada || !this.especialistaSeleccionado || !fecha || !hora) {
       this.toastService.mostrarMensaje('Faltan datos obligatorios para reservar el turno.', 'Reserva de turno', 'error');
@@ -208,6 +242,10 @@ export class SolicitarTurnoAdminComponent implements OnInit {
       return;
     }
 
+    if (!this.pacienteSeleccionado) {
+      this.toastService.mostrarMensaje('Error', 'Selecciona al paciente para reservar turno', 'info');
+      return;
+    }
     const turno: Turno = {
       especialidad: this.especialidadSeleccionada,
       fechaTurno : fecha,

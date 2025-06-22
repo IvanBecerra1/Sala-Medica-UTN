@@ -55,6 +55,30 @@ export class SolicitarTurnoComponent implements OnInit {
     this.especialidades = await this.usuariosService.obtenerEspecialidadesUnicas();
   }
 
+  tieneImagenEspecialidad(esp: string): boolean {
+    console.log('tieneImagenEspecialidad');
+    console.log(esp);
+    const disponibles = ['Cardiología', 'Pediatría', 'Dermatología'];
+    return disponibles.includes(esp);
+  }
+
+  
+  seleccionarEspecialidad(esp: string) {
+    this.especialidadSeleccionada = esp;
+    this.cargarEspecialistas();
+    this.especialistaSeleccionado = null;
+    this.fechaSeleccionada = '';
+    this.fechasDisponibles = [];
+    this.horariosDisponibles = [];
+  }
+
+  seleccionarProfesional(prof: any) {
+    this.especialistaSeleccionado = prof;
+    this.cargarFechasDisponibles();
+    this.fechaSeleccionada = '';
+    this.horariosDisponibles = [];
+  }
+
   cargarEspecialistas() {
     this.especialistaSeleccionado = null;
     this.fechaSeleccionada = '';
@@ -148,27 +172,29 @@ export class SolicitarTurnoComponent implements OnInit {
     console.log("FECHAS CARGADAS:");
     console.log(this.fechasDisponibles);
   }
-
   async seleccionarFecha(fecha: string) {
     this.fechaSeleccionada = fecha;
-
     const horarios = this.generarHorarios(this.especialistaSeleccionado);
-    const ocupados: string[] = [];
 
-    const turnos = await this.turnosService.getTurnosByEspecialistaFecha(
-      this.especialistaSeleccionado.uid, fecha
+    const verificaciones = await Promise.all(
+      horarios.map(async (hora) => {
+        const disponible = await this.turnosService.verificarDisponibilidad(
+          this.especialistaSeleccionado.uid,
+          fecha,
+          hora
+        );
+        return disponible ? hora : null; 
+      })
     );
 
-    turnos.forEach(t => {
-      if (['pendiente', 'aceptado'].includes(t.estado)) {
-        ocupados.push(t.hora);
-      }
-    });
+    const horariosDisponibles = verificaciones.filter((hora): hora is string => hora !== null);
 
-    this.horariosDisponibles = horarios.map(h => ({
-      hora: h,
-      estado: ocupados.includes(h) ? 'ocupado' : 'disponible'
+    this.horariosDisponibles = horariosDisponibles.map(hora => ({
+      hora,
+      estado: 'disponible' as const
     }));
+
+    console.log('Horarios disponibles:', this.horariosDisponibles);
   }
 
   get puedeConfirmarTurno(): boolean {

@@ -1,52 +1,56 @@
+
 <mat-card class="form-card">
+
   <h2 class="titulo">Solicitar Nuevo Turno</h2>
 
-  <!-- Especialidad -->
-  <mat-form-field appearance="fill" class="form-control">
-    <mat-label>🩺 Especialidad Médica</mat-label>
-    <mat-select [(ngModel)]="especialidadSeleccionada" (selectionChange)="cargarEspecialistas()">
-      <mat-option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <!-- Paso 1: Especialidades -->
+  <div class="grid-botones">
+    <h2>Especialidades</h2>
+    <button mat-button *ngFor="let esp of especialidades"
+            class="boton-imagen"
+            (click)="seleccionarEspecialidad(esp)"
+            [ngClass]="{ 'seleccionado': especialidadSeleccionada === esp }">
+      <img [src]="'../../../../assets/especialidades/' + (tieneImagenEspecialidad(esp) ? esp + '.png' : 'defaultEspecialidada.png')"
+           alt="{{ esp }}" />
 
-  <!-- Profesional -->
-  <mat-form-field appearance="fill" class="form-control" *ngIf="especialistasFiltrados.length > 0">
-    <mat-label>👤 Profesional</mat-label>
-    <mat-select [(ngModel)]="especialistaSeleccionado" (selectionChange)="cargarFechasDisponibles()">
-      <mat-option *ngFor="let esp of especialistasFiltrados" [value]="esp">
-        Dr./Dra. {{ esp.nombre }} {{ esp.apellido }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- Fecha disponible -->
-  <mat-form-field appearance="fill" class="form-control" *ngIf="fechasDisponibles.length > 0  && especialistasFiltrados.length >0">
-    <mat-label>📅 Fecha Disponible</mat-label>
-    <mat-select [(ngModel)]="fechaSeleccionada" (selectionChange)="seleccionarFecha(fechaSeleccionada)">
-      <mat-option *ngFor="let fecha of fechasDisponibles" [value]="fecha">
-        {{ fecha }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- Horario disponible -->
-  <mat-form-field appearance="fill" class="form-control" *ngIf="horariosDisponibles.length > 0  && especialistasFiltrados.length >0">
-    <mat-label>🕒 Horario Disponible</mat-label>
-    <mat-select >
-      <mat-option *ngFor="let h of horariosDisponibles" [value]="h.hora" [disabled]="h.estado === 'ocupado'">
-        {{ h.hora }} <span *ngIf="h.estado === 'ocupado'"> (Ocupado)</span>
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- Botón confirmar -->
-  <div class="boton-container" *ngIf="puedeConfirmarTurno">
-    <button
-    mat-raised-button
-    color="primary"
-    (click)="reservarTurno(fechaSeleccionada, getPrimerHorarioDisponible())"
-    >
-      📅 Confirmar Turno
+           
     </button>
   </div>
+
+  <!-- Paso 2: Profesionales -->
+  <div class="grid-botones" *ngIf="especialistasFiltrados.length > 0">
+    <h2>Especialista {{this.especialidadSeleccionada}}</h2>
+    <button mat-button *ngFor="let prof of especialistasFiltrados"
+            class="boton-imagen-vertical"
+            (click)="seleccionarProfesional(prof)"
+            [ngClass]="{ 'seleccionado': especialistaSeleccionado === prof }">
+      <span>{{ prof.nombre }} {{ prof.apellido }}</span>
+      <img [src]="prof.imagenUrl|| '../../../../assets/imagenes/defaultPerfil.png'" alt="{{ prof.nombre }}" />
+    </button>
+  </div>
+
+  <!-- Paso 3: Fechas -->
+  <div class="grid-botones" *ngIf="fechasDisponibles.length > 0">
+    <h2>Fechas disponibles</h2>
+    <button mat-raised-button *ngFor="let fecha of fechasDisponibles"
+            class="boton-texto"
+            (click)="seleccionarFecha(fecha)"
+            [ngClass]="{ 'seleccionado': fechaSeleccionada === fecha }">
+      {{ fecha }}
+    </button>
+  </div>
+
+  <!-- Paso 4: Horarios -->
+  <div class="grid-botones" *ngIf="horariosDisponibles.length > 0">
+    <h2>Horarios disponibles</h2>
+    <button mat-raised-button *ngFor="let h of horariosDisponibles"
+            [disabled]="h.estado === 'ocupado'"
+            class="boton-texto"
+            (click)="reservarTurno(fechaSeleccionada, h.hora)">
+      {{ h.hora }} <span *ngIf="h.estado === 'ocupado'">(Ocupado)</span>
+    </button>
+  </div>
+
 </mat-card>
+
+
