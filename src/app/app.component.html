@@ -3,7 +3,7 @@
 
 
   <div class="contenido">
-    <router-outlet></router-outlet>
+    <router-outlet #outlet="outlet" [@animacionRutas]="getAnimacionRuta(outlet)"></router-outlet>
   </div>
 
   <app-footer></app-footer>
