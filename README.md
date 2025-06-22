@@ -37,9 +37,10 @@ Aplicación web de gestión de turnos médicos, desarrollada como trabajo práct
 | Registro | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/home/registro-categoria.png)|
 | Registro de paciente | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/home/registro-paciente.png) |
 | Selección de especialidad | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/home/registro-especialista.png) |
-| Mis turnos (Paciente) | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/main/salaMedifcaFotos/misTurnosPaciente.png) |
-| Gestión de turnos (Especialista) | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/main/salaMedifcaFotos/gestionTurnosEspecialista.png) |
-| Panel Administrador | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/main/salaMedifcaFotos/adminDashboard.png) |
+| Perfil paciente | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/paciente/paciente-perfil.png) |
+| Mis turnos (Paciente) | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/paciente/turnos-paciente.png) |
+| Mis turnos realizados | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/paciente/turnos-realizado-paciente.png) |
+| Solicitud turno paciente | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/paciente/solicitud-turno-paciente.png) |
 
 ---
 
