@@ -1,6 +1,6 @@
 # 🏥 Sala Médica UTN
 
-Aplicación web de gestión de turnos médicos, desarrollada como trabajo práctico para la Universidad Tecnológica Nacional (UTN). Permite a pacientes, especialistas y administradores interactuar en un entorno eficiente y seguro para la administración de turnos, historiales clínicos, calificaciones y más.
+Aplicación web de gestión de turnos médicos, desarrollada como trabajo práctico para la Universidad Tecnológica Nacional (UTN). Permite a pacientes, especialistas y administradores interactuar en un entorno seguro para la administración de turnos, historiales clínicos, calificaciones y más.
 
 ---
 
@@ -57,5 +57,16 @@ npm install
 # 4. Ejecutar en entorno local
 ng serve
 # Abrir en http://localhost:4200
+```
 
+```bash
+src/
+├── app/
+│   ├── auth/           # Login y registro por rol
+│   ├── paciente/       # Vista del paciente
+│   ├── especialista/   # Vista del especialista
+│   ├── admin/          # Panel administrativo
+│   ├── shared/         # Componentes reutilizables
+│   └── core/           # Servicios, modelos y utilidades
+```
 
