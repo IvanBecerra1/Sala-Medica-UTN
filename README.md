@@ -1,4 +1,4 @@
-# 🏥 Sala Médica UTN
+![image](https://github.com/user-attachments/assets/cdfe43bc-2c39-4eb1-9625-c2c49c6ee58c)# 🏥 Sala Médica UTN
 
 Aplicación web de gestión de turnos médicos, desarrollada como trabajo práctico para la Universidad Tecnológica Nacional (UTN). Permite a pacientes, especialistas y administradores interactuar en un entorno seguro para la administración de turnos, historiales clínicos, calificaciones y más.
 
@@ -32,6 +32,7 @@ Aplicación web de gestión de turnos médicos, desarrollada como trabajo práct
 
 | Título | Imagen |
 |--------|--------|
+| Bienvenida | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/home/bienvenida.png) |
 | Inicio de sesión | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/especialista-perfil.png) |
 | Registro de paciente | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/main/salaMedifcaFotos/registroPaciente.png) |
 | Selección de especialidad | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/main/salaMedifcaFotos/seleccionEspecialidad.png) |
