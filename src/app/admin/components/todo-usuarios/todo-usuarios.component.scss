@@ -2,28 +2,28 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
+  gap: 20px; /* menos separación */
+  margin-top: 10px;
 }
 
 .paciente-card {
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s ease;
-  max-width: 150px;
+  max-width: 110px; /* más angosto */
 
   &:hover {
     transform: scale(1.05);
   }
 
   .imagen-container {
-    width: 120px;
-    height: 120px;
+    width: 70px;
+    height: 70px;
     margin: auto;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid #f0f0f0;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border: 3px solid #f0f0f0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 
     img {
       width: 100%;
@@ -36,26 +36,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 8px;
-    gap: 6px;
+    margin-top: 6px;
+    gap: 4px;
 
     .estado {
-      width: 14px;
-      height: 14px;
+      width: 10px;
+      height: 10px;
       background: linear-gradient(145deg, #00c853, #69f0ae);
       border-radius: 50%;
       display: inline-block;
     }
 
     .nombre {
+      font-size: 13px;
       font-weight: 500;
       color: white;
     }
-
   }
-}
-    .rol {
-  font-size: 14px;
-  color: gray;
-  margin-top: 4px;
+
+  .rol {
+    font-size: 12px;
+    color: gray;
+    margin-top: 2px;
+    display: block;
+  }
 }
