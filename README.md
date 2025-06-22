@@ -50,6 +50,13 @@ Aplicación web de gestión de turnos médicos, desarrollada como trabajo práct
 | Panel especialista | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/panel-especialista.png) |
 | Reseña al paciente | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/rese%C3%B1a-paciente.png) |
 | Mis pacientes especialista | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/especialista-pacientes.png) |
+| Admin perfil | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/admin/admin-perfil.png) |
+| Admin lista turnos | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/admin/admin-lista-turnos.png) |
+| Admin lista Usuarios | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/admin/admin-lista-usuario.png) |
+| Admin registro usuario | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/admin/admin-registro-usuario.png) |
+| Admin registro admin | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/admin/admin-registro-admin.png) |
+| Admin sacar turno | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/admin/admin-sacar-turno.png) |
+| Admin tabla especialista | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/admin/admin-tabla-especialista.png) |
 
 ---
 
