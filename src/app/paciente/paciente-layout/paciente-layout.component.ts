@@ -8,10 +8,11 @@ import {
   animate,
   group
 } from '@angular/animations';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-paciente-layout',
-  imports:  [RouterOutlet],
+  imports:  [RouterOutlet, FooterComponent],
   templateUrl: './paciente-layout.component.html',
   styleUrl: './paciente-layout.component.scss',
  animations: [

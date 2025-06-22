@@ -8,10 +8,11 @@ import {
   animate,
   group
 } from '@angular/animations';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-especialista-layout',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, FooterComponent],
   templateUrl: './especialista-layout.component.html',
   styleUrl: './especialista-layout.component.scss',
   animations: [

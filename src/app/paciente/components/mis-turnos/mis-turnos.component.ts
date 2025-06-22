@@ -33,26 +33,26 @@ export class MisTurnosComponent implements OnInit{
   constructor(private turnoService: TurnosService, private servicio : EncuestaCalificacionService,private toast : ToastService,private dialog: MatDialog, private auth: AuthService) {}
 
   async ngOnInit() {
-  this.auth.usuario$.subscribe(async (usuario) => {
-    if (usuario) {
-      this.usuario = usuario;
+    this.auth.usuario$.subscribe(async (usuario) => {
+      if (usuario) {
+        this.usuario = usuario;
 
-      this.turnoService.obtenerTurnosPorPaciente(usuario.uid).subscribe(async (turnos) => {
-        const turnosCompletos = await Promise.all(turnos.map(async (turno: any) => {
-          if (turno.resenaEspecialista) {
-            const resena = await this.servicio.obtenerResena(turno.resenaEspecialista);
-            return { ...turno, historiaClinica: resena };
-          } else {
-            return turno;
-          }
-        }));
+        this.turnoService.obtenerTurnosPorPaciente(usuario.uid).subscribe(async (turnos) => {
+          const turnosCompletos = await Promise.all(turnos.map(async (turno: any) => {
+            if (turno.resenaEspecialista) {
+              const resena = await this.servicio.obtenerResena(turno.resenaEspecialista);
+              return { ...turno, historiaClinica: resena };
+            } else {
+              return turno;
+            }
+          }));
 
-        this.turnos = turnosCompletos;
-        this.filtrar('activos');
-      });
-    }
-  });
-}
+          this.turnos = turnosCompletos;
+          this.filtrar('activos');
+        });
+      }
+    });
+  }
 
 
   filtrar(tipo: string) {
