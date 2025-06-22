@@ -46,13 +46,9 @@ Aplicación web de gestión de turnos médicos, desarrollada como trabajo práct
 | Especialista perfil | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/especialista-perfil.png) |
 | Mis turnos especialista rechazados / cancelados | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/mis-turnos-especialista-cancelado-rechazado.png) |
 | Especialista rechazar turno | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/especialista-recharzar-turno.png) |
-
 | Mis turnos especialista realizados | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/mis-turnos-especialista-realizado.png) |
-
 | Panel especialista | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/panel-especialista.png) |
-
 | Reseña al paciente | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/rese%C3%B1a-paciente.png) |
-
 | Mis pacientes especialista | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/especialista/especialista-pacientes.png) |
 
 ---
