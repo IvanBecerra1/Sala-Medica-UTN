@@ -34,6 +34,7 @@ Aplicación web de gestión de turnos médicos, desarrollada como trabajo práct
 |--------|--------|
 | Bienvenida | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/home/bienvenida.png) |
 | Inicio de sesión | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/home/iniciar-sesion.png) |
+| Registro | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/refs/heads/main/salaMedifcaFotos/home/registro-categoria.png)|
 | Registro de paciente | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/main/salaMedifcaFotos/registroPaciente.png) |
 | Selección de especialidad | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/main/salaMedifcaFotos/seleccionEspecialidad.png) |
 | Mis turnos (Paciente) | ![](https://raw.githubusercontent.com/IvanBecerra1/Sala-Medica-UTN/main/salaMedifcaFotos/misTurnosPaciente.png) |
