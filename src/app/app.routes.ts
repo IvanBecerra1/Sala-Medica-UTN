@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { GraficosComponent } from './shared/components/graficos/graficos.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/bienvenida', pathMatch: 'full' },
@@ -21,6 +22,10 @@ export const routes: Routes = [
     path: 'especialista',
     data: { animation: 'HomePage' },
     loadChildren: () => import('./especialista/especialista.module').then(m => m.EspecialistaModule),
+  },
+  {
+    path: 'estadistica',
+    component:GraficosComponent
   },
   { path: '**', redirectTo: 'auth/bienvenida' }
 ];

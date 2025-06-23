@@ -1,6 +1,41 @@
-<div style="display: block;">
+<div class="botones-graficos">
+  <button mat-raised-button color="primary" (click)="graficoSeleccionado = 'dia'">📅 Turnos por Día</button>
+  <button mat-raised-button color="accent" (click)="graficoSeleccionado = 'especialidad'">🏥 Turnos por Especialidad</button>
+  <button mat-raised-button color="warn" (click)="graficoSeleccionado = 'solicitados'">📝 Turnos Solicitados</button>
+  <button mat-raised-button color="primary" (click)="graficoSeleccionado = 'finalizados'">✅ Turnos Finalizados</button>
+</div>
+
+<!-- Gráfico de turnos por día -->
+<div *ngIf="graficoSeleccionado === 'dia'" style="display: block;">
   <canvas baseChart
-          [data]="barChartData"
+          [data]="turnosPorDiaChartData"
+          [options]="barChartOptions"
+          [type]="'bar'">
+  </canvas>
+</div>
+
+<!-- Gráfico de turnos por especialidad -->
+<div *ngIf="graficoSeleccionado === 'especialidad'" style="display: block;">
+  <canvas baseChart
+          [data]="turnosPorEspecialidadChartData"
+          [options]="pieChartOptions"
+          [type]="'pie'">
+  </canvas>
+</div>
+
+<!-- Gráfico de turnos solicitados -->
+<div *ngIf="graficoSeleccionado === 'solicitados'" style="display: block;">
+  <canvas baseChart
+          [data]="turnosSolicitadosChartData"
+          [options]="barChartOptions"
+          [type]="'bar'">
+  </canvas>
+</div>
+
+<!-- Gráfico de turnos finalizados -->
+<div *ngIf="graficoSeleccionado === 'finalizados'" style="display: block;">
+  <canvas baseChart
+          [data]="turnosFinalizadosChartData"
           [options]="barChartOptions"
           [type]="'bar'">
   </canvas>

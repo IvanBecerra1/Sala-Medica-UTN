@@ -26,7 +26,7 @@ export class EstadisticasService {
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([fecha, cantidad]) => ({ fecha, cantidad }));
   }
-  
+   
   async obtenerTurnosFinalizadosPorMedico(desde: Date, hasta: Date) {
     const ref = collection(this.firestore, 'sala_medica_turno');
     const snapshot = await getDocs(ref);

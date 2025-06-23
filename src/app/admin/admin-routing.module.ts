@@ -5,6 +5,8 @@ import { RegistroAdminComponent } from './pages/registro-admin/registro-admin.co
 import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { MiPerfilAdminComponent } from './components/mi-perfil-admin/mi-perfil-admin.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { GraficosComponent } from '../shared/components/graficos/graficos.component';
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 
 /*
 const routes: Routes = [
@@ -20,6 +22,7 @@ const routes: Routes = [
     children: [
       {path: '', component:HomeAdminComponent, data: {animation:'home'} },
       { path: 'lista', component: UsuariosComponent, data: { animation: 'lista' } },
+      { path: 'estadistica', component: EstadisticaComponent, data: { animation: 'estadistica' } },
       { path: 'registro', component: RegistroAdminComponent, data: { animation: 'registro' }},
       { path: 'perfil', component: MiPerfilAdminComponent, data: { animation: 'perfil' }}
     ]

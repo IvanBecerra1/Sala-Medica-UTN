@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
   trigger,
@@ -37,7 +37,11 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
     ])
   ]
 })
-export class AdminLayoutComponent {
+export class AdminLayoutComponent implements AfterViewInit {
+  constructor(private cdRef: ChangeDetectorRef) {}
+ngAfterViewInit() {
+    this.cdRef.detectChanges(); // 🔧 Forzar el segundo chequeo
+  }
   prepareRoute(outlet: RouterOutlet) {
     return outlet?.activatedRouteData?.['animation'];
   }
