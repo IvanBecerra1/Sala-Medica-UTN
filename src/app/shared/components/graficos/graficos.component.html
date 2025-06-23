@@ -1,42 +1,41 @@
+ <br><br>
 <div class="botones-graficos">
-  <button mat-raised-button color="primary" (click)="graficoSeleccionado = 'dia'">📅 Turnos por Día</button>
-  <button mat-raised-button color="accent" (click)="graficoSeleccionado = 'especialidad'">🏥 Turnos por Especialidad</button>
-  <button mat-raised-button color="warn" (click)="graficoSeleccionado = 'solicitados'">📝 Turnos Solicitados</button>
-  <button mat-raised-button color="primary" (click)="graficoSeleccionado = 'finalizados'">✅ Turnos Finalizados</button>
+  <button mat-stroked-button class="botones-fondo" color="primary" (click)="graficoSeleccionado = 'dia'">📅 Turnos por Día</button>
+  <button mat-stroked-button color="accent" class="botones-fondo" (click)="graficoSeleccionado = 'especialidad'">🏥 Por Especialidad</button>
+  <button mat-stroked-button color="warn" class="botones-fondo"  (click)="graficoSeleccionado = 'solicitados'">📝 Solicitados</button>
+  <button mat-stroked-button color="primary" class="botones-fondo" (click)="graficoSeleccionado = 'finalizados'">✅ Finalizados</button>
+  <button mat-stroked-button color="primary" class="botones-fondo" (click)="graficoSeleccionado = 'logs'">🧾 Logs</button>
+</div>
+<div style="text-align: center; margin-top: 15px;">
+  <button mat-raised-button color="accent" (click)="exportarGraficoActual()">📄 Exportar PDF</button>
 </div>
 
-<!-- Gráfico de turnos por día -->
-<div *ngIf="graficoSeleccionado === 'dia'" style="display: block;">
-  <canvas baseChart
-          [data]="turnosPorDiaChartData"
-          [options]="barChartOptions"
-          [type]="'bar'">
-  </canvas>
-</div>
+<div class="contenedor-grafico">
+  <div *ngIf="graficoSeleccionado === 'dia'">
+   <h2>Cantidad de turnos solicitados</h2>
 
-<!-- Gráfico de turnos por especialidad -->
-<div *ngIf="graficoSeleccionado === 'especialidad'" style="display: block;">
-  <canvas baseChart
-          [data]="turnosPorEspecialidadChartData"
-          [options]="pieChartOptions"
-          [type]="'pie'">
-  </canvas>
-</div>
+    <canvas #graficoDia baseChart [data]="turnosPorDiaChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+  </div>
 
-<!-- Gráfico de turnos solicitados -->
-<div *ngIf="graficoSeleccionado === 'solicitados'" style="display: block;">
-  <canvas baseChart
-          [data]="turnosSolicitadosChartData"
-          [options]="barChartOptions"
-          [type]="'bar'">
-  </canvas>
-</div>
+  <div *ngIf="graficoSeleccionado === 'especialidad'">
+   <h2>Cantidad de turnos por especialidad</h2>
+    <canvas #graficoEspecialidad baseChart [data]="turnosPorEspecialidadChartData" [options]="pieChartOptions" [type]="'pie'"></canvas>
+  </div>
 
-<!-- Gráfico de turnos finalizados -->
-<div *ngIf="graficoSeleccionado === 'finalizados'" style="display: block;">
-  <canvas baseChart
-          [data]="turnosFinalizadosChartData"
-          [options]="barChartOptions"
-          [type]="'bar'">
-  </canvas>
+  <div *ngIf="graficoSeleccionado === 'solicitados'">
+   <h2>Cantidad de turnos por doctor solicitados</h2>
+    <h3>Desde 2025-06-23 hasta 2025-07-23</h3>
+    <canvas #graficoSolicitados baseChart [data]="turnosSolicitadosChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+  </div>
+
+  <div *ngIf="graficoSeleccionado === 'finalizados'">
+   <h2>Cantidad de turnos finalizados por doctor</h2>
+    <h3>Desde 2025-06-23 hasta 2025-07-23</h3>
+    <canvas #graficoFinalizados baseChart [data]="turnosFinalizadosChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+  </div>
+
+  <div *ngIf="graficoSeleccionado === 'logs'">
+     <h2>Logs de ingreso al sistema</h2>
+    <canvas #graficoLogs baseChart [data]="logIngresosChartData" [options]="logChartOptions" [type]="'bar'"></canvas>
+  </div>
 </div>
