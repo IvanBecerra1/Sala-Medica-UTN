@@ -93,7 +93,7 @@
       [siteKey]="'6LdlMmIrAAAAANsuw8gS-c7DW1TVtNb2Sy9RXkDP'"
       (resolved)="resolved($event)">
     </re-captcha>
-    <button mat-raised-button color="primary" type="submit" class="boton-registrar" [disabled]="formulario.invalid || cargando">
+    <button appResaltarElemento mat-raised-button color="primary" type="submit" class="boton-registrar" [disabled]="formulario.invalid || cargando">
       Registrar
     </button>
   </form>

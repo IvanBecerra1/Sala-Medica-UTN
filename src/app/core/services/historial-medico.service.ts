@@ -13,7 +13,6 @@ export class HistorialMedicoService {
   async obtenerHistorialMedico(uid: string): Promise<any[]> {
     const resultado: any[] = [];
 
-    // 1. Obtener turnos del paciente que estén finalizados
     const turnos = await firstValueFrom(this.turno.obtenerTurnosPorPaciente(uid));
     const turnosFinalizados = turnos.filter((t: any) => t.estado === 'realizado');
 
@@ -22,6 +21,13 @@ export class HistorialMedicoService {
         const resena = await this.resena.obtenerResena(turno.resenaEspecialista);
         resultado.push({
           fechaTurno: turno.fechaTurno,
+          nombreEsp : turno.especialistaNombre,
+          apellidoEsp : turno.especialistaApellido,
+          especialidad: turno.especialidad,
+          dniEsp: turno.especialistaDni,
+          estado: turno.estado,
+          hora : turno.hora,
+          obraSocial: turno.obraSocial,
           nombre: turno.pacienteNombre,
           apellido: turno.pacienteApellido,
           dni: turno.pacienteDni,

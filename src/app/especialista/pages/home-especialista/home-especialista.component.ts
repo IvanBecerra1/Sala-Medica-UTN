@@ -3,10 +3,11 @@ import { TurnosEspecialistaComponent } from "../../components/turnos-especialist
 import { MaterialModule } from '../../../material.module';
 import { NgIf } from '@angular/common';
 import { MisPacientesComponent } from "../../components/mis-pacientes/mis-pacientes.component";
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
 
 @Component({
   selector: 'app-home-especialista',
-  imports: [TurnosEspecialistaComponent, MaterialModule, NgIf, MisPacientesComponent],
+  imports: [TurnosEspecialistaComponent,ResaltarElementoDirective, MaterialModule, NgIf, MisPacientesComponent],
   templateUrl: './home-especialista.component.html',
   styleUrl: './home-especialista.component.scss'
 })

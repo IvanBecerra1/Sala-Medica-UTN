@@ -8,10 +8,11 @@ import { ToastService } from '../../../core/services/toast.service';
 import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
 import { NgIf } from '@angular/common';
 import { LogsService } from '../../../core/services/logs.service';
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
 
 @Component({
   selector: 'app-login',
-  imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf],
+  imports: [MaterialModule, ReactiveFormsModule, ResaltarElementoDirective,SpinnerComponent, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -90,15 +91,15 @@ export class LoginComponent {
  
   loginRapido(tipo: any) {
     const credenciales: Record<any, { email: string; password: string }> = {
-      paciente_1: {email : "wigotiy668@ihnpo.com", password: "123456"},
-      paciente_2: {email : "sewire7930@ihnpo.com", password: "123456"},
-      paciente_3: {email : "yeyade1739@nab4.com", password: "123456"},
+      paciente_1: {email : "seyoso7016@ofacer.com", password: "123456"},
+      paciente_2: {email : "gedexo1675@kimdyn.com", password: "123456"},
+      paciente_3: {email : "naceser407@kimdyn.com", password: "123456"},
       paciente: { email: 'becerraivan79@gmail.com', password: '1234567890' },
-      especialista_1: { email: 'lexefi2170@ihnpo.com', password: '123456' },
+      especialista_1: { email: 'wowoxit646@kimdyn.com', password: '123456' },
       //
-      especialista_2: { email: 'linane9436@ihnpo.com', password: '123456' },
+      especialista_2: { email: 'saweso8658@ofacer.com', password: '123456' },
 
-      admin_1: { email: 'divoce3264@ihnpo.com', password: '123456' }
+      admin_1: { email: 'nasot18417@ofacer.com', password: '123456' }
     };
 
     const datos = credenciales[tipo];

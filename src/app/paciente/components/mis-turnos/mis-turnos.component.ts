@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TurnosService } from '../../../core/services/turnos.service';
-import { NgClass, NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle, TitleCasePipe } from '@angular/common';
 import { Turno } from '../../../core/models/turno';
 import { listAll } from '@angular/fire/storage';
 import { NgModel } from '@angular/forms';
@@ -15,9 +15,12 @@ import { ModalMotivoComponent } from '../../../shared/components/modal-motivo/mo
 import { ModalResenaComponent } from '../../../shared/components/modal-resena/modal-resena.component';
 import { ToastService } from '../../../core/services/toast.service';
 import { EncuestaCalificacionService } from '../../../core/services/encuesta-calificacion.service';
+import { EstadoColorPipe } from '../../../core/pipes/estado-color.pipe';
+import { FondoBotonPipe } from '../../../core/pipes/fondo-boton.pipe';
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
 @Component({
   selector: 'app-mis-turnos',
-  imports: [NgClass, NgIf, NgFor, TitleCasePipe, FormsModule, MaterialModule],
+  imports: [NgClass, NgIf, NgFor, TitleCasePipe, ResaltarElementoDirective, EstadoColorPipe , FormsModule, MaterialModule,NgStyle, FondoBotonPipe],
   templateUrl: './mis-turnos.component.html',
   styleUrl: './mis-turnos.component.scss'
 })

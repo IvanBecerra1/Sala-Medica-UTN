@@ -1,13 +1,17 @@
-<br><br><div class="pacientes-grid">
-  <div *ngFor="let paciente of pacientes" class="paciente-card" (click)="verHistorial(paciente.uid, paciente.rol)">
+<br><br>
+<div class="pacientes-grid">
+  <button mat-raised-button color="primary" (click)="descargarExcelGeneral()">
+    Descargar Excel General
+  </button>
+
+  <div *ngFor="let usuario of pacientes" class="paciente-card" (click)="verHistorial(usuario.uid, usuario.rol)">
     <div class="imagen-container">
-      <img [src]="paciente.imagenUrl" alt="foto de {{paciente.nombre}}" />
+      <img [src]="usuario.imagenUrl" alt="foto de {{usuario.nombre}}" />
     </div>
     <div class="nombre-con-estado">
-      <span class="nombre">{{ paciente.nombre }} {{ paciente.apellido }}</span>
+      <span class="nombre">{{ usuario.nombre }} {{ usuario.apellido }}</span>
     </div>
-      <span class="rol">{{paciente.rol}}</span>
-<br>
+    <span class="rol">{{ usuario.rol | titlecase }}</span>
   </div>
 </div>
 <br>

@@ -50,30 +50,30 @@
         <ng-container matColumnDef="estado">
           <th mat-header-cell *matHeaderCellDef>📌 Estado</th>
           <td mat-cell *matCellDef="let t">
-            <span class="estado" [ngClass]="t.estado">{{ t.estado | titlecase }}</span>
+            <span class="estado" [ngClass]="t.estado">{{ t.estado | estadoColor }}</span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef>⚙ Acciones</th>
           <td mat-cell *matCellDef="let t">
-           <button mat-button color="warn" *ngIf="t.estado !== 'realizado' && t.estado !== 'cancelado' && t.estado !=='rechazado'" (click)="abrirDialogoCancelar(t)">
+           <button  appResaltarElemento mat-button color="warn" [ngStyle]="{ 'background-color': 'Cancelar' | fondoBoton }" *ngIf="t.estado !== 'realizado' && t.estado !== 'cancelado' && t.estado !=='rechazado'" (click)="abrirDialogoCancelar(t)">
             Cancelar
             </button>
 
-           <button mat-button color="primary" *ngIf="t.comentarioCancelacion" (click)="verMotivo(t)">
+           <button  appResaltarElemento mat-button color="primary" [ngStyle]="{ 'background-color': 'Motivo' | fondoBoton }"*ngIf="t.comentarioCancelacion" (click)="verMotivo(t)">
             Motivo
             </button>
 
-            <button mat-button color="accent" *ngIf="t.estado === 'realizado' && t.resenaEspecialista && !t.encuestaPaciente" (click)="completarEncuesta(t)">
+            <button  appResaltarElemento mat-button color="accent" [ngStyle]="{ 'background-color': 'completar encuesta' | fondoBoton }"*ngIf="t.estado === 'realizado' && t.resenaEspecialista && !t.encuestaPaciente" (click)="completarEncuesta(t)">
             Completar Encuesta
             </button>
 
-             <button mat-button color="accent" *ngIf="t.estado === 'realizado' && !t.calificacionPaciente" (click)="calificarAtencion(t)">
+             <button appResaltarElemento mat-button [ngStyle]="{ 'background-color': 'Calificar Atención' | fondoBoton }" color="accent" *ngIf="t.estado === 'realizado' && !t.calificacionPaciente" (click)="calificarAtencion(t)">
             Calificar Atención
             </button>
 
-            <button mat-button color="accent" *ngIf="t.estado === 'realizado' && t.resenaEspecialista" (click)="verResena(t)">
+            <button appResaltarElemento mat-button [ngStyle]="{ 'background-color': 'Ver reseña' | fondoBoton }" color="accent" *ngIf="t.estado === 'realizado' && t.resenaEspecialista" (click)="verResena(t)">
             Ver reseña
             </button>
 

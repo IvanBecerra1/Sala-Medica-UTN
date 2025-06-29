@@ -11,10 +11,11 @@ import { ModalResenaComponent } from '../../../shared/components/modal-resena/mo
 import { ModalCalificacionComponent } from '../../../shared/components/modal-calificacion/modal-calificacion.component';
 import { ModalMotivoComponent } from '../../../shared/components/modal-motivo/modal-motivo.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { CentrarTextoDirective } from '../../../core/directivas/centrar-texto.directive';
 
 @Component({
   selector: 'app-turnos-admin',
-  imports: [MaterialModule, NgClass,FormsModule,  NgIf, TitleCasePipe],
+  imports: [MaterialModule, NgClass,FormsModule,  NgIf, TitleCasePipe, CentrarTextoDirective],
   templateUrl: './turnos-admin.component.html',
   styleUrl: './turnos-admin.component.scss'
 })

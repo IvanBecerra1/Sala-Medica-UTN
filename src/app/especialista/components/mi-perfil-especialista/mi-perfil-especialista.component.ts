@@ -5,9 +5,11 @@ import { MaterialModule } from '../../../material.module';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastService } from '../../../core/services/toast.service';
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
+import { FormatearDniPipe } from '../../../core/pipes/formatear-dni.pipe';
 @Component({
   selector: 'app-mi-perfil-especialista',
-  imports: [MaterialModule, NgIf, NgFor, FormsModule],
+  imports: [MaterialModule, NgIf, NgFor, ResaltarElementoDirective, FormatearDniPipe, FormsModule],
   templateUrl: './mi-perfil-especialista.component.html',
   styleUrl: './mi-perfil-especialista.component.scss'
 })

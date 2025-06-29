@@ -4,13 +4,16 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { CentrarTextoDirective } from '../../../core/directivas/centrar-texto.directive';
+import { CambiarEstadoDirective } from '../../../core/directivas/cambiar-estado.directive';
+import { FormatearDniPipe } from '../../../core/pipes/formatear-dni.pipe';
 
 @Component({
   selector: 'app-tabla-usuarios',
   imports: [MaterialModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule, NgIf, NgFor],
+    ReactiveFormsModule, NgIf, CentrarTextoDirective,FormatearDniPipe, NgFor, CambiarEstadoDirective],
   templateUrl: './tabla-usuarios.component.html',
   styleUrl: './tabla-usuarios.component.scss'
 })

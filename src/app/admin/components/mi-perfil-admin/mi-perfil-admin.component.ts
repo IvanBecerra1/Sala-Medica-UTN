@@ -4,10 +4,11 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 import { MaterialModule } from '../../../material.module';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FormatearDniPipe } from '../../../core/pipes/formatear-dni.pipe';
 
 @Component({
   selector: 'app-mi-perfil-admin',
-  imports: [MaterialModule, NgIf, NgFor, FormsModule],
+  imports: [MaterialModule, NgIf, NgFor, FormsModule, FormatearDniPipe],
   templateUrl: './mi-perfil-admin.component.html',
   styleUrl: './mi-perfil-admin.component.scss'
 })

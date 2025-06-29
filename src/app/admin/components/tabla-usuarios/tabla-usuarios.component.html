@@ -1,5 +1,5 @@
 <mat-card class="card-turnos-especialista">
-  <h2>Usuarios del Sistema</h2>
+  <h2  appCentrarTexto>Usuarios del Sistema</h2>
 
   <div class="filtros">
     <!--<button mat-button color="primary" (click)="filtrarUsuarios('todos')" [class.activo]="rolSeleccionado === 'todos'">
@@ -11,6 +11,8 @@
     <button mat-button color="warn" (click)="filtrarUsuarios('especialista')" [class.activo]="rolSeleccionado === 'especialista'">
       Especialistas
     </button>
+
+      
   </div>
 
   <div class="tabla-scroll">
@@ -33,7 +35,7 @@
       <!-- DNI -->
       <ng-container matColumnDef="dni">
         <th mat-header-cell *matHeaderCellDef>DNI</th>
-        <td mat-cell *matCellDef="let u">{{ u.dni }}</td>
+        <td mat-cell *matCellDef="let u">{{ u.dni | formatearDni }}</td>
       </ng-container>
 
       <!-- EDAD -->
@@ -58,7 +60,7 @@
       <ng-container *ngIf="rolSeleccionado === 'especialista' || rolSeleccionado === 'todos'" matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef>Estado</th>
         <td mat-cell *matCellDef="let u">
-          <span *ngIf="u.rol === 'especialista'">{{ u.aprobado ? 'Habilitado' : 'Deshabilitado' }}</span>
+          <span [colorEstado]="u.aprobado" *ngIf="u.rol === 'especialista'">{{ u.aprobado ? 'Habilitado' : 'Deshabilitado' }}</span>
         </td>
       </ng-container>
 

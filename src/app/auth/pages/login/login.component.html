@@ -20,7 +20,7 @@
             <input matInput type="password" formControlName="password">
           </mat-form-field>
 
-          <button mat-raised-button color="primary" type="submit" class="full-width">
+          <button appResaltarElemento mat-raised-button color="primary" type="submit" class="full-width">
             Iniciar sesión
           </button>
         </form>
@@ -28,22 +28,22 @@
 
       <!-- BOTONES DE ACCESO RÁPIDO -->
       <div class="botones-rapidos">
-        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('paciente_1')">
+        <button appResaltarElemento mat-stroked-button class="boton-usuario" (click)="loginRapido('paciente_1')">
           <img src="../../../../assets/usuarios/paciente_1.png" alt="Paciente 1" />
         </button>
-        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('paciente_2')">
+        <button appResaltarElemento mat-stroked-button class="boton-usuario" (click)="loginRapido('paciente_2')">
           <img src="../../../../assets/usuarios/paciente_2.png" alt="Paciente 2" />
         </button>
-        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('paciente_3')">
+        <button appResaltarElemento mat-stroked-button class="boton-usuario" (click)="loginRapido('paciente_3')">
           <img src="../../../../assets/usuarios/paciente_3.png" alt="Paciente 3" />
         </button>
-        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('especialista_1')">
+        <button appResaltarElemento mat-stroked-button class="boton-usuario" (click)="loginRapido('especialista_1')">
           <img src="../../../../assets/usuarios/especialista_1.png" alt="Especialista 1" />
         </button>
-        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('especialista_2')">
+        <button appResaltarElemento mat-stroked-button class="boton-usuario" (click)="loginRapido('especialista_2')">
           <img src="../../../../assets/usuarios/especialista_2.png" alt="Especialista 2" />
         </button>
-        <button mat-stroked-button class="boton-usuario" (click)="loginRapido('admin_1')">
+        <button appResaltarElemento mat-stroked-button class="boton-usuario" (click)="loginRapido('admin_1')">
           <img src="../../../../assets/usuarios/admin_1.png" alt="Admin 1" />
         </button>
       </div>

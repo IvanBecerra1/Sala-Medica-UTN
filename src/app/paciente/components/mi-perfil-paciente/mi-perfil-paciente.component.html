@@ -14,7 +14,7 @@
 
       <div class="info-item" *ngIf="usuario?.dni">
         <mat-icon>badge</mat-icon>
-        <span>DNI: {{ usuario?.dni }}</span>
+        <span>DNI: {{ usuario?.dni | formatearDni }}</span>
       </div>
 
       <div class="info-item" *ngIf="usuario?.edad">
@@ -39,6 +39,45 @@
       <p>{{ usuario?.obraSocial }}</p>
     </section>
 
-    <button mat-raised-button color="blue" (click)="generarPDF()">Descargar historial Clinica</button>
+   <div class="acciones-historial">
+  <button appResaltarElemento mat-raised-button color="primary" *ngIf="turnos!.length > 0" (click)="generarPDF()">
+    <mat-icon>download</mat-icon>
+    Descargar historial clínico completo
+  </button>
+</div>
+
+<section class="seccion-info" *ngIf="turnos.length > 0">
+  <h3><mat-icon>assignment</mat-icon> Historial por especialista</h3>
+
+  <table mat-table [dataSource]="especialistasUnicos" class="mat-elevation-z2 tabla-historial">
+
+    <!-- Columna nombre -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Especialista </th>
+      <td mat-cell *matCellDef="let esp">
+        <div class="especialista-info">
+          <mat-icon>person</mat-icon>
+          <span>{{ esp.nombreEsp }} {{ esp.apellidoEsp }}</span>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Columna acción -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let esp">
+        <button appResaltarElemento mat-stroked-button color="accent" (click)="descargarHistorialPorEspecialista(esp)">
+          <mat-icon>download</mat-icon>
+          Descargar historial
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['nombre', 'acciones']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['nombre', 'acciones']"></tr>
+  </table>
+</section>
+
   </mat-card-content>
+ 
 </mat-card>

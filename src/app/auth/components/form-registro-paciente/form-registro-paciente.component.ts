@@ -10,9 +10,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ToastService } from '../../../core/services/toast.service';
 
 import { RecaptchaModule } from "ng-recaptcha"; 
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
 @Component({
   selector: 'app-form-registro-paciente',
-  imports: [MaterialModule, ReactiveFormsModule, SpinnerComponent, NgIf, 
+  imports: [MaterialModule, ResaltarElementoDirective,ReactiveFormsModule, SpinnerComponent, NgIf, 
     RecaptchaModule ],
   templateUrl: './form-registro-paciente.component.html',
   styleUrl: './form-registro-paciente.component.scss'

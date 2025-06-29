@@ -18,7 +18,7 @@
       <!-- Datos personales -->
       <div class="seccion-info">
         <h3><mat-icon>person</mat-icon> Datos Personales</h3>
-        <div class="info-item"><mat-icon>badge</mat-icon><span>DNI: {{ usuario?.dni }}</span></div>
+        <div class="info-item"><mat-icon>badge</mat-icon><span>DNI: {{ usuario?.dni | formatearDni }}</span></div>
         <div class="info-item"><mat-icon>calendar_today</mat-icon><span>Edad: {{ usuario?.edad }}</span></div>
         <div class="info-item"><mat-icon>verified_user</mat-icon><span>Rol: {{ usuario?.rol }}</span></div>
 
@@ -52,7 +52,7 @@
 
     <!-- Botón Guardar -->
     <div style="margin-top: 20px; text-align:center">
-      <button mat-raised-button color="primary" (click)="guardar()">Guardar Cambios</button>
+      <button appResaltarElemento mat-raised-button color="primary" (click)="guardar()">Guardar Cambios</button>
     </div>
   </mat-card-content>
 </mat-card>

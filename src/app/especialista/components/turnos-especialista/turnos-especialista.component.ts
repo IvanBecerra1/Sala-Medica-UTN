@@ -3,7 +3,7 @@ import { MaterialModule } from '../../../material.module';
 import { Turno } from '../../../core/models/turno';
 import { TurnosService } from '../../../core/services/turnos.service';
 import { FormsModule, NgModel } from '@angular/forms';
-import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
+import { NgClass, NgIf, NgStyle, TitleCasePipe } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalMotivoComponent } from '../../../shared/components/modal-motivo/modal-motivo.component';
@@ -12,9 +12,12 @@ import { ModalResenaComponent } from '../../../shared/components/modal-resena/mo
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ModalCalificacionComponent } from '../../../shared/components/modal-calificacion/modal-calificacion.component';
 import { EncuestaCalificacionService } from '../../../core/services/encuesta-calificacion.service';
+import { CentrarTextoDirective } from '../../../core/directivas/centrar-texto.directive';
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
+import { FondoBotonPipe } from '../../../core/pipes/fondo-boton.pipe';
 @Component({
   selector: 'app-turnos-especialista',
-  imports: [MaterialModule, NgClass,FormsModule,  NgIf, TitleCasePipe],
+  imports: [MaterialModule, NgClass,FormsModule,NgStyle,FondoBotonPipe, ResaltarElementoDirective,  NgIf, TitleCasePipe, CentrarTextoDirective],
   templateUrl: './turnos-especialista.component.html',
   styleUrl: './turnos-especialista.component.scss'
 })

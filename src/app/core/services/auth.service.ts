@@ -103,6 +103,7 @@ export class AuthService {
       correoVerificado: false
     };
 
+    //                            https://backend-push-eii4.onrender.com
     const response = await fetch('https://backend-push-eii4.onrender.com/registrar-paciente', {
       method: 'POST',
       headers: {

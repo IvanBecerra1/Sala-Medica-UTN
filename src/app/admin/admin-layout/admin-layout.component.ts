@@ -26,11 +26,14 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
         ], { optional: true }),
         group([
           query(':leave', [
-            animate('200ms ease-out', style({ opacity: 0, transform: 'translateX(-40px)' }))
+            //animate('200ms ease-out', style({ opacity: 0, transform: 'translateX(-40px)' }))
+            animate('200ms ease-out', style({ opacity: 0, transform: 'translateY(-40px)' }))
           ], { optional: true }),
           query(':enter', [
-            style({ opacity: 0, transform: 'translateX(40px)' }),
-            animate('300ms ease-in', style({ opacity: 1, transform: 'translateX(0)' }))
+            //style({ opacity: 0, transform: 'translateX(40px)' }),
+            //animate('300ms ease-in', style({ opacity: 1, transform: 'translateX(0)' }))
+            style({ opacity: 0, transform: 'translateY(40px)' }),
+            animate('300ms ease-in', style({ opacity: 1, transform: 'translateY(0)' }))
           ], { optional: true })
         ])
       ])

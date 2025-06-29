@@ -30,7 +30,7 @@ import { MatListModule } from '@angular/material/list';
     MatSelectModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatTableModule
+    MatTableModule,
   ]
 })
 export class MaterialModule { }

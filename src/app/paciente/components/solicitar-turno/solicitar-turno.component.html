@@ -6,7 +6,7 @@
   <!-- Paso 1: Especialidades -->
   <div class="grid-botones">
     <h2>Especialidades</h2>
-    <button mat-button *ngFor="let esp of especialidades"
+    <button appResaltarElemento mat-button *ngFor="let esp of especialidades"
             class="boton-imagen"
             (click)="seleccionarEspecialidad(esp)"
             [ngClass]="{ 'seleccionado': especialidadSeleccionada === esp }">
@@ -20,7 +20,7 @@
   <!-- Paso 2: Profesionales -->
   <div class="grid-botones" *ngIf="especialistasFiltrados.length > 0">
     <h2>Especialista {{this.especialidadSeleccionada}}</h2>
-    <button mat-button *ngFor="let prof of especialistasFiltrados"
+    <button appResaltarElemento mat-button *ngFor="let prof of especialistasFiltrados"
             class="boton-imagen-vertical"
             (click)="seleccionarProfesional(prof)"
             [ngClass]="{ 'seleccionado': especialistaSeleccionado === prof }">
@@ -32,7 +32,7 @@
   <!-- Paso 3: Fechas -->
   <div class="grid-botones" *ngIf="fechasDisponibles.length > 0">
     <h2>Fechas disponibles</h2>
-    <button mat-raised-button *ngFor="let fecha of fechasDisponibles"
+    <button appResaltarElemento mat-raised-button *ngFor="let fecha of fechasDisponibles"
             class="boton-texto"
             (click)="seleccionarFecha(fecha)"
             [ngClass]="{ 'seleccionado': fechaSeleccionada === fecha }">
@@ -43,7 +43,7 @@
   <!-- Paso 4: Horarios -->
   <div class="grid-botones" *ngIf="horariosDisponibles.length > 0">
     <h2>Horarios disponibles</h2>
-    <button mat-raised-button *ngFor="let h of horariosDisponibles"
+    <button appResaltarElemento mat-raised-button *ngFor="let h of horariosDisponibles"
             [disabled]="h.estado === 'ocupado'"
             class="boton-texto"
             (click)="reservarTurno(fechaSeleccionada, h.hora)">

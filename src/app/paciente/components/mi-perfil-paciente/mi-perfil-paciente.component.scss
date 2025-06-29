@@ -67,3 +67,46 @@
 mat-icon {
   color: #1a73e8;
 }
+.tabla-historial {
+  width: 100%;
+  margin-top: 16px;
+}
+.acciones-historial {
+  margin-top: 1.5rem;
+  text-align: center;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.tabla-historial {
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+
+  th {
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #0d47a1;
+  }
+
+  td {
+    padding: 12px 8px;
+  }
+
+  .especialista-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: #2e3b4e;
+  }
+
+  button mat-icon {
+    margin-right: 4px;
+  }
+}

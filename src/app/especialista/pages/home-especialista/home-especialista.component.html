@@ -11,14 +11,14 @@
   <p>Gestiona tus turnos asignados y pacientes</p>
 
   <div class="selector-vista">
-    <button 
+    <button  appResaltarElemento
       (click)="seleccionarVista('solicitar')" 
       [class.activo]="vistaSeleccionada === 'solicitar'"
     >
       <mat-icon>event_available</mat-icon> Turnos Asignados
     </button>
 
-    <button 
+    <button appResaltarElemento
       (click)="seleccionarVista('ver')" 
       [class.activo]="vistaSeleccionada === 'ver'"
     >

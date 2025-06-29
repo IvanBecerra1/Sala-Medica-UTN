@@ -3,14 +3,14 @@
   <p>Gestiona tus turnos médicos</p>
 
   <div class="selector-vista">
-    <button 
+    <button appResaltarElemento
       (click)="seleccionarVista('solicitar')" 
       [class.activo]="vistaSeleccionada === 'solicitar'"
     >
       <mat-icon>event_available</mat-icon> Solicitar turno
     </button>
 
-    <button 
+    <button appResaltarElemento
       (click)="seleccionarVista('ver')" 
       [class.activo]="vistaSeleccionada === 'ver'"
     >

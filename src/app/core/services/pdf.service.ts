@@ -34,7 +34,19 @@ export class PdfService {
       dinamicos: [{ clave: 'ojos', valor: '1' }]
     }
   ];
-
+/*
+fechaTurno: turno.fechaTurno,
+          nombreEsp : turno.especialistaNombre,
+          apellidoEsp : turno.especialistaApellido,
+          especialidad: turno.especialidad,
+          dniEsp: turno.especialistaDni,
+          estado: turno.estado,
+          hora : turno.hora,
+          obraSocial: turno.obraSocial,
+          nombre: turno.pacienteNombre,
+          apellido: turno.pacienteApellido,
+          dni: turno.pacienteDni,
+*/
   generarPDF(historial : any[]) {
     const doc = new jsPDF();
 
@@ -57,8 +69,11 @@ export class PdfService {
           startY: yActual,
           head: [['Campo', 'Valor']],
           body: [
-            ['Fecha del turno', registro.fechaTurno],
+            ['Fecha del turno', `${registro.fechaTurno} - hora: ${registro.hora}`],
+            ['Especialidad', registro.especialidad],  
+            ['Nombre doctor', `${registro.nombreEsp} ${registro.apellidoEsp}`],
             ['Nombre completo', `${registro.nombre} ${registro.apellido}`],
+            ['Obra social', registro.obraSocial],
             ['DNI', registro.dni],
             ['Altura', `${registro.altura} cm`],
             ['Peso', `${registro.peso} kg`],

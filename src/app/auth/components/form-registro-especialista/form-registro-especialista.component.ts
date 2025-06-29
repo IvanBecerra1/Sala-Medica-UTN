@@ -11,9 +11,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ToastService } from '../../../core/services/toast.service';
 
 import { RecaptchaModule } from "ng-recaptcha"; 
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
 @Component({
   selector: 'app-form-registro-especialista',
-  imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent, NgIf, RecaptchaModule],
+  imports: [MaterialModule, ReactiveFormsModule,ResaltarElementoDirective,NgFor, SpinnerComponent, NgIf, RecaptchaModule],
   templateUrl: './form-registro-especialista.component.html',
   styleUrl: './form-registro-especialista.component.scss'
 })

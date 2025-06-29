@@ -14,13 +14,13 @@
   <ng-container *ngIf="usuario.rol !== 'no-registrado'; else noRegistrado">
 
 
-    <a mat-button (click)="miPerfil()">Mi perfil</a>
-    <a *ngIf="usuario.rol === 'admin'" mat-button routerLink="/admin">Panel Admin</a>
-    <a *ngIf="usuario.rol === 'admin'" mat-button routerLink="/estadistica">Estadistica</a>
-    <a *ngIf="usuario.rol === 'paciente'" mat-button routerLink="/paciente">Panel Paciente</a>
-    <a *ngIf="usuario.rol === 'especialista'" mat-button routerLink="/especialista">Panel Especialista</a>
+    <a appResaltarElemento mat-button (click)="miPerfil()">Mi perfil</a>
+    <a appResaltarElemento *ngIf="usuario.rol === 'admin'" mat-button routerLink="/admin">Panel Admin</a>
+    <a appResaltarElemento *ngIf="usuario.rol === 'admin'" mat-button routerLink="admin/est">Estadistica</a>
+    <a appResaltarElemento *ngIf="usuario.rol === 'paciente'" mat-button routerLink="/paciente">Panel Paciente</a>
+    <a appResaltarElemento *ngIf="usuario.rol === 'especialista'" mat-button routerLink="/especialista">Panel Especialista</a>
     
-    <a mat-button (click)="cerrarSesion()">Cerrar sesión</a>
+    <a appResaltarElemento mat-button (click)="cerrarSesion()">Cerrar sesión</a>
   </ng-container>
 
 </mat-toolbar>

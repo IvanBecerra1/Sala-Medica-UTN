@@ -6,10 +6,11 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 import { NgIf } from '@angular/common';
 import { collection } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MaterialModule, RouterModule, NgIf],
+  imports: [MaterialModule, RouterModule, NgIf, ResaltarElementoDirective ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

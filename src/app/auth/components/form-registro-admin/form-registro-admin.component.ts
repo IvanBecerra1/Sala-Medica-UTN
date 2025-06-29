@@ -10,9 +10,10 @@ import { UsuarioAdmin } from '../../../core/models/usuarioAdmin';
 import { ToastService } from '../../../core/services/toast.service';
 
 import { RecaptchaModule } from "ng-recaptcha";
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
 @Component({
   selector: 'app-form-registro-admin',
-  imports: [MaterialModule, ReactiveFormsModule, NgFor, SpinnerComponent,RecaptchaModule, NgIf],
+  imports: [MaterialModule, ReactiveFormsModule,ResaltarElementoDirective, NgFor, SpinnerComponent,RecaptchaModule, NgIf],
   templateUrl: './form-registro-admin.component.html',
   styleUrl: './form-registro-admin.component.scss'
 })

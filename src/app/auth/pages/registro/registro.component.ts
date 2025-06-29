@@ -6,9 +6,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../material.module';
 import { Route, Router } from '@angular/router';
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
 @Component({
   selector: 'app-registro',
-  imports: [CommonModule, MaterialModule, FormRegistroEspecialistaComponent, FormRegistroPacienteComponent],
+  imports: [CommonModule, MaterialModule, ResaltarElementoDirective,FormRegistroEspecialistaComponent, FormRegistroPacienteComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss'
 })

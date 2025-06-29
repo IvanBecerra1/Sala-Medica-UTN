@@ -9,9 +9,10 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 
 import { NgClass } from '@angular/common'; // <-- Añade esta línea
 import { AuthService } from '../../../core/services/auth.service';
+import { ResaltarElementoDirective } from '../../../core/directivas/resaltar-elemento.directive';
 @Component({
   selector: 'app-solicitar-turno',
-  imports: [MaterialModule, NgFor, NgIf,FormsModule,NgClass , DatePipe],
+  imports: [MaterialModule, NgFor, NgIf,FormsModule,NgClass , DatePipe, ResaltarElementoDirective],
   templateUrl: './solicitar-turno.component.html',
   styleUrl: './solicitar-turno.component.scss'
 })

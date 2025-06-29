@@ -24,7 +24,8 @@ const routes: Routes = [
       { path: 'lista', component: UsuariosComponent, data: { animation: 'lista' } },
       { path: 'estadistica', component: EstadisticaComponent, data: { animation: 'estadistica' } },
       { path: 'registro', component: RegistroAdminComponent, data: { animation: 'registro' }},
-      { path: 'perfil', component: MiPerfilAdminComponent, data: { animation: 'perfil' }}
+      { path: 'perfil', component: MiPerfilAdminComponent, data: { animation: 'perfil' }},
+      { path: 'est', component: GraficosComponent, data: { animation: 'est' }},
     ]
   }
 ];
